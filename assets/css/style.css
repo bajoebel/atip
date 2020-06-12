@@ -1,0 +1,187 @@
+html{
+	height: 100%;
+}
+body{
+	background-color: #fff;
+	height: 100%;
+}
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 600px;
+  height: 600px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+  z-index: -50;
+}
+.overlay{
+	z-index: 1;
+	text-align: center;
+}
+
+/* Safari */
+@-webkit-keyframes spin {sectio
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.backgroud{
+	width: 100%;
+	height: 60vh;
+	background-image: url("../images/poli_depan.jpg");
+	background-size: cover;
+ 	background-repeat: no-repeat;
+ 	background-position: center center;
+}
+.depan{
+	width: 100%;
+	height: 60vh;
+	padding-top: 20px;
+	margin-top: -15%;
+	background-color: #fff;
+	z-index: 1;
+	border-radius: 50px  50px 0 0;
+	text-align: center;
+	position: relative;
+}
+.depan a{
+	text-decoration: none;
+	color: #fff;
+}
+.logodepan{
+	max-width: 200px;
+}
+a:focus{
+	text-decoration: none;
+	color: #ABC;
+}
+
+.started{
+	width: 250px;
+	float: right;
+	height: 60px;
+	border: 1px solid #1755B6;
+	background-color: #1755B6;
+	color: #fff;
+	border-collapse: collapse;
+	position: absolute;
+	bottom: 0px;
+	right: 0px;
+	border-radius: 150px  0 0 0;
+	margin: auto;
+	padding: 10px;
+	font-size: 24px;
+}
+.container{
+	padding: 0px;
+}
+.instansi{
+	font-weight: 10px;
+	font-size: 16pt;
+	color: #575769;
+}
+.atip{
+	font-size: 12pt;
+	color: #3a7bab;
+}
+.atip_1{
+	font-size: 24pt;
+	color: #3a7bab;
+}
+.section2{
+	padding: 50px 0 0 0;
+
+}
+
+@media (max-width: 767px) {
+	.depan{
+		width: 100%;
+		padding-top: 20px;
+		height: 50vh;
+		margin-top: -15%;
+		background-color: #fff;
+		z-index: 1;
+		border-radius: 50px  50px 0 0;
+		text-align: center;
+		position: relative;
+	}
+	.logodepan{
+		max-width: 100px;
+	}
+	.instansi{
+		font-size: 12pt;
+		color: #575769;
+	}
+	.atip{
+		font-size: 10pt;
+		color: #3a7bab;
+	}
+	.atip_1{
+		font-size: 16pt;
+		color: #3a7bab;
+	}
+	.section2{
+		padding: 10px 0 0 0;
+
+	}
+	.started{
+		width: 200px;
+		float: right;
+		height: 50px;
+		border: 1px solid #231FBB;
+		background-color: #231FBB;
+		color: #fff;
+		border-collapse: collapse;
+		position: absolute;
+		bottom: 0px;
+		right: 0px;
+		border-radius: 150px  0 0 0;
+		margin: auto;
+		padding: 10px;
+		font-size: 20px;
+	}
+	
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+	.depan{
+		width: 100%;
+		height: 50vh;
+		padding-top: 20px;
+		margin-top: -15%;
+		background-color: #fff;
+		z-index: 1;
+		border-radius: 50px  50px 0 0;
+		text-align: center;
+		position: relative;
+	}
+	.container{
+		width: 100%;
+	}
+	
+}
+
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  
+}
+
+@media (min-width: 1200px) {
+  
+}
+
+@media screen and (max-width: 767px) {
+
+}
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+
+}
+@media (max-device-width: 480px) and (orientation: landscape) {
+
+}

@@ -1,0 +1,62 @@
+#1caf9a
+
+Di controller
+
+view_layout 
+Replace 
+template/admin/view_layout
+
+'akses'=> $this->akses
+Replace
+'akses'=> $this->akses,'modul'=>'faq'
+
+Di View
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Dashboard
+        <small>Data Faq</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> FAQ</a></li>
+        <li class="active"> INDEX</li>
+    </ol>
+</section>
+
+Replace ""
+
+box replace panel
+
+panel-header replace panel-heading ui-draggable-handle
+
+checkpanel Replace checkbox
+
+<div class="box-tools">
+                        <form action="#" method="GET">
+                            <div class="input-group input-group-sm">
+                                <input type="hidden" name="start" id="start" value="0">
+                                <input type="text" name="q" id="q" class="form-control pull-right" placeholder="Search">
+                                <div class="input-group-btn">
+                                    <button type="button" class="btn btn-default" onclick="getFaq(0)"><i class="fa fa-search"></i></button>
+                                    <?php 
+                                    $excel=array('aksi'=>'Excel');
+                                    $pdf=array('aksi'=>'Pdf');
+                                    if(in_array($excel, $akses)){
+                                        ?>
+                                        <a href="<?php echo base_url() ."faq/exel" ?>" class="btn btn-success btn-sm"><span class="fa fa-file-excel-o"></span></a>
+                                        <?php
+                                    }
+                                    if(in_array($pdf, $akses)){
+                                        ?>
+                                        <a href="<?php echo base_url() ."faq/pdf" ?>" class="btn btn-danger btn-sm"><span class="fa fa-file-pdf-o"></span></a>
+                                        <?php
+                                    }
+                                    ?>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+Replace ""
+
