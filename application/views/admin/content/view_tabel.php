@@ -52,10 +52,14 @@
                                 <thead class="bg-green">
                                     <th>#</th>
                                     <th>Judul Posting</th>
-                                    <th>Kategori</th>
+                                    <?php if ($content_tipe == "Berita") { ?>
+                                        <th>Kategori</th>
+                                    <?php } ?>
                                     <th>Tgl Posting</th>
                                     <th>Tgl Publish</th>
-                                    <th>Tgl Exp</th>
+                                    <?php if ($content_tipe == "Berita") { ?>
+                                        <th>Tgl Exp</th>
+                                    <?php } ?>
                                     <th>Link</th>
                                     <th>Status Komentar</th>
                                     <th>Status Posting</th>

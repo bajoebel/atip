@@ -350,23 +350,21 @@ $(function() {
         var uiSummernote = function(){
             /* Extended summernote editor */
             if($(".summernote").length > 0){
-                $(".summernote").summernote({height: 400,
-                                            codemirror: {
-                                                mode: 'text/html',
-                                                htmlMode: true,
-                                                lineNumbers: true,
-                                                theme: 'default'
-                                            },
-                                            callbacks: {
-                                            	onImageUpload: function (image) {
-                                                    console.log("upload Images");
-                                                    uploadImage(image[0]);
-                                                    
-                                            	},
-                                            	onMediaDelete: function (target) {
-                                            		deleteImage(target[0].src);
-                                            	}
-                                            }
+                $(".summernote").summernote({
+                    callbacks: {
+                    	onImageUpload: function (files, editor, welEditable) {
+                            console.log('send Image ...')
+                    		sendFile(files[0], editor, welEditable);
+                    	}
+                    },
+                    height: 400,
+                    codemirror: {
+                        mode: 'text/html',
+                        htmlMode: true,
+                        lineNumbers: true,
+                        theme: 'default'
+                    }
+                    
                 });
             }
             /* END Extended summernote editor */

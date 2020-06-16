@@ -179,7 +179,7 @@ class Content extends CI_Controller
                 'message'   => "OK",
                 'start'     => $start,
                 'row_count' => $row_count,
-                'limit'     => $limit,
+                'limit'     => $limit, 
                 'data'     => $this->content_model->getcontentlimit($limit, $start, $q, $tipe),
             );
         } else {
@@ -269,11 +269,98 @@ class Content extends CI_Controller
         header('Content-Type: application/json');
         echo json_encode($response);
     }
-    function save()
+    function save(){
+        $cek=array('aksi'=> ucwords($this->uri->segment(3)));
+        if(in_array($cek,$this->akses)){
+            //SImpan
+            //$file = $this->upload->data("file_name");
+            $content_id = $this->input->post('content_id');
+            if ($this->input->post('content_komentar') == 1) $content_komentar = 1;
+            else $content_komentar = 0;
+            if ($this->input->post('content_top') == 1
+            ) $content_top = 1;
+            else $content_top = 0;
+            //if ($this->input->post('tampil_slider') == 1) $tampil_slider = 1;
+            //else $tampil_slider = 0;
+            $link = str_replace(' ', '-', strtolower($this->input->post('content_judul')));
+            $link = str_replace('&', 'dan', $link);
+            $link = str_replace('"', '', $link);
+            $tipe = $this->input->post('content_tipe');
+            $row = $this->content_model->getcontent_by_id($content_id);
+            $f=$this->input->post('file');
+            $file=implode(',',$f);
+            $data = array(
+                'content_kategoriid' => $this->input->post('content_kategoriid'),
+                'content_judul' => $this->input->post('content_judul'),
+                'content_isi' => trim($this->input->post('content_isi')),
+                'content_tglpost' => date('Y-m-d H:i:s'),
+                'content_thumb' => $file,
+                'content_link' => $link,
+                'content_tglpublish' => $this->input->post('content_tglpublish'),
+                'content_tglexp' => $this->input->post('content_tglexp'),
+                'content_tipe' => $this->input->post('content_tipe'),
+                'content_komentar' => $content_komentar,
+                'content_top' => $content_top,
+                'content_tag' => $this->input->post('content_tag'),
+                'content_status' => $this->input->post('content_status'),
+                'userinput' => $this->session->userdata("username"),
+            );
+            if (empty($row)) {
+                $this->form_validation->set_rules('content_kategoriid', 'id kategori', 'required');
+                $this->form_validation->set_rules('content_judul', 'judul content', 'required');
+                $this->form_validation->set_rules('content_isi', 'isi content', 'required');
+                $this->form_validation->set_rules('content_tipe', 'group content', 'required');
+                if ($this->form_validation->run()) {
+                    $insert = $this->content_model->insertcontent($data);
+                    header('location:' . base_url() . "admin/content/" . $tipe);
+                } else {
+                    $array = array(
+                        'status'    => TRUE,
+                        'error'     => TRUE,
+                        'csrf'      => $this->security->get_csrf_hash(),
+                        'message'   => "Data Belum Lengkap",
+                        'err_content_kategoriid' => form_error('content_kategoriid'),
+                        'err_content_judul' => form_error('content_judul'),
+                        'err_content_isi' => form_error('content_isi'),
+                        'err_content_thumb' => form_error('content_thumb'),
+                        'err_content_tipe' => form_error('content_tipe'),
+                    );
+                    $this->session->set_flashdata('error', $array);
+                    //print_r($array);
+                    header('location:' . base_url() . "admin/content/form/" . $tipe);
+                    //header('Content-Type: application/json');
+                    //echo json_encode($array);
+                }
+            } else {
+                $this->form_validation->set_rules('content_kategoriid', 'id kategori', 'required');
+                $this->form_validation->set_rules('content_judul', 'judul content', 'required');
+                $this->form_validation->set_rules('content_isi', 'isi content', 'required');
+                $this->form_validation->set_rules('content_tipe', 'group content', 'required');
+                if ($this->form_validation->run()) {
+                    $this->content_model->updatecontent($data, $content_id);
+                    header('location:' . base_url() . "admin/content/" . $tipe);
+                } else {
+                    $array = array(
+                        'status'    => TRUE,
+                        'error'     => TRUE,
+                        'csrf'      => $this->security->get_csrf_hash(),
+                        'message'   => "Data Belum Lengkap",
+                        'err_content_kategoriid' => form_error('content_kategoriid'),
+                        'err_content_judul' => form_error('content_judul'),
+                        'err_content_isi' => form_error('content_isi'),
+                        'err_content_tipe' => form_error('content_tipe'),
+                    );
+
+                    header('location:' . base_url() . "admin/content/form/" . $content_id);
+                }
+            }
+        }
+    }
+    function save1()
     {
         $cek = array('aksi' => ucwords($this->uri->segment(3))); 
         if (in_array($cek, $this->akses)) {
-            $id_content = $this->input->post('id_content');
+            $content_id = $this->input->post('content_id');
             if ($this->input->post('content_komentar') == 1) $content_komentar = 1;
             else $content_komentar = 0;
             if ($this->input->post('content_top') == 1) $content_top = 1;
@@ -284,7 +371,7 @@ class Content extends CI_Controller
             $link = str_replace('&', 'dan', $link);
             $link = str_replace('"', '', $link);
             $tipe=$this->input->post('content_tipe');
-            $row = $this->content_model->getcontent_by_id($id_content);
+            $row = $this->content_model->getcontent_by_id($content_id);
             $file = "POST_" . date('dmY') . "_" . str_replace(' ', '_', $_FILES['userfile']['name']);
             $this->_file_upload(_DIR_MEDIA_, $file, 'gif|jpg|png');
             if ($_FILES['userfile']['name'] != "") {
@@ -378,7 +465,7 @@ class Content extends CI_Controller
                         $this->form_validation->set_rules('content_isi', 'isi content', 'required');
                         $this->form_validation->set_rules('content_tipe', 'group content', 'required');
                         if ($this->form_validation->run()) {
-                            $this->content_model->updatecontent($data, $id_content);
+                            $this->content_model->updatecontent($data, $content_id);
                             /**
                              * Buat Group Media Dengan Nama Partner
                              */
@@ -424,7 +511,7 @@ class Content extends CI_Controller
                                 'err_content_tipe' => form_error('content_tipe'),
                             );
 
-                            header('location:' . base_url() . "admin/content/form/" . $id_content);
+                            header('location:' . base_url() . "admin/content/form/" . $content_id);
                         }
                     }
                 }
@@ -480,7 +567,7 @@ class Content extends CI_Controller
                     $this->form_validation->set_rules('content_isi', 'isi content', 'required');
                     $this->form_validation->set_rules('content_tipe', 'group content', 'required');
                     if ($this->form_validation->run()) {
-                        $this->content_model->updatecontent($data, $id_content);
+                        $this->content_model->updatecontent($data, $content_id);
                         //header('Content-Type: application/json');
                         //echo json_encode(array("status" => TRUE,'error'=>FALSE,"message"=>"Data berhasil di update"));
                         header('location:' . base_url() . "admin/content/" .$tipe);
@@ -498,7 +585,7 @@ class Content extends CI_Controller
                         //header('Content-Type: application/json');
                         //echo json_encode($array);
                         //$this->session->set_flashdata('error', $array);
-                        header('location:' . base_url() . "admin/content/form/". $tipe ."/" . $id_content);
+                        header('location:' . base_url() . "admin/content/form/". $tipe ."/" . $content_id);
                     }
                 }
             }
@@ -604,9 +691,9 @@ class Content extends CI_Controller
     {
         $config['upload_path']          = $path;
         $config['allowed_types']        = $filetype;
-        $config['max_size']             = 1000;
+        /*$config['max_size']             = 1000;
         $config['max_width']            = 1200;
-        $config['max_height']           = 800;
+        $config['max_height']           = 800;*/
         $config['overwrite']        = true;
         $config['file_name']            = $filename;
         $this->load->library('upload', $config);
@@ -747,5 +834,27 @@ class Content extends CI_Controller
             echo 'File Delete Successfully';
         }
     }
-    
+    function add_group(){
+        $data=array(
+            'nama_group'    => $this->input->post('nama_group'),
+            'status_group'  => 1,
+        );
+        $this->db->insert('m_groupmedia', $data);
+        $insertID=$this->db->insert_id();
+        if($insertID){
+            $response = array(
+                'status' => true,
+                'message' => 'Berhasil Menambahkan Group Media',
+                'csrf'      => $this->security->get_csrf_hash(),
+            );
+        }else{
+            $response = array(
+                'status' => false,
+                'message' => 'Gagal Menambahkan Group Media',
+                'csrf'      => $this->security->get_csrf_hash(),
+            );
+        }
+        header('Content-Type: application/json');
+        echo json_encode($response);
+    }
 }

@@ -17,9 +17,9 @@ class Content_model extends CI_Model
     }
     function getcontentlimit($limit, $start = 0, $q = NULL, $tipe="Berita")
     {
-        $this->db->join('m_kategori', 'content_kategoriid=m_kategori.id_kategori');
+        $this->db->join('m_kategori', 'content_kategoriid=m_kategori.id_kategori','left');
         $this->db->order_by($this->key, $this->order);
-        $this->db->where('content_tipe', $tipe);
+        $this->db->where('content_tipe', ucwords(strtolower($tipe)));
         $this->db->group_start();
         $this->db->like('content_id', $q);
         $this->db->or_like('nama_kategori', $q);
@@ -41,7 +41,7 @@ class Content_model extends CI_Model
     }
     function countcontent($q = NULL, $tipe = "Berita")
     {
-        $this->db->join('m_kategori', 'content_kategoriid=m_kategori.id_kategori');
+        $this->db->join('m_kategori', 'content_kategoriid=m_kategori.id_kategori','left');
         $this->db->where('content_tipe', $tipe);
         $this->db->group_start();
         $this->db->like('content_id', $q);

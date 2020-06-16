@@ -28,6 +28,7 @@ class Media_model extends CI_Model
 
     function getDatamediabyid($id_media){
         $this->db->where('id_media', $id_media);
+        $this->db->order_by('id_media', 'desc');
         return $this->db->get('m_media')->row();
     }
     function countMedia($q = NULL) {
