@@ -54,7 +54,7 @@
             <!-- START X-NAVIGATION -->
             <ul class="x-navigation ">
                 <li class="xn-logo">
-                    <a href="index.html">ATI PDG</a>
+                    <a href="<?= base_url() ?>">ATI PDG</a>
                     <a href="#" class="x-navigation-control"></a>
                 </li>
                 <li class="xn-profile">
@@ -66,8 +66,8 @@
                             <img src="<?= base_url() . "assets/"; ?>images/Logo-Atip.png" alt="John Doe" />
                         </div>
                         <div class="profile-data">
-                            <div class="profile-data-name">John Doe</div>
-                            <div class="profile-data-title">Web Developer/Designer</div>
+                            <div class="profile-data-name">Administtrator</div>
+                            <div class="profile-data-title">ATI Padang</div>
                         </div>
                         <div class="profile-controls">
                             <a href="pages-profile.html" class="profile-control-left"><span class="fa fa-info"></span></a>
@@ -80,7 +80,7 @@
                 $q = "";
                 $menu = $this->auth_model->getMenu($role, $q);
                 $link = $this->uri->segment(2);
-                $buka = 0;
+                $buka = $this->auth_model->indukaktif($link);
                 $data = array(
                     'menu_data' => $menu,
                     'link'  => $link,
@@ -90,7 +90,6 @@
                 $this->load->view('template/admin/menu', $data);
 
                 ?>
-
             </ul>
             <!-- END X-NAVIGATION -->
         </div>
@@ -379,7 +378,7 @@
                 }
             });
         }
-        menu('<?php echo $this->auth_model->indukaktif($link); ?>', '<?php echo $link ?>');
+        //menu('<?php //echo $this->auth_model->indukaktif($link); ?>', '<?php //echo $link ?>');
 
         function menu1(buka, link) {
             var cari = $('#cari').val();
@@ -473,16 +472,16 @@
 
         function menu(buka, link) {
             var cari = $('#cari').val();
-            var url = "<?php echo base_url(); ?>" + "admin/home/menu_html?q=" + cari;
+            var url = "<?php echo base_url(); ?>" + "admin/home/menu_html?q=" + cari + "&buka=" + buka + "&link=" + link;
             console.log(url);
             //alert(cari);
             $.ajax({
-                url: "<?php echo base_url(); ?>" + "admin/home/menu_html?q=" + cari,
+                url: "<?php echo base_url(); ?>" + "admin/home/menu_html?q=" + cari + "&buka=" + buka + "&link=" + link,
                 type: "GET",
                 dataType: "HTML",
                 success: function(data) {
 
-
+                    console.log(data);
                     $('#menu').html(data);
                     //console.clear();
                 },
@@ -553,6 +552,7 @@
     </script>
     <!-- END PROSES -->
     <!-- END SCRIPTS -->
+    
 </body>
 
 </html>

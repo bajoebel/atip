@@ -274,18 +274,21 @@ class Landing_model extends CI_Model
         return $this->db->get('p_partner')->result();
     }
 
-    function getPermintaan($no_permintaan){
-        $this->db->select('*,c.role_nama as tujuan,d.role_nama as asal');
-        $this->db->where('no_permintaan', $no_permintaan);
-        $this->db->join('t_permintaan','t_permintaan.id_permintaan=t_remark.remark_permintaanid');
-        $this->db->join('m_izin','t_permintaan.id_izin=m_izin.id_izin');
-        $this->db->join('m_pemohon','t_permintaan.id_pemohon=m_pemohon.id_pemohon');
-        $this->db->join('m_proses','id_proses=remark_idproses');
-        $this->db->join('m_users a','t_remark.remark_tujuanid = a.username');
-        $this->db->join('m_users b','t_remark.remark_asal = b.username');
-        $this->db->join('m_role c','a.role=c.role_id');
-        $this->db->join('m_role d','b.role=d.role_id');
-        $this->db->order_by('remark_id');
-        return $this->db->get('t_remark')->result();
+    function getTopMenu(){
+        $this->db->order_by('menu_idxutama');
+        $this->db->where('menu_top', 1);
+        $this->db->where('menu_status', 1);
+        return $this->db->get('m_menu')->result();
     }
+    function getContent($condition, $limit=0){
+        $this->db->where($condition);
+        $this->db->order_by('content_id', 'desc');
+        if($limit>0) $this->db->limit($limit);
+        return $this->db->get('p_content')->result();
+    }
+    function getPintasan(){
+        $this->db->where('pintasan_status',1);
+        return $this->db->get('p_pintasan')->result();
+    }
+
 }

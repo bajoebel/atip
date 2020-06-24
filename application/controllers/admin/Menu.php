@@ -44,7 +44,7 @@ class Menu extends CI_Controller {
                 'status'    => true,
                 'message'   => "OK",
                 'start'     => $start,
-                'row_count' => $row_count,
+                'row_count' => $row_count, 
                 'limit'     => $limit,
                 'data'     => $this->menu_model->getMenulimit($limit,$start,$q),
             );
@@ -101,7 +101,7 @@ class Menu extends CI_Controller {
                 'menu_newtab' => $menu_newtab,
                 'menu_idxutama' => $this->input->post('menu_idxutama'),
                 'menu_idxanak' => $this->input->post('menu_idxanak'),
-                'menu_idxsub' => $this->input->post('menu_idxsub'),
+                'menu_top' => $this->input->post('menu_top'),
                 'menu_status' => $menu_status,
             );
             $row=$this->menu_model->getMenu_by_id($menu_id);
@@ -110,7 +110,7 @@ class Menu extends CI_Controller {
                 $this->form_validation->set_rules('menu_link', 'menu link', 'required');
                 $this->form_validation->set_rules('menu_idxutama', 'menu idxutama', 'required');
                 $this->form_validation->set_rules('menu_idxanak', 'menu idxanak', 'required');
-                $this->form_validation->set_rules('menu_idxsub', 'menu idxsub', 'required');
+                $this->form_validation->set_rules('menu_top', 'menu idxsub', 'required');
                 if($this->form_validation->run())
                 {
                     $insert = $this->menu_model->insertMenu($data);
@@ -126,7 +126,7 @@ class Menu extends CI_Controller {
                         'err_menu_link' => form_error('menu_link'),
                         'err_menu_idxutama' => form_error('menu_idxutama'),
                         'err_menu_idxanak' => form_error('menu_idxanak'),
-                        'err_menu_idxsub' => form_error('menu_idxsub'),
+                        'err_menu_top' => form_error('menu_top'),
                     );
                     header('Content-Type: application/json');
                     echo json_encode($array);
@@ -136,7 +136,7 @@ class Menu extends CI_Controller {
                 $this->form_validation->set_rules('menu_link', 'menu link', 'required');
                 $this->form_validation->set_rules('menu_idxutama', 'menu idxutama', 'required');
                 $this->form_validation->set_rules('menu_idxanak', 'menu idxanak', 'required');
-                $this->form_validation->set_rules('menu_idxsub', 'menu idxsub', 'required');
+                $this->form_validation->set_rules('menu_top', 'menu idxsub', 'required');
                 if($this->form_validation->run())
                 {
                     $this->menu_model->updateMenu($data,$menu_id);
@@ -152,7 +152,7 @@ class Menu extends CI_Controller {
                         'err_menu_link' => form_error('menu_link'),
                         'err_menu_idxutama' => form_error('menu_idxutama'),
                         'err_menu_idxanak' => form_error('menu_idxanak'),
-                        'err_menu_idxsub' => form_error('menu_idxsub'),
+                        'err_menu_top' => form_error('menu_top'),
                     );
                     header('Content-Type: application/json');
                     echo json_encode($array);
@@ -232,6 +232,22 @@ class Menu extends CI_Controller {
         }
         else{
             $response=array(
+                'status'    => false,
+                'message'   => "Anda tidak berhak untuk mengakases halaman ini"
+            );
+        }
+        header('Content-Type: application/json');
+        echo json_encode($response);
+    }
+    function newtop($menu_id, $val)
+    {
+        $cek = array('aksi' => 'Edit');
+        if (in_array($cek, $this->akses)) {
+            $data = array('menu_top' => $val);
+            $this->menu_model->updateMenu($data, $menu_id);
+            $response = array("status" => TRUE, 'error' => FALSE, "message" => "Data berhasil di update");
+        } else {
+            $response = array(
                 'status'    => false,
                 'message'   => "Anda tidak berhak untuk mengakases halaman ini"
             );

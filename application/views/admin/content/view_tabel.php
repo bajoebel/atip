@@ -15,7 +15,7 @@
                         $save = array('aksi' => 'Save');
                         if (in_array($save, $akses)) {
                         ?>
-                            <a href="<?php echo base_url() . "admin/content/form/" . strtolower($content_tipe) ?>" class="btn btn-success btn-sm"><span class="fa fa-plus"></span> Tambah</a>
+                            <a href="<?php echo base_url() . "admin/". strtolower($content_tipe)."/form" ?>" class="btn btn-success btn-sm"><span class="fa fa-plus"></span> Tambah</a>
                         <?php
                         }
                         ?>
@@ -218,7 +218,7 @@
 <script type="text/javascript">
     var base_url = "<?php echo base_url(); ?>";
 </script>
-<script src="<?php echo base_url() . "lib/js/content.js"; ?>"></script>
+<script src="<?php echo base_url() . "lib/js/".strtolower($tipe).".js"; ?>"></script>
 <script type="text/javascript">
     getcontent(0);
 </script>

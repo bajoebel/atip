@@ -348,14 +348,14 @@ class Landing extends CI_Controller {
     function data_berita(){
         $start = intval($this->input->get('start'));
         $limit = 8;
-        $row_count=$this->landing_model->countBerita($link);
+        $row_count=$this->landing_model->countBerita();
         $list=array(
                 'status'    => true,
                 'message'   => "OK",
                 'start'     => $start,
                 'row_count' => $row_count,
                 'limit'     => $limit,
-                'data'     => $this->landing_model->getBeritalimit($limit,$start,$link),
+                'data'     => $this->landing_model->getBeritalimit($limit,$start),
         );
         header('Content-Type: application/json');
         echo json_encode($list);

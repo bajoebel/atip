@@ -21,7 +21,7 @@
                     <div class="row">
                         <div class="col-xs-9">
                             <div class="text-right">
-                                <select class="form-control" style="width: 40px;" id="limit" name='limit' onchange="getBanner(0)">
+                                <select class="form-control" style="width: 40px;" id="limit" name='limit' onchange="getpintasan(0)">
                                     <option value="10">10</option>
                                     <option value="20">20</option>
                                     <option value="50">50</option>
@@ -32,7 +32,7 @@
                         <div class="col-xs-3">
                             <div class="input-group">
                             <input type="hidden" name='star' id='star' >
-                                <input type="text" name='q' id='q' class="form-control" placeholder='Search' onkeyup="getBanner(0)">
+                                <input type="text" name='q' id='q' class="form-control" placeholder='Search' onkeyup="getpintasan(0)">
                                 <input type="hidden" name="start" id="start" value="0">
                                 <span class="input-group-addon"><span class="fa fa-search"></span></span>
                             </div>
@@ -77,33 +77,33 @@
                     <form class="form-horizontal" method="POST" id="form" action="#" enctype="multipart/form-data">
                         <div class="panel-body">
                             <input type="hidden" id="csrf" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>" >
-                            <input type="hidden" name="banner_id" id="banner_id" value="">
+                            <input type="hidden" name="pintasan_id" id="pintasan_id" value="">
                             <div class="form-group">
                                 <label for="inputEmail3" class="col-sm-3 control-label">Nama</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="banner_nama" name="banner_nama" placeholder="Bannernama">
-                                    <span class	ext-error" id="err_banner_nama"></span>
+                                    <input type="text" class="form-control" id="pintasan_nama" name="pintasan_nama" placeholder="Pintasan Nama">
+                                    <span class	ext-error" id="err_pintasan_nama"></span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="inputEmail3" class="col-sm-3 control-label">Link</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="banner_link" name="banner_link" placeholder="Bannerlink">
-                                    <span class	ext-error" id="err_banner_link"></span>
+                                    <input type="text" class="form-control" id="pintasan_link" name="pintasan_link" placeholder="Pintasan Link">
+                                    <span class	ext-error" id="err_pintasan_link"></span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="inputEmail3" class="col-sm-3 control-label">Gambar</label>
                                 <div class="col-sm-9">
-                                    <input type="file" class="form-control" id="banner_img" name="userfile" placeholder="Bannerimg">
-                                    <span class	ext-error" id="err_banner_img"></span>
+                                    <input type="file" class="form-control" id="pintasan_img" name="userfile" >
+                                    <span class	ext-error" id="err_pintasan_img"></span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="inputEmail3" class="col-sm-3 control-label">&nbsp;</label>
                                 <div class="col-sm-9">
                                 <label class="check">
-                                    <input type="checkbox" id="banner_status" class='icheckbox' name="banner_status" value="1">Aktif
+                                    <input type="checkbox" id="pintasan_status" class='icheckbox' name="pintasan_status" value="1">Aktif
                                 </label>
                                 </div>
                             </div>
@@ -122,4 +122,4 @@
 <script type="text/javascript">
     var base_url= "<?php echo base_url(); ?>";
 </script>
-<script src="<?php echo base_url() ."lib/js/banner.js"; ?>"></script>
+<script src="<?php echo base_url() ."lib/js/pintasan.js"; ?>"></script>

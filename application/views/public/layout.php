@@ -32,15 +32,14 @@
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-					aria-expanded="false" aria-controls="navbar">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
 					<span class="sr-only">Toggle navigation</span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
 				<a class="" href="#">
-					<div class="logo"><img src="<?= base_url() ."assets/images/logo.png" ?>" alt="" class='img-logo'>
+					<div class="logo"><img src="<?= base_url() . "assets/images/logo.png" ?>" alt="" class='img-logo'>
 					</div>
 				</a>
 				<div class="pull-right search" onfocus="shoeSearchBox()">
@@ -51,22 +50,21 @@
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-right search-desktop">
 					<li class=''>
-						<div class=" task" onclick="showSearchBox()" onfocus="showSearchBox()"><i class="fa fa-search"
-								aria-hidden="true"></i></div>
+						<div class=" task" onclick="showSearchBox()" onfocus="showSearchBox()"><i class="fa fa-search" aria-hidden="true"></i></div>
 					</li>
 					<li class=''>
-						<div class=" task"><a href="#" onclick="otherMenu()"><i class="fa fa-bars"
-									aria-hidden="true"></i></a></div>
+						<div class=" task"><a href="#" onclick="otherMenu()"><i class="fa fa-bars" aria-hidden="true"></i></a></div>
 					</li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li class=""><a href="#">Profile</a></li>
-					<li><a href="#">SPM-PT</a></li>
-					<li><a href="#">Informasi Layanan</a></li>
-					<li><a href="#">Informasi Publik</a></li>
-					<li><a href="#">Akademik</a></li>
-					<li><a href="#">Zona Integrasi</a></li>
-
+					<?php
+					$menu = $this->landing_model->getTopMenu();
+					foreach ($menu as $m) {
+					?>
+						<li class=""><a href="<?php if($m->menu_baseurl==1) echo base_url() .$m->menu_link; else echo $m->menu_link ?>"><?= $m->menu_judul ?></a></li>
+					<?php
+					}
+					?>
 				</ul>
 
 			</div>
@@ -76,7 +74,7 @@
 		<input type="hidden" name="show-search-box" id="show-search-box" value="0">
 		<input type="text" class='form-control' name='search' id="search" placeholder="Search">
 	</div>
-	<?= $content?>
+	<?= $content ?>
 	<!---footer-->
 	<div class="footer">
 		<div class="section">
@@ -188,8 +186,7 @@
 					<div class="row">
 						<div class="col-md-6">
 							<div class="input-group">
-								<input type="text" class="input-cari" placeholder="Search"
-									aria-describedby="basic-addon2">
+								<input type="text" class="input-cari" placeholder="Search" aria-describedby="basic-addon2">
 								<span class="input-group-addon" id="basic-addon2">-></span>
 							</div>
 						</div>
@@ -208,7 +205,7 @@
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script src="<?= base_url() ?>assets/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
-		$(window).load(function () {
+		$(window).load(function() {
 			// PAGE IS FULLY LOADED  
 			// FADE OUT YOUR OVERLAYING DIV
 			//$('#overlay').fadeOut();
@@ -273,7 +270,6 @@
 		function showSearchBox() {
 			$('#modal_cari').modal('show');
 		}
-
 	</script>
 </body>
 

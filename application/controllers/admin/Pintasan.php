@@ -1,16 +1,16 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Banner extends CI_Controller {
+class Pintasan extends CI_Controller {
     private $akses=array();
     
     function __construct()
     {
         parent::__construct();
-        $this->load->model('banner_model');
+        $this->load->model('pintasan_model');
         $level=$this->session->userdata('level');
         
-        $this->akses=$this->banner_model->getAkses($level);
+        $this->akses=$this->pintasan_model->getAkses($level);
     }
         
 	public function index(){
@@ -19,9 +19,9 @@ class Banner extends CI_Controller {
             $data=array(
                 'menu'  => array(),
                 'akses'=> $this->akses,
-                'modul' => 'Banner'
+                'modul' => 'pintasan'
             );
-            $content=$this->load->view('admin/banner/view_tabel', $data, true);
+            $content=$this->load->view('admin/pintasan/view_tabel', $data, true);
             $view=array(
                 'content'   => $content
             );
@@ -40,14 +40,14 @@ class Banner extends CI_Controller {
             $q = urldecode($this->input->get('q', TRUE));
             $start = intval($this->input->get('start'));
             $limit = 20;
-            $row_count=$this->banner_model->countBanner($q);
+            $row_count=$this->pintasan_model->countpintasan($q);
             $list=array(
                 'status'    => true,
                 'message'   => "OK",
                 'start'     => $start,
                 'row_count' => $row_count,
                 'limit'     => $limit,
-                'data'     => $this->banner_model->getBannerlimit($limit,$start,$q),
+                'data'     => $this->pintasan_model->getpintasanlimit($limit,$start,$q),
             );
         }else{
             $list=array(
@@ -62,7 +62,7 @@ class Banner extends CI_Controller {
 	function edit($id=""){
         $cek=array('aksi'=>ucwords($this->uri->segment(3)));
         if(in_array($cek, $this->akses)){
-            $row=$this->banner_model->getBanner_by_id($id);
+            $row=$this->pintasan_model->getpintasan_by_id($id);
             if(!empty($row)){
                 $response=array(
                     'status'    => true,
@@ -91,23 +91,23 @@ class Banner extends CI_Controller {
 	function save(){
         $cek=array('aksi'=>ucwords($this->uri->segment(3)));
         if(in_array($cek, $this->akses)){
-            $banner_id=$this->input->post('banner_id');
-            if($this->input->post('banner_status')==1) $banner_status=1; else $banner_status=0;
+            $pintasan_id=$this->input->post('pintasan_id');
+            if($this->input->post('pintasan_status')==1) $pintasan_status=1; else $pintasan_status=0;
             
-            $row=$this->banner_model->getBanner_by_id($banner_id);
+            $row=$this->pintasan_model->getpintasan_by_id($pintasan_id);
             if(empty($row)){
-                $this->form_validation->set_rules('banner_nama', 'banner nama', 'required');
-                $this->form_validation->set_rules('banner_link', 'banner link', 'required');
+                $this->form_validation->set_rules('pintasan_nama', 'pintasan nama', 'required');
+                $this->form_validation->set_rules('pintasan_link', 'pintasan link', 'required');
                 if($this->form_validation->run())
                 {
                     if($_FILES['userfile']['name']!=""){
 
-                        $file="BANNER_" .date('dmY') ."_" .$_FILES['userfile']['name'];
+                        $file="pintasan_" .date('dmY') ."_" .$_FILES['userfile']['name'];
                         $data = array(
-                            'banner_nama' => $this->input->post('banner_nama'),
-                            'banner_link' => $this->input->post('banner_link'),
-                            'banner_img' => $file,
-                            'banner_status' => $banner_status,
+                            'pintasan_nama' => $this->input->post('pintasan_nama'),
+                            'pintasan_link' => $this->input->post('pintasan_link'),
+                            'pintasan_img' => $file,
+                            'pintasan_status' => $pintasan_status,
                         );
                         $this->_file_upload(_DIR_MEDIA_,$file,'gif|jpg|png');
                         if (!$this->upload->do_upload()){
@@ -117,7 +117,7 @@ class Banner extends CI_Controller {
                             echo json_encode(array("status" => FALSE,'error'=>TRUE,"message"=>$error,'csrf'=> $this->security->get_csrf_hash()));
                         }
                         else{
-                            $insert = $this->banner_model->insertBanner($data);
+                            $insert = $this->pintasan_model->insertpintasan($data);
                             $error[]=$this->_file_resize(_DIR_MEDIA_ ."/" .$file, _DIR_MEDIA_THUMB_ .$file, 500,500);
                             $icon[]=$this->_file_resize(_DIR_MEDIA_ ."/" .$file, _DIR_MEDIA_ICON_ .$file, 50,50);
                             header('Content-Type: application/json');
@@ -134,24 +134,24 @@ class Banner extends CI_Controller {
                         'error'     => TRUE,
                         'csrf'      => $this->security->get_csrf_hash(),
                         'message'   => "Data Belum Lengkap",
-                        'err_banner_nama' => form_error('banner_nama'),
-                        'err_banner_link' => form_error('banner_link'),
+                        'err_pintasan_nama' => form_error('pintasan_nama'),
+                        'err_pintasan_link' => form_error('pintasan_link'),
                     );
                     header('Content-Type: application/json');
                     echo json_encode($array);
                 }
             }else{
-                $this->form_validation->set_rules('banner_nama', 'banner nama', 'required');
-                $this->form_validation->set_rules('banner_link', 'banner link', 'required');
+                $this->form_validation->set_rules('pintasan_nama', 'pintasan nama', 'required');
+                $this->form_validation->set_rules('pintasan_link', 'pintasan link', 'required');
                 if($this->form_validation->run())
                 {
                     if($_FILES['userfile']['name']!=""){
-                        $file="BANNER_" .date('dmY') ."_" .$_FILES['userfile']['name'];
+                        $file="pintasan_" .date('dmY') ."_" .$_FILES['userfile']['name'];
                         $data = array(
-                            'banner_nama' => $this->input->post('banner_nama'),
-                            'banner_link' => $this->input->post('banner_link'),
-                            'banner_img' => $file,
-                            'banner_status' => $banner_status,
+                            'pintasan_nama' => $this->input->post('pintasan_nama'),
+                            'pintasan_link' => $this->input->post('pintasan_link'),
+                            'pintasan_img' => $file,
+                            'pintasan_status' => $pintasan_status,
                         );
                         $this->_file_upload(_DIR_MEDIA_,$file,'gif|jpg|png');
                         if (!$this->upload->do_upload()){
@@ -160,7 +160,7 @@ class Banner extends CI_Controller {
                             echo json_encode(array("status" => FALSE,'error'=>TRUE,"message"=>$error,'csrf'=> $this->security->get_csrf_hash()));
                         }
                         else{
-                            $this->banner_model->updateBanner($data,$banner_id);
+                            $this->pintasan_model->updatepintasan($data,$pintasan_id);
                             $error[]=$this->_file_resize(_DIR_MEDIA_ ."/" .$file, _DIR_MEDIA_THUMB_ .$file, 500,500);
                             $icon[]=$this->_file_resize(_DIR_MEDIA_ ."/" .$file, _DIR_MEDIA_ICON_ .$file, 50,50);
                             header('Content-Type: application/json');
@@ -168,11 +168,11 @@ class Banner extends CI_Controller {
                         }
                     }else{
                         $data = array(
-                            'banner_nama' => $this->input->post('banner_nama'),
-                            'banner_link' => $this->input->post('banner_link'),
-                            'banner_status' => $banner_status,
+                            'pintasan_nama' => $this->input->post('pintasan_nama'),
+                            'pintasan_link' => $this->input->post('pintasan_link'),
+                            'pintasan_status' => $pintasan_status,
                         );
-                        $this->banner_model->updateBanner($data,$banner_id);
+                        $this->pintasan_model->updatepintasan($data,$pintasan_id);
                         header('Content-Type: application/json');
                         echo json_encode(array("status" => TRUE,'error'=>FALSE,"message"=>"Data berhasil di update", 'csrf'=> $this->security->get_csrf_hash()));
                         
@@ -184,9 +184,9 @@ class Banner extends CI_Controller {
                         'error'     => TRUE,
                         'csrf'      => $this->security->get_csrf_hash(),
                         'message'   => "Data Belum Lengkap",
-                        'err_banner_nama' => form_error('banner_nama'),
-                        'err_banner_link' => form_error('banner_link'),
-                        'err_banner_img' => form_error('banner_img'),
+                        'err_pintasan_nama' => form_error('pintasan_nama'),
+                        'err_pintasan_link' => form_error('pintasan_link'),
+                        'err_pintasan_img' => form_error('pintasan_img'),
                     );
                     header('Content-Type: application/json');
                     echo json_encode($array);
@@ -200,7 +200,7 @@ class Banner extends CI_Controller {
 	function delete($id){
         $cek=array('aksi'=>ucwords($this->uri->segment(3)));
         if(in_array($cek, $this->akses)){
-            $this->banner_model->deleteBanner($id);
+            $this->pintasan_model->deletepintasan($id);
             header('Content-Type: application/json');
             echo json_encode(array("status" => TRUE, "message"=> "Data Berhasil dihapus"));
         }else{
@@ -213,9 +213,9 @@ class Banner extends CI_Controller {
         $cek=array('aksi'=>ucwords($this->uri->segment(3)));
         if(in_array($cek, $this->akses)){
             $data=array(
-                'data'  => $this->banner_model->getBanner(),
+                'data'  => $this->pintasan_model->getpintasan(),
             );
-            $this->load->view('admin/banner/view_data_excel',$data);
+            $this->load->view('admin/pintasan/view_data_excel',$data);
         }else{
             $this->session->set_flashdata('error', 'Opps... Session expired' );
             header('location:'.base_url() ."login");
@@ -225,10 +225,10 @@ class Banner extends CI_Controller {
         $cek=array('aksi'=>ucwords($this->uri->segment(3)));
         if(in_array($cek, $this->akses)){
             $data=array(
-                'data'  => $this->banner_model->getBanner(),
+                'data'  => $this->pintasan_model->getpintasan(),
             );
-            $html=$this->load->view('admin/banner/view_data_pdf',$data, true);
-            $pdfFilePath = "DATA_BANNER.pdf";
+            $html=$this->load->view('admin/pintasan/view_data_pdf',$data, true);
+            $pdfFilePath = "DATA_pintasan.pdf";
             $this->load->library('m_pdf');
             $pdf = $this->m_pdf->load();
             $pdf->WriteHTML($html);
@@ -274,7 +274,7 @@ class Banner extends CI_Controller {
     function aktifkan($id){
         $cek=array('aksi'=>ucwords("edit"));
         if(in_array($cek, $this->akses)){
-            $this->banner_model->aktifkan($id);
+            $this->pintasan_model->aktifkan($id);
             header('Content-Type: application/json');
             echo json_encode(array("status" => TRUE, "message"=> "Status Berhasil diaktifkan"));
         }else{
@@ -286,7 +286,7 @@ class Banner extends CI_Controller {
     function nonaktifkan($id){
         $cek=array('aksi'=>ucwords("edit"));
         if(in_array($cek, $this->akses)){
-            $this->banner_model->nonaktifkan($id);
+            $this->pintasan_model->nonaktifkan($id);
             header('Content-Type: application/json');
             echo json_encode(array("status" => TRUE, "message"=> "Status Berhasil dinonaktifkan"));
         }else{

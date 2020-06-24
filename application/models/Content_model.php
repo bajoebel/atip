@@ -68,10 +68,19 @@ class Content_model extends CI_Model
         $this->db->insert($this->table, $data);
         return $this->db->insert_id();
     }
+    function insertlampiran($data){
+        $this->db->insert('p_lampiran', $data);
+        return $this->db->insert_id();
+    }
     public function deletecontent($id)
     {
         $this->db->where($this->key, $id);
         $this->db->delete($this->table);
+    }
+    public function deletelampiran($id)
+    {
+        $this->db->where('idx', $id);
+        $this->db->delete('p_lampiran');
     }
     public function getcontent_by_id($id)
     {
@@ -83,7 +92,20 @@ class Content_model extends CI_Model
         $this->db->where($this->key, $id);
         $this->db->update($this->table, $data);
     }
-    function getAkses($level)
+    function updatelampiran($data, $id)
+    {
+        $this->db->where('idx', $id);
+        $this->db->update('p_lampiran', $data);
+    }
+    function getLampiran($content_id){
+        $this->db->where('content_id', $content_id);
+        return $this->db->get('p_lampiran')->result();
+    }
+    function getlampiran_by_id($id){
+        $this->db->where('idx', $id);
+        return $this->db->get('p_lampiran')->row();
+    }
+    function getAkses($level, $modul)
     {
 
         $this->db->select('nama_aksi as aksi');
@@ -91,7 +113,7 @@ class Content_model extends CI_Model
         $this->db->join('m_moduls', 'm_role_akses.modul_id=m_moduls.id_modul');
         $this->db->join('m_aksi', 'm_role_akses.id_aksi=m_aksi.id_aksi');
         $this->db->where('m_role_akses.role_id', $level);
-        $this->db->where('link', 'content');
+        $this->db->where('link', $modul);
         return $this->db->get('m_role_akses')->result_array();
     }
     function getM_kategori()

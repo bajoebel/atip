@@ -9,7 +9,7 @@
 <section class="content">
 
     <div class="row">
-        <form class="form-horizontal" method="POST" id="form" action="<?php echo base_url() . "admin/content/save" ?>" enctype="multipart/form-data">
+        <form class="form-horizontal" method="POST" id="form" action="<?php echo base_url() . "admin/".strtolower($tipe)."/save" ?>" enctype="multipart/form-data">
             <div class="col-md-8">
                 <div class="panel panel-success">
                     <div class="panel-heading ui-draggable-handle">
@@ -457,7 +457,7 @@
 <script type="text/javascript">
     var base_url = "<?php echo base_url(); ?>";
 </script>
-<script src="<?php echo base_url() . "lib/js/content.js"; ?>"></script>
+<script src="<?php echo base_url() . "lib/js/".strtolower($tipe).".js"; ?>"></script>
 <script type="text/javascript">
     getMedia(0);
 </script>
@@ -465,7 +465,7 @@
     Dropzone.autoDiscover = false;
 
     var foto_upload = new Dropzone("#fileupload", {
-        url: "<?php echo base_url('index.php/admin/content/fileUpload') ?>",
+        url: "<?php echo base_url('index.php/admin/'.strtolower($tipe).'/fileUpload') ?>",
         maxFilesize: 2,
         maxFiles: 10,
         method: "post",
@@ -542,7 +542,7 @@
     function sendFile(file, editor, welEditable) {
         data = new FormData();
         data.append("file", file);
-        url = "<?= base_url() . "admin/content/fileUpload" ?>";
+        url = "<?= base_url() . "admin/".strtolower($tipe)."/fileUpload" ?>";
         console.log(url);
         $.ajax({
             data: data,

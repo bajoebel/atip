@@ -49,7 +49,7 @@
                                     
                                     <th>Idxutama</th>
                                     <th>Idxanak</th>
-                                    <th>Idxsub</th>
+                                    <th>Top</th>
                                     <th>Tab Baru</th>
                                     <th>Status</th>
                                     <th class="text-right">#</th>
@@ -85,7 +85,7 @@
                                 <label for="inputEmail3" class="col-sm-3 control-label">Judul</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" id="menu_judul" name="menu_judul" placeholder="Menujudul">
-                                    <span class	ext-error" id="err_menu_judul"></span>
+                                    <span class	="text-error" id="err_menu_judul"></span>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -93,7 +93,7 @@
                                 <div class="col-sm-3"><input type="checkbox" id="menu_baseurl" name="menu_baseurl" value="1">Base Url</div>
                                 <div class="col-sm-6">
                                     <input type="text" class="form-control" id="menu_link" name="menu_link" placeholder="Menulink">
-                                    <span class	ext-error" id="err_menu_link"></span>
+                                    <span class	="text-error" id="err_menu_link"></span>
                                 </div>
                             </div>
                             
@@ -101,21 +101,21 @@
                                 <label for="inputEmail3" class="col-sm-3 control-label">Idx Utama</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" id="menu_idxutama" name="menu_idxutama" placeholder="Menuidxutama">
-                                    <span class	ext-error" id="err_menu_idxutama"></span>
+                                    <span class	="text-error" id="err_menu_idxutama"></span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="inputEmail3" class="col-sm-3 control-label">Idx Anak</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" id="menu_idxanak" name="menu_idxanak" placeholder="Menuidxanak">
-                                    <span class	ext-error" id="err_menu_idxanak"></span>
+                                    <span class	="text-error" id="err_menu_idxanak"></span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="inputEmail3" class="col-sm-3 control-label">Idx Submenu</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" id="menu_idxsub" name="menu_idxsub" placeholder="Menuidxsub">
-                                    <span class	ext-error" id="err_menu_idxsub"></span>
+                                    <span class	="text-error" id="err_menu_idxsub"></span>
                                 </div>
                             </div>
                             <div class="form-group">

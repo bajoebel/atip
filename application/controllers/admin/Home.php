@@ -31,7 +31,7 @@ class Home extends CI_Controller {
     function menu_html(){
         $q=urldecode($this->input->get('q',TRUE));
         $role=$this->session->userdata('level');
-        //if(empty($role)) $role=1;
+        //if(empty($role)) $role=1; 
         $menu=$this->auth_model->getMenu($role,$q);
         $buka=$this->input->get('buka');
         $link=$this->input->get('link');
