@@ -790,7 +790,7 @@ class Content extends CI_Controller
                 $this->db->insert('m_media', $data);
 
                 $error[] = $this->_file_resize(_DIR_MEDIA_ . "/" . $file, _DIR_MEDIA_THUMB_ . $file, 500, 500);
-                $icon[] = $this->_file_resize(_DIR_MEDIA_ . "/" . $file, _DIR_MEDIA_ICON_ . $file, 50, 50);
+                $icon[] = $this->_file_resize(_DIR_MEDIA_ . "/" . $file, _DIR_MEDIA_ICON_ . $file, 80, 80);
             }
         }
         echo $this->security->get_csrf_hash();

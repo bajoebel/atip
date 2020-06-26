@@ -55,6 +55,7 @@ $route['translate_uri_dashes'] = FALSE;
 $route['404_override'] = 'welcome/notfound';
 $route['translate_uri_dashes'] = FALSE;
 $route["berita"]='welcome/berita';
+$route["portofolio"] = 'welcome/portofolio';
 $route["login"] = 'login';
 $route['(:num)/(:num)/(:num)/([a-zA-Z0-9-.]+)'] = function ($tgl,$bln,$thn,$link)
 {

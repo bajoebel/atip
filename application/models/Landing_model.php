@@ -282,13 +282,63 @@ class Landing_model extends CI_Model
     }
     function getContent($condition, $limit=0){
         $this->db->where($condition);
+        $this->db->where('content_tglpublish <= ', date('Y-m-d'));
+        $this->db->group_start();
+        $this->db->where('content_tglexp','0000-00-00');
+        $this->db->or_where('content_tglexp > ', date('Y-m-d'));
+        $this->db->group_end();
+        $this->db->order_by('content_tglpublish', 'desc');
         $this->db->order_by('content_id', 'desc');
         if($limit>0) $this->db->limit($limit);
         return $this->db->get('p_content')->result();
+    }
+    function getDetailContent($link){
+        $this->db->where('content_link', $link);
+        $this->db->where('content_tglpublish <= ', date('Y-m-d'));
+        $this->db->group_start();
+        $this->db->where('content_tglexp', '0000-00-00');
+        $this->db->or_where('content_tglexp > ', date('Y-m-d'));
+        $this->db->group_end();
+        $this->db->join('m_users','m_users.username=p_content.userinput','left');
+        return $this->db->get('p_content')->row();
     }
     function getPintasan(){
         $this->db->where('pintasan_status',1);
         return $this->db->get('p_pintasan')->result();
     }
-
+    function getContentTerkait($kondisi, $tag, $link){
+        $this->db->where($kondisi);
+        $this->db->where_not_in('content_link', array($link));
+        if(!empty($tag)){
+            $i=0;
+            if(count($tag)>1) $this->db->group_start();
+            foreach ($tag as $t ) {
+                $i++;
+                if($i==1) $this->db->like('content_tag',$t.",");
+                else $this->db->or_like('content_tag', $t .",");
+                
+            }
+            if (count($tag) > 1) $this->db->group_end();
+        }
+        return $this->db->get('p_content')->result();
+    }
+    function getLampiran($link){
+        $this->db->where('content_link', $link);
+        $this->db->join('p_lampiran', 'p_lampiran.content_id=p_content.content_id');
+        return $this->db->get('p_content')->result();
+    }
+    function getLinkMedia($idmedia){
+        $this->db->where('id_media', $idmedia);
+        $data=$this->db->get('m_groupmedia')->row();
+        if(!empty($data)) return $data->media_link;
+    }
+    function countContent($kondisi){
+        $this->db->where($kondisi);
+        return $this->db->get('p_content')->num_rows();
+    }
+    function getContentlimit($kondisi,$limit, $start){
+        $this->db->where($kondisi);
+        $this->db->limit($limit, $start);
+        return $this->db->get('p_content')->result();
+    }
 }

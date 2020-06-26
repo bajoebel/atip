@@ -38,7 +38,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="" href="#">
+				<a class="" href="<?= base_url() ?>">
 					<div class="logo"><img src="<?= base_url() . "assets/images/logo.png" ?>" alt="" class='img-logo'>
 					</div>
 				</a>
@@ -61,7 +61,8 @@
 					$menu = $this->landing_model->getTopMenu();
 					foreach ($menu as $m) {
 					?>
-						<li class=""><a href="<?php if($m->menu_baseurl==1) echo base_url() .$m->menu_link; else echo $m->menu_link ?>"><?= $m->menu_judul ?></a></li>
+						<li class=""><a href="<?php if ($m->menu_baseurl == 1) echo base_url() . $m->menu_link;
+												else echo $m->menu_link ?>"><?= $m->menu_judul ?></a></li>
 					<?php
 					}
 					?>
@@ -204,6 +205,13 @@
 	<script src="<?= base_url() ?>assets/js/jquery-1.12.4.min.js" crossorigin="anonymous"></script>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script src="<?= base_url() ?>assets/js/bootstrap.min.js"></script>
+	<?php
+	if (!empty($lib)) {
+	?>
+		<script src="<?= base_url() . "assets/js/custome/" .$lib ?>"></script>
+	<?php
+	}
+	?>
 	<script type="text/javascript">
 		$(window).load(function() {
 			// PAGE IS FULLY LOADED  

@@ -99,3 +99,5 @@ defined('_DIR_PARTNER_ICON_')   OR define('_DIR_PARTNER_ICON_', './uploads/partn
 defined('_SIZE_PARTNER_ORIGINAL_') OR define('_SIZE_PARTNER_ORIGINAL_', 1024);  // Upload Media
 defined('_WIDTH_PARTNER_ORIGINAL_')  OR define('_WIDTH_PARTNER_ORIGINAL_', 1200);  // Upload Media
 defined('_HEIGHT_PARTNER_ORIGINAL_')   OR define('_HEIGHT_PARTNER_ORIGINAL_', 800);  // Upload Media
+
+defined('DEFAULT_IMAGE')          or define('DEFAULT_IMAGE', './assets/images/poli_depan.jpg');  // default Image

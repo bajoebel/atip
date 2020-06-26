@@ -207,7 +207,6 @@ class Media extends CI_Controller {
                     $response = array("status" => FALSE,'error'=>TRUE,"message"=>$error[0],'csrf'=> $this->security->get_csrf_hash(),);
                 }
             }
-            
         }
         else{
             $response=array(

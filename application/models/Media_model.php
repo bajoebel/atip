@@ -108,7 +108,7 @@ class Media_model extends CI_Model
                 $this->upload->data();
                 $filename = $this->upload->data("file_name");
                 $error[]=$this->_file_resize(_DIR_MEDIA_ ."/" .$filename, _DIR_MEDIA_THUMB_ ."/" .$filename, 500,300);
-                $icon[]=$this->_file_resize(_DIR_MEDIA_ ."/".$filename, _DIR_MEDIA_ICON_ ."/" .$filename, 200,150);
+                $icon[]=$this->_file_resize(_DIR_MEDIA_ ."/".$filename, _DIR_MEDIA_ICON_ ."/" .$filename, 80,80);
                 $images[] = array('filename'=>  $filename,'error'=>'');
 
             } else {

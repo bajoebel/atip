@@ -64,11 +64,14 @@ Thum Menu
 }
 /* Reposition the controls slightly */
 .carousel-control {
-	left: -12px;
+    left: -12px;
+    color: rgb(34, 32, 32);
 }
 .carousel-control.right {
-	right: -12px;
+    right: -12px;
+    color: rgb(34, 32, 32);
 }
+
 /* Changes the position of the indicators */
 .carousel-indicators {
 	right: 50%;
@@ -163,6 +166,12 @@ background: #333333;
 }
 .mobile-sep{
     display: none;
+}
+.desktop-sep {
+	display: block;
+	margin: 0px;
+	width: 100%;
+	float: left;
 }
 .space{
     margin-top: 20px;
@@ -344,6 +353,28 @@ a{
         color: #c0c0c0;
     float: right;
 }
+.iconterkait{
+    min-width: 100px;
+}
+.card{
+    border: #ccc solid 1px;
+    border-collapse: collapse;
+    
+}
+.card-body{
+padding: 10px;
+}
+.card-footer{
+    padding: 10px;
+}
+.lampiran{
+    font-size: 12pt;
+    padding-top: 20px;
+    font-weight: bold;
+}
+.lampiran :hover{
+    font-size: 14pt;
+}
 @media screen and (min-width: 768px) {
     .container{
         width:90%;
@@ -421,7 +452,7 @@ a{
         display: block;
         margin-left: auto;
         margin-right: auto;
-        max-width:75%;
+        max-width:138px;
     }
     /**
     Style Landing Page
@@ -480,6 +511,7 @@ a{
     .col-5{
         width: 20%;
         float: left;
+        padding: 5px;
     }
     .navbar-default {
         height: 60px;;
@@ -555,18 +587,30 @@ a{
         word-wrap: break-word;
     }
 }
-
+.error {
+	padding: 150px;
+}
 @media screen and (max-width: 767px) {
     .col-5{
         width: 20%;
         float: left;
+        padding: 0px;;
     }
     .icon-jurusan{
-        max-width: 50px;;
+        max-width: 65px;;
+    }
+    .carousel-control.left {
+        left: 10px;
+    }
+    .carousel-control.right {
+        right: 10px;
     }
     .judul-jurusan{
-        font-size: 10pt;
-        font-weight: bold;
+        font-size: 7pt;
+        font-weight: normal;
+    }
+    .judul-pintasan{
+        font-size: 8pt;
     }
     .deskripsi-jurusan{
         display: none;
@@ -749,8 +793,11 @@ a{
         width: 100%;
         float: left;
     }
+    .desktop-sep{
+        display: none;
+    }
     .judul-pengumuman {
-        font-size: 12pt;
+        font-size: 9pt;
         margin-top: -50px;
         height: 50px;
     }
