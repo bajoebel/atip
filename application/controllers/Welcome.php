@@ -21,7 +21,8 @@ class Welcome extends CI_Controller {
 			'berita'		=> $this->landing_model->getContent($kon_berita, 7)
 		);
 		$view=array( 
-			'content'=> $this->load->view('public/index', $data, true)
+			'content'=> $this->load->view('public/index', $data, true),
+			'lib'=>'slider.js'
 		);
 		$this->load->view('public/layout', $view);
 	}
@@ -30,7 +31,7 @@ class Welcome extends CI_Controller {
 		$data=array('content_tipe' => 'Apa Yang Sudah Kami Lakukan');
 		$content = $this->load->view('public/portofolio',	$data, true);
 		$view = array(
-			'lib'	=> 'lib.js',
+			'lib'	=> 'portofolio.js',
 			'content' => $content
 		);
 		$this->load->view('public/layout', $view);

@@ -205,20 +205,14 @@
 	<script src="<?= base_url() ?>assets/js/jquery-1.12.4.min.js" crossorigin="anonymous"></script>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script src="<?= base_url() ?>assets/js/bootstrap.min.js"></script>
-	<?php
-	if (!empty($lib)) {
-	?>
-		<script src="<?= base_url() . "assets/js/custome/" .$lib ?>"></script>
-	<?php
-	}
-	?>
+
 	<script type="text/javascript">
 		$(window).load(function() {
 			// PAGE IS FULLY LOADED  
 			// FADE OUT YOUR OVERLAYING DIV
 			//$('#overlay').fadeOut();
 		});
-
+		var base_url = "<?= base_url() ?>";
 		function otherMenu() {
 			$('#modal_menu').modal('show');
 		}
@@ -232,36 +226,6 @@
 			}
 		}
 
-		var slideIndex = 1;
-		showSlides(slideIndex);
-
-		function plusSlides(n) {
-			showSlides(slideIndex += n);
-		}
-
-		function currentSlide(n) {
-			showSlides(slideIndex = n);
-		}
-
-		function showSlides(n) {
-			var i;
-			var slides = document.getElementsByClassName("mySlides");
-			var dots = document.getElementsByClassName("dot");
-			if (n > slides.length) {
-				slideIndex = 1
-			}
-			if (n < 1) {
-				slideIndex = slides.length
-			}
-			for (i = 0; i < slides.length; i++) {
-				slides[i].style.display = "none";
-			}
-			for (i = 0; i < dots.length; i++) {
-				dots[i].className = dots[i].className.replace(" active", "");
-			}
-			slides[slideIndex - 1].style.display = "block";
-			dots[slideIndex - 1].className += " active";
-		}
 
 		function showSearchBox1() {
 			var show = $('#show-search-box').val();
@@ -279,6 +243,13 @@
 			$('#modal_cari').modal('show');
 		}
 	</script>
+	<?php
+	if (!empty($lib)) {
+	?>
+		<script src="<?= base_url() . "assets/js/custome/" . $lib ?>"></script>
+	<?php
+	}
+	?>
 </body>
 
 </html>

@@ -51,17 +51,82 @@ body{
 
 .portfolio-header {
 	width: 100%;
-	height: 85vh;
+	height: 80vh;
 	background-image: url("../images/whatwedo-portfolio.png");
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center center;
 	color:#fff;
 }
+
 .portfolio-header h2{
 	font-weight: bold;
 	margin-top: 10vh;
 }
+.thumb{
+	width: 100%;
+	
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
+	display: block;
+	border: solid 1px #fff;
+	border-collapse: collapse;
+	
+}
+.main-thumb{
+	width: 66.5%;
+	
+	float: left;
+	border: solid 1px #fff;
+}
+.half-image {
+	width: 50%;
+	height: 360px;
+	float: left;
+	border: solid 1px #fff;
+}
+.right-thumb{
+	width: 33.5%;
+	float: left;
+	border: solid 1px #fff;
+}
+#list-portofolio {
+margin-top: 20px;
+}
+.radius-top-right{
+	width: 100%;
+	height: 180px;
+	border-bottom:solid 1px #fff;
+	border-radius: 0px 10px 0 0;
+}
+.radius-right{
+width: 50%;
+height: 360px;
+border-bottom:solid 1px #fff;
+border-radius: 0px 10px 10px 0;
+}
+.full-image{
+	height: 360px;
+	width: 100%;
+}
+.radius-bottom-right {
+	width: 100%;
+	height: 180px;
+	border-bottom: solid 1px #fff;
+	border-radius: 0px 0px 10px 0px;
+}
+.main-image {
+	width: 100%;
+	height: 360px;
+	border-bottom: solid 1px #fff;
+}
+.thumb-title{
+	padding: 20px 0px;
+	font-size: 14pt;
+	font-weight: bold;
+}
+
 .depan{
 	width: 100%;
 	height: 60vh;
