@@ -41,7 +41,7 @@ if ($mode == 'slider') {
 				<!--img src="<?= base_url() . "assets/images/campus_tampak_depan.jpg"; ?>" alt="" class='img img-responsive '-->
 				<div class="landing-text">
 					<h1>Dunia Industri <br>Memanggil Anda</h1>
-					<a href='<?= base_url() ."portofolio" ?>' class="btn btn-primary btn-lg">Apa yang sudah kita mulai</a>
+					<a href='<?= base_url() . "portofolio" ?>' class="btn btn-primary btn-lg">Apa yang sudah kita mulai</a>
 				</div>
 			</div>
 		</div>
@@ -168,6 +168,11 @@ if ($mode == 'slider') {
 		<?php
 		}
 		?>
+		<div class="row">
+			<div class="col-md-12">
+				<p class='pull-right' style="padding: 10px;"><a href="<?= base_url() . "pengumuman" ?>" class="link">Pengumuman Lain ></a></p>
+			</div>
+		</div>
 	</div>
 </div>
 <!-- End Pengumuman  -->
@@ -203,11 +208,15 @@ if ($mode == 'slider') {
 		<?php
 			}
 			if ($j % 2 == 1) echo '<div class="mobile-sep"></div>';
-			if($j%3==1) echo '<div class="desktop-sep"></div>';
+			if ($j % 3 == 1) echo '<div class="desktop-sep"></div>';
 		}
 		?>
 
-
+		<div class="row">
+			<div class="col-md-12">
+				<p class='pull-right' style="padding: 10px;"><a href="<?= base_url() . "berita" ?>" class="link">Berita Lain ></a></p>
+			</div>
+		</div>
 	</div>
 </div>
 <!-- End Berita  -->

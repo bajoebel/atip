@@ -101,3 +101,11 @@ defined('_WIDTH_PARTNER_ORIGINAL_')  OR define('_WIDTH_PARTNER_ORIGINAL_', 1200)
 defined('_HEIGHT_PARTNER_ORIGINAL_')   OR define('_HEIGHT_PARTNER_ORIGINAL_', 800);  // Upload Media
 
 defined('DEFAULT_IMAGE')          or define('DEFAULT_IMAGE', './assets/images/poli_depan.jpg');  // default Image
+
+defined('_COMPANY_NAME')          or define('_COMPANY_NAME', 'Politeknik ATI Padang');  // Nama Perusahaan 
+defined('_ALAMAT_')          or define('_ALAMAT_', 'Jl Bungo Pasang Tabing<br>Padang 25171');
+defined('_NOTELP_')          or define('_NOTELP_', '0751-000000');
+defined('_EMAIL_')          or define('_EMAIL_', 'info@poltekatipdg.ac.id');
+defined('FB')          or define('FB', 'https://www.facebook.com/');
+defined('TW')          or define('TW', 'https://twitter.com');
+defined('GP')          or define('GP', 'https://plus.google.com/');

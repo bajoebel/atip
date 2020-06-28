@@ -280,9 +280,10 @@ class Landing_model extends CI_Model
         $this->db->where('menu_status', 1);
         return $this->db->get('m_menu')->result();
     }
-    function getContent($condition, $limit=0){
+    function getContent($condition, $limit=0, $kecuali=array()){
         $this->db->where($condition);
         $this->db->where('content_tglpublish <= ', date('Y-m-d'));
+        if(!empty($kecuali)) $this->db->where_not_in('content_link', $kecuali);
         $this->db->group_start();
         $this->db->where('content_tglexp','0000-00-00');
         $this->db->or_where('content_tglexp > ', date('Y-m-d'));
@@ -332,13 +333,30 @@ class Landing_model extends CI_Model
         $data=$this->db->get('m_groupmedia')->row();
         if(!empty($data)) return $data->media_link;
     }
-    function countContent($kondisi){
+    function countContent($kondisi, $kecuali=array()){
         $this->db->where($kondisi);
+        $this->db->where('content_tglpublish <= ', date('Y-m-d'));
+        if (!empty($kecuali)) $this->db->where_not_in('content_link', $kecuali);
+        $this->db->group_start();
+        $this->db->where('content_tglexp', '0000-00-00');
+        $this->db->or_where('content_tglexp > ', date('Y-m-d'));
+        $this->db->group_end();
+        $this->db->order_by('content_tglpublish', 'desc');
+        $this->db->order_by('content_id', 'desc');
         return $this->db->get('p_content')->num_rows();
     }
-    function getContentlimit($kondisi,$limit, $start){
+    function getContentlimit($kondisi,$limit, $start, $kecuali=array()){
         $this->db->where($kondisi);
+        $this->db->where('content_tglpublish <= ', date('Y-m-d'));
+        if (!empty($kecuali)) $this->db->where_not_in('content_link', $kecuali);
+        $this->db->group_start();
+        $this->db->where('content_tglexp', '0000-00-00');
+        $this->db->or_where('content_tglexp > ', date('Y-m-d'));
+        $this->db->group_end();
+        $this->db->order_by('content_tglpublish', 'desc');
+        $this->db->order_by('content_id', 'desc');
         $this->db->limit($limit, $start);
         return $this->db->get('p_content')->result();
     }
+    
 }

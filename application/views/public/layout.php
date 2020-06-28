@@ -83,21 +83,22 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div class="col-md-5 col-sm-5 col-xs-5 mob-nopadding">
-							<h1 class='font-kampus'>Pendidikan Vokasi Negeri<br>Politeknik ATI Padang</h1>
-							<p class='font-alamat'>Alamat Kampus : Jl Bungo Pasang Tabing<br>Padang 25171</p>
+							<h1 class='font-kampus'>Pendidikan Vokasi Negeri<br><?= _COMPANY_NAME ?></h1>
+							<p class='font-alamat'>Alamat Kampus : <?= _ALAMAT_ ?></p>
 						</div>
 						<div class="col-md-7 col-sm-7 col-xs-7 ">
 							<div class="row">
 								<div class="col-md-3 col-sm-3 col-xs-4 mob-nopadding">
 									<h3 class='footer-title'>Kontak Kami</h3>
 									<div class="footer-content">
-										<p>0751-000000<br>
-											info@poltekatipdg.ac.id</p>
+										<p><?= _NOTELP_ ?><br>
+											<?= _EMAIL_ ?></p>
 									</div>
 									<p class='row-medsos'>
-										<span class='box-medsos fa fa-facebook'></span>
-										<span class='box-medsos fa fa-twitter'></span>
-										<span class='box-medsos fa fa-google-plus'></span>
+										<a href="<?= FB ?>" class="link"><span class='box-medsos fa fa-facebook'></span></a>
+										<a href="<?= TW ?>" class="link"><span class='box-medsos fa fa-twitter'></span></a>
+										<a href="<?= GP ?>" class="link"><span class='box-medsos fa fa-google-plus'></span></a>
+
 									</p>
 								</div>
 								<div class="col-md-3 col-sm-3 col-xs-4 mob-nopadding">
@@ -111,14 +112,32 @@
 								</div>
 								<div class="col-md-3 col-sm-3 col-xs-4 mob-nopadding wedo">
 									<h3 class='footer-title'>What We Do</h3>
-
+									<p>
+										<?php
+										$kondisi = array('content_status' => 'Publish', 'content_tipe' => 'Portofolio');
+										$potofolio = $this->landing_model->getContent($kondisi, 5);
+										foreach ($potofolio as $p) {
+										?>
+											<a href="<?= base_url() . $p->content_link ?>" class='link'><?= $p->content_judul ?></a><br>
+										<?php
+										}
+										?>
+									</p>
 								</div>
 								<div class="col-md-3 col-sm-3 col-xs-4 mob-nopadding">
 									<h3 class='footer-title'>Tautan</h3>
 									<div class="footer-content">
-										<p>jarvis.kemenperin.go.id<br>
-											jarvis.kemenperin.go.id<br>
-											jarvis.kemenperin.go.id</p>
+										<p>
+											<?php
+											$partner = $this->landing_model->getPartner();
+											foreach ($partner as $p) {
+											?>
+												<a href="<?= $p->partner_link ?>" class='link' target="_blank"><?= $p->partner_nama ?></a>
+											<?php
+											}
+											?>
+										</p>
+
 									</div>
 								</div>
 
@@ -126,7 +145,7 @@
 							<div class="row">
 								<div class="col-md-12 mob-nopadding">
 
-									<p>@2020 POliteknik ATI Padang<br>All Rights Reserved</p>
+									<p>@2020 <?= _COMPANY_NAME ?><br>All Rights Reserved</p>
 								</div>
 							</div>
 						</div>
@@ -213,6 +232,7 @@
 			//$('#overlay').fadeOut();
 		});
 		var base_url = "<?= base_url() ?>";
+
 		function otherMenu() {
 			$('#modal_menu').modal('show');
 		}
