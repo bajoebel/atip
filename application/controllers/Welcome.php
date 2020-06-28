@@ -65,6 +65,16 @@ class Welcome extends CI_Controller {
 		);
 		$this->load->view('public/layout', $view);
 	}
+	function archive($tahun,$bulan)
+	{
+		$data = array('content_tipe' => 'Archive','tahun'=>$tahun,'bulan'=>$bulan);
+		$content = $this->load->view('public/archive', $data, true);
+		$view = array(
+			'lib'	=> 'archive.js',
+			'content' => $content
+		);
+		$this->load->view('public/layout', $view);
+	}
 	function databerita($start=0)
 	{
 		$start = intval($this->input->get('start'));
@@ -75,6 +85,30 @@ class Welcome extends CI_Controller {
 
 		$kondisi = array('content_tipe' => 'Berita', 'content_status' => 'Publish');
 		$row_count = $this->landing_model->countContent($kondisi,$kecuali);
+		$list = array(
+			'status'    => true,
+			'message'   => "OK",
+			'start'     => $start,
+			'row_count' => $row_count,
+			'limit'     => $limit,
+			'data'     => $this->landing_model->getContentlimit($kondisi, $limit, $start, $kecuali),
+		);
+		header('Content-Type: application/json');
+		echo json_encode($list);
+	}
+
+	function dataarchive($start = 0)
+	{
+		$bulan = intval($this->input->get('bulan'));
+		$tahun = intval($this->input->get('tahun'));
+		$limit = 6;
+		$kon_berita = array('content_tipe' => 'Berita', 'content_top' => 1, 'content_status' => 'Publish','YEAR(content_tglpublish)'=> $tahun,'MONTH(content_tglpublish)'=> $bulan);
+		$top = $this->landing_model->getContent($kon_berita);
+		if (!empty($top)) $kecuali = array($top[0]->content_link);
+		else $kecuali = array();
+
+		$kondisi = array('content_tipe' => 'Berita', 'content_status' => 'Publish');
+		$row_count = $this->landing_model->countContent($kondisi, $kecuali);
 		$list = array(
 			'status'    => true,
 			'message'   => "OK",

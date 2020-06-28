@@ -1,9 +1,8 @@
 getBerita(0);
 function getBerita(start = 0) {
-    $('#start').val(start);
-    var search = $('#q').val();
-    var active = "class='btn btn-primary btn-sm'";
-    var url = base_url + "welcome/databerita/" + start;
+    var bulan = $('#bulan').val();
+    var tahun = $('#tahun').val();
+    var url = base_url + "welcome/dataarchive/" + start + "?tahun=" + tahun + "&bulan="+bulan;
     console.log(url);
     $.ajax({
         url: url,

@@ -58,6 +58,9 @@ $route["berita"]='welcome/berita';
 $route["portofolio"] = 'welcome/portofolio';
 $route["pengumuman"] = 'welcome/pengumuman';
 $route["login"] = 'login';
+$route['archive/(:num)/(:num)'] = function ($tahun, $bln) {
+	return 'welcome/archive/' . $tahun . "/" . $bln;
+};
 $route['(:num)/(:num)/(:num)/([a-zA-Z0-9-.]+)'] = function ($tgl,$bln,$thn,$link)
 {
 	return 'welcome/berita/' .$thn."-".$bln."-".$tgl ."/" . strtolower($link) ;

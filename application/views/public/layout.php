@@ -104,9 +104,18 @@
 								<div class="col-md-3 col-sm-3 col-xs-4 mob-nopadding">
 									<h3 class='footer-title'>Archive</h3>
 									<div class="footer-content">
-										<p>May 2020<br>
-											April 2020<br>
-											Maret 2020</p>
+
+										<p>
+											<?php
+											$arc = $this->landing_model->getArchive();
+											$bulan=array('','Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember');
+											foreach ($arc as $a) {
+												?>
+												<a href="<?= base_url() ."archive/" .$a->tahun ."/" .$a->bulan ?>" class="link"><?= $bulan[intval($a->bulan)] ." " .$a->tahun ?></a><br>
+												<?php
+											}
+											?>
+											
 									</div>
 
 								</div>

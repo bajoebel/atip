@@ -358,5 +358,10 @@ class Landing_model extends CI_Model
         $this->db->limit($limit, $start);
         return $this->db->get('p_content')->result();
     }
+    function getArchive(){
+        $this->db->select("YEAR(content_tglpublish) as tahun, MONTH(content_tglpublish) as bulan");
+        $this->db->group_by("DATE_FORMAT(`content_tglpublish`,'%Y-%m')");
+        return $this->db->get('p_content')->result();
+    }
     
 }
