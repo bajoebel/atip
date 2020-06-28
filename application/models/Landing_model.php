@@ -9,7 +9,7 @@ class Landing_model extends CI_Model
     }
     function getSlider(){
         $this->db->where('status_slider',1);
-        $this->db->join('p_posting','post_id=id_posting','LEFT');
+        $this->db->join('p_content','content_id=post_id','LEFT');
         return $this->db->get('p_slider')->result();
     }
     function getPostslide(){

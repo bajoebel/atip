@@ -14,8 +14,9 @@ class Welcome extends CI_Controller {
 		$kon_pengumuman = array('content_tipe' => 'Pengumuman', 'content_status' => 'Publish');
 		$kon_berita = array('content_tipe' => 'Berita', 'content_top'=>1, 'content_status'=>'Publish');
 		$data=array(
-			'mode'=> 'non-slider',
+			'mode'=> _MODE_,
 			'pintasan'=> $this->landing_model->getPintasan(),
+			'slider'	=> $this->landing_model->getSlider(),
 			'prodi'	=> $this->landing_model->getContent($kon_prodi, 5),
 			'pengumuman'	=> $this->landing_model->getContent($kon_pengumuman, 2),
 			'berita'		=> $this->landing_model->getContent($kon_berita, 7)

@@ -6,30 +6,35 @@
 if ($mode == 'slider') {
 ?>
 	<div class="slideshow-container">
-		<div class="mySlides animate-zoom">
-			<div class="numbertext">1 / 3</div>
-			<img src="<?= base_url(); ?>assets/images/img_nature_wide.jpg" class='strech' style="width:100%">
-			<div class="text">Caption Text</div>
-		</div>
+		<?php
+		$nav = "";
+		$no = 0;
+		foreach ($slider as $s) {
+			$no++;
+			$nav .= '<span class="dot" onclick="currentSlide(' . $no . ')"></span>';
+		?>
+			<div class="mySlides <?= $s->animasi_transisi ?>">
+				<div class="numbertext">1 / 3</div>
+				<img src="<?= base_url() . "uploads/media/original/" . $s->gambar_slider; ?>" class='strech' style="width:100%;height:90vh">
 
-		<div class="mySlides fade">
-			<div class="numbertext">2 / 3</div>
-			<img src="<?= base_url() ?>assets/images/img_snow_wide.jpg" style="width:100%" class="strech">
-			<div class="text">Caption Two</div>
-		</div>
+				<div class="text">
+					<div class="container">
+						<div class="landing-text">
+							<h2><?= $s->keterangan_slider; ?></h2>
+							<a href="<?= base_url() .$s->content_link ?>" class="btn btn-primary btn-lg">Selengkapnya</a>
+						</div>
+					</div>
 
-		<div class="mySlides animate-bottom">
-			<div class="numbertext">3 / 3</div>
-			<img src="<?= base_url() ?>assets/images/img_mountains_wide.jpg" style="width:100%" class="strech">
-			<div class="text">Caption Three</div>
-		</div>
+				</div>
+			</div>
+		<?php
+		}
+		?>
 
 		<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
 		<a class="next" onclick="plusSlides(1)">&#10095;</a>
 		<div style="text-align:center; z-index:1030">
-			<span class="dot" onclick="currentSlide(1)"></span>
-			<span class="dot" onclick="currentSlide(2)"></span>
-			<span class="dot" onclick="currentSlide(3)"></span>
+			<?= $nav ?>
 		</div>
 	</div>
 <?php
@@ -55,7 +60,7 @@ if ($mode == 'slider') {
     --->
 
 <!-- Shorcut -->
-<div class="section margin-top-min150">
+<div class="section <?php if ($mode != 'slider') echo "margin-top-min150" ?>">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
@@ -108,18 +113,22 @@ if ($mode == 'slider') {
 		<h2 class='prodi'>Program Studi</h2>
 		<?php
 		$jml = count($prodi) + 1;
-
+		$no = 0;
 		foreach ($prodi as $p) {
+			$no++;
 			$jml--;
-
+			$thumb = explode(',', $p->content_thumb);
+			if (!empty($thumb)) $image = $thumb[0];
+			else $image = $p->content_thumb;
 			if ($jml < 3) {
 				if ($jml == 2) $offset = "col-md-offset-2";
 				else $offset = "";
+
 		?>
 				<div class="col-md-4 <?= $offset ?> col-5">
 					<a href="<?= base_url() . $p->content_link; ?>" class='link'>
 						<div class="text-center">
-							<img src="<?= base_url() . "uploads/media/thumb/" . $p->content_thumb ?>" alt="" class='icon-jurusan'>
+							<img src="<?= base_url() . "uploads/media/thumb/" . $image ?>" alt="" class='icon-jurusan'>
 							<br>
 							<div class='judul-jurusan'><?= $p->content_judul; ?></div>
 							<p class='deskripsi-jurusan'><?= strip_tags($p->content_isi); ?></p>
@@ -141,7 +150,7 @@ if ($mode == 'slider') {
 				</div>
 		<?php
 			}
-			//if ($jml % 3 == 0) echo "<div class='row'></div>";
+			if ($no % 3 == 0) echo "<div class='desktop-sep'></div>";
 		}
 		?>
 

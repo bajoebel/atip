@@ -60,7 +60,7 @@ class Slider_model extends CI_Model
             'keterangan'    => $data["keterangan_slider"],
             'status_media'  => 1
         );
-        $this->db->insert('m_media1', $media);
+        $this->db->insert('m_media', $media);
 
 
         $this->db->insert($this->table, $data);

@@ -109,3 +109,4 @@ defined('_EMAIL_')          or define('_EMAIL_', 'info@poltekatipdg.ac.id');
 defined('FB')          or define('FB', 'https://www.facebook.com/');
 defined('TW')          or define('TW', 'https://twitter.com');
 defined('GP')          or define('GP', 'https://plus.google.com/');
+defined('_MODE_')          or define('_MODE_', 'non-slider');

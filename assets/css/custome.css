@@ -55,6 +55,10 @@ Style Landing Page
 	font-size: 300%;
 	font-weight: 700;
 }
+.landing-text h2 {
+	font-size: 200%;
+	font-weight: 700;
+}
 /**
 Thum Menu
 */
