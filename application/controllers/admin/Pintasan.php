@@ -118,8 +118,17 @@ class Pintasan extends CI_Controller {
                         }
                         else{
                             $insert = $this->pintasan_model->insertpintasan($data);
-                            $error[]=$this->_file_resize(_DIR_MEDIA_ ."/" .$file, _DIR_MEDIA_THUMB_ .$file, 500,500);
-                            $icon[]=$this->_file_resize(_DIR_MEDIA_ ."/" .$file, _DIR_MEDIA_ICON_ .$file, 50,50);
+                            $filename = $this->upload->data("file_name");
+                            $error[] = $this->_file_resize(_DIR_MEDIA_ . "/" . $filename, _DIR_MEDIA_THUMB_ . "/88X88/_88X88_" . $filename, 88, 88);
+                            $error1[] = $this->_file_resize(_DIR_MEDIA_ . "/" . $filename, _DIR_MEDIA_THUMB_ . "100X100/_100X100_" . $filename, 100, 100);
+                            $error2[] = $this->_file_resize(_DIR_MEDIA_ . "/" . $filename, _DIR_MEDIA_THUMB_ . "383X330/_383X330_" . $filename, 383, 330);
+                            $error3[] = $this->_file_resize(_DIR_MEDIA_ . "/" . $filename, _DIR_MEDIA_THUMB_ . "403X200/_403X200_" . $filename, 403, 200);
+                            $error4[] = $this->_file_resize(_DIR_MEDIA_ . "/" . $filename, _DIR_MEDIA_THUMB_ . "620X320/_620X320_" . $filename, 620, 320);
+                            $error5[] = $this->_file_resize(_DIR_MEDIA_ . "/" . $filename, _DIR_MEDIA_THUMB_ . "1370X430/_1370X430_" . $filename, 1370, 430);
+                            $error5[] = $this->_file_resize(_DIR_MEDIA_ . "/" . $filename, _DIR_MEDIA_THUMB_ . "1366X656/_1366X656_" . $filename, 1366, 656);
+                            //$error[]=$this->_file_resize(_DIR_MEDIA_ ."/" .$file, _DIR_MEDIA_THUMB_ .$file, 500,500);
+                            
+                            //$icon[]=$this->_file_resize(_DIR_MEDIA_ ."/" .$file, _DIR_MEDIA_ICON_ .$file, 50,50);
                             header('Content-Type: application/json');
                             echo json_encode(array("status" => TRUE,'error'=>FALSE,"message"=>"Data berhasil di simpan",'csrf'=> $this->security->get_csrf_hash()));
                         }
@@ -161,8 +170,15 @@ class Pintasan extends CI_Controller {
                         }
                         else{
                             $this->pintasan_model->updatepintasan($data,$pintasan_id);
-                            $error[]=$this->_file_resize(_DIR_MEDIA_ ."/" .$file, _DIR_MEDIA_THUMB_ .$file, 500,500);
-                            $icon[]=$this->_file_resize(_DIR_MEDIA_ ."/" .$file, _DIR_MEDIA_ICON_ .$file, 50,50);
+                            //$error[]=$this->_file_resize(_DIR_MEDIA_ ."/" .$file, _DIR_MEDIA_THUMB_ .$file, 500,500);
+                            //$icon[]=$this->_file_resize(_DIR_MEDIA_ ."/" .$file, _DIR_MEDIA_ICON_ .$file, 50,50);
+                            $filename = $this->upload->data("file_name");
+                            $error[] = $this->_file_resize(_DIR_MEDIA_ . "/" . $filename, _DIR_MEDIA_THUMB_ . "/88X88/_88X88_" . $filename, 88, 88);
+                            $error1[] = $this->_file_resize(_DIR_MEDIA_ . "/" . $filename, _DIR_MEDIA_THUMB_ . "100X100/_100X100_" . $filename, 100, 100);
+                            $error2[] = $this->_file_resize(_DIR_MEDIA_ . "/" . $filename, _DIR_MEDIA_THUMB_ . "383X330/_383X330_" . $filename, 383, 330);
+                            $error3[] = $this->_file_resize(_DIR_MEDIA_ . "/" . $filename, _DIR_MEDIA_THUMB_ . "403X200/_403X200_" . $filename, 403, 200);
+                            $error4[] = $this->_file_resize(_DIR_MEDIA_ . "/" . $filename, _DIR_MEDIA_THUMB_ . "620X320/_620X320_" . $filename, 620, 320);
+                            $error5[] = $this->_file_resize(_DIR_MEDIA_ . "/" . $filename, _DIR_MEDIA_THUMB_ . "1370X430/_1370X430_" . $filename, 1270, 420);
                             header('Content-Type: application/json');
                             echo json_encode(array("status" => TRUE,'error'=>FALSE,"message"=>"Data berhasil di update", 'csrf'=> $this->security->get_csrf_hash()));
                         }

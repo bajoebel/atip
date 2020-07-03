@@ -29,132 +29,125 @@
 </head>
 
 <body>
-	<nav class="navbar navbar-default navbar-fixed-top">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<a class="" href="<?= base_url() ?>">
-					<div class="logo"><img src="<?= base_url() . "assets/images/logo.png" ?>" alt="" class='img-logo'>
+	<div class="content">
+		<nav class="navbar navbar-default navbar-fixed-top">
+			<div class="container">
+				<div class="navbar-header">
+					<!--button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"-->
+					<button type="button" class="navbar-toggle" onclick="otherMenu()">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="" href="<?= base_url() ?>">
+						<div class="logo"><img src="<?= base_url() . "assets/images/logo.png" ?>" alt="" class='img-logo'>
+						</div>
+					</a>
+					<div class="pull-right search" onfocus="shoeSearchBox()">
+						<div class=" task" onclick="showSearchBox()"><i class="fa fa-search" aria-hidden="true"></i></div>
 					</div>
-				</a>
-				<div class="pull-right search" onfocus="shoeSearchBox()">
-					<div class=" task" onclick="showSearchBox()"><i class="fa fa-search" aria-hidden="true"></i></div>
+				</div>
+
+				<div id="navbar" class="navbar-collapse collapse">
+					<ul class="nav navbar-nav navbar-right search-desktop">
+						<li class=''>
+							<div class=" task" onclick="showSearchBox()" onfocus="showSearchBox()"><i class="fa fa-search" aria-hidden="true"></i></div>
+						</li>
+						<li class=''>
+							<div class=" task"><a href="#" onclick="otherMenu()"><i class="fa fa-bars" aria-hidden="true"></i></a></div>
+						</li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<?php
+						$menu = $this->landing_model->getTopMenu();
+						foreach ($menu as $m) {
+						?>
+							<li class=""><a href="<?php if ($m->menu_baseurl == 1) echo base_url() . $m->menu_link;
+													else echo $m->menu_link ?>"><?= $m->menu_judul ?></a></li>
+						<?php
+						}
+
+						?>
+
+					</ul>
+
 				</div>
 			</div>
-
-			<div id="navbar" class="navbar-collapse collapse">
-				<ul class="nav navbar-nav navbar-right search-desktop">
-					<li class=''>
-						<div class=" task" onclick="showSearchBox()" onfocus="showSearchBox()"><i class="fa fa-search" aria-hidden="true"></i></div>
-					</li>
-					<li class=''>
-						<div class=" task"><a href="#" onclick="otherMenu()"><i class="fa fa-bars" aria-hidden="true"></i></a></div>
-					</li>
-				</ul>
-				<ul class="nav navbar-nav navbar-right">
-					<?php
-					$menu = $this->landing_model->getTopMenu();
-					foreach ($menu as $m) {
-					?>
-						<li class=""><a href="<?php if ($m->menu_baseurl == 1) echo base_url() . $m->menu_link;
-												else echo $m->menu_link ?>"><?= $m->menu_judul ?></a></li>
-					<?php
-					}
-					?>
-				</ul>
-
-			</div>
+		</nav>
+		<div class="search-box">
+			<input type="hidden" name="show-search-box" id="show-search-box" value="0">
+			<input type="text" class='form-control' name='search' id="search" placeholder="Search">
 		</div>
-	</nav>
-	<div class="search-box">
-		<input type="hidden" name="show-search-box" id="show-search-box" value="0">
-		<input type="text" class='form-control' name='search' id="search" placeholder="Search">
-	</div>
-	<?= $content ?>
-	<!---footer-->
-	<div class="footer">
-		<div class="section">
-			<div class="container container-footer">
-				<div class="row">
-					<div class="col-md-12">
-						<div class="col-md-5 col-sm-5 col-xs-5 mob-nopadding">
-							<h1 class='font-kampus'>Pendidikan Vokasi Negeri<br><?= _COMPANY_NAME ?></h1>
-							<p class='font-alamat'>Alamat Kampus : <?= _ALAMAT_ ?></p>
-						</div>
-						<div class="col-md-7 col-sm-7 col-xs-7 ">
-							<div class="row">
-								<div class="col-md-3 col-sm-3 col-xs-4 mob-nopadding">
-									<h3 class='footer-title'>Kontak Kami</h3>
-									<div class="footer-content">
-										<p><?= _NOTELP_ ?><br>
-											<?= _EMAIL_ ?></p>
-									</div>
-									<p class='row-medsos'>
-										<a href="<?= FB ?>" class="link"><span class='box-medsos fa fa-facebook'></span></a>
-										<a href="<?= TW ?>" class="link"><span class='box-medsos fa fa-twitter'></span></a>
-										<a href="<?= GP ?>" class="link"><span class='box-medsos fa fa-google-plus'></span></a>
 
-									</p>
-								</div>
-								<div class="col-md-3 col-sm-3 col-xs-4 mob-nopadding">
-									<h3 class='footer-title'>Archive</h3>
-									<div class="footer-content">
-
-										<p>
-											<?php
-											$arc = $this->landing_model->getArchive();
-											$bulan=array('','Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember');
-											foreach ($arc as $a) {
-												?>
-												<a href="<?= base_url() ."archive/" .$a->tahun ."/" .$a->bulan ?>" class="link"><?= $bulan[intval($a->bulan)] ." " .$a->tahun ?></a><br>
-												<?php
-											}
-											?>
-											
-									</div>
-
-								</div>
-								<div class="col-md-3 col-sm-3 col-xs-4 mob-nopadding wedo">
-									<h3 class='footer-title'>What We Do</h3>
-									<p>
-										<?php
-										$kondisi = array('content_status' => 'Publish', 'content_tipe' => 'Portofolio');
-										$potofolio = $this->landing_model->getContent($kondisi, 5);
-										foreach ($potofolio as $p) {
-										?>
-											<a href="<?= base_url() . $p->content_link ?>" class='link'><?= $p->content_judul ?></a><br>
-										<?php
-										}
-										?>
-									</p>
-								</div>
-								<div class="col-md-3 col-sm-3 col-xs-4 mob-nopadding">
-									<h3 class='footer-title'>Tautan</h3>
-									<div class="footer-content">
-										<p>
-											<?php
-											$partner = $this->landing_model->getPartner();
-											foreach ($partner as $p) {
-											?>
-												<a href="<?= $p->partner_link ?>" class='link' target="_blank"><?= $p->partner_nama ?></a>
-											<?php
-											}
-											?>
-										</p>
-
-									</div>
-								</div>
-
+		<?= $content ?>
+		<!---footer-->
+		<div class="footer">
+			<div class="section">
+				<div class="container-footer">
+					<div class="row">
+						<div class="col-md-12  mob-nopadding">
+							<div class="footer-left">
+								<div class='font-kampus'>Pendidikan Vokasi Negeri<br><?= _COMPANY_NAME ?></div>
+								<p class='font-alamat'>Alamat Kampus : <?= _ALAMAT_ ?></p>
 							</div>
-							<div class="row">
-								<div class="col-md-12 mob-nopadding">
+							<div class="footer-right">
+								<div class="row">
+									<div class="kontak mob-nopadding">
+										<div class='footer-title'>Kontak Kami</div>
+										<div class="footer-content">
+											<p><?= _NOTELP_ ?><br>
+												<?= _EMAIL_ ?></p>
+										</div>
+										<p class='row-medsos'>
+											<a href="<?= FB ?>" class="link"><span class='box-medsos fa fa-facebook'></span></a>
+											<a href="<?= TW ?>" class="link"><span class='box-medsos fa fa-twitter'></span></a>
+											<a href="<?= GP ?>" class="link"><span class='box-medsos fa fa-google-plus'></span></a>
 
-									<p>@2020 <?= _COMPANY_NAME ?><br>All Rights Reserved</p>
+										</p>
+									</div>
+									<div class="archive mob-nopadding">
+										<div class='footer-title'>Archive</div>
+										<div class="footer-content">
+
+											<p>
+												<?php
+												$arc = $this->landing_model->getArchive();
+												$bulan = array('', 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember');
+												foreach ($arc as $a) {
+												?>
+													<a href="<?= base_url() . "archive/" . $a->tahun . "/" . $a->bulan ?>" class="link"><?= $bulan[intval($a->bulan)] . " " . $a->tahun ?></a><br>
+												<?php
+												}
+												?>
+
+										</div>
+
+									</div>
+									
+									<div class="tautan mob-nopadding">
+										<div class='footer-title'>Tautan</div>
+										<div class="footer-content">
+											<p>
+												<?php
+												$partner = $this->landing_model->getPartner();
+												foreach ($partner as $p) {
+												?>
+													<a href="<?= $p->partner_link ?>" class='link' target="_blank"><?= $p->partner_nama ?></a><br>
+												<?php
+												}
+												?>
+											</p>
+
+										</div>
+									</div>
+
+								</div>
+								<div class="row">
+									<div class="mob-nopadding">
+
+										<p class='copyright show-desktop'>@2020 <?= _COMPANY_NAME ?><br>All Rights Reserved</p>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -174,23 +167,14 @@
 			<!-- Modal content-->
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title"></h4>
+					<div class="content">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title"></h4>
+					</div>
 				</div>
 				<div class="modal-body">
-					<div class="row">
-						<div class="col-md-12">
-							<nav class="navbar navbar-default">
-								<ul class="nav navbar-default navbar-nav">
-									<li class="active"><a href="#">Profile</a></li>
-									<li><a href="#">SPM-PT</a></li>
-									<li><a href="#">Informasi Layanan</a></li>
-									<li><a href="#">Informasi Publik</a></li>
-									<li><a href="#">Akademik</a></li>
-									<li><a href="#">Zona Integrasi</a></li>
-								</ul>
-							</nav>
-						</div>
+					<div class="content">
+						<div id="othermenu"></div>
 					</div>
 				</div>
 				<!--div class="modal-footer">
@@ -208,11 +192,13 @@
 			<!-- Modal content-->
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title"></h4>
+					<div class="content">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title"></h4>
+					</div>
 				</div>
 				<div class="modal-body">
-					<div class="row">
+					<div class="content">
 						<div class="col-md-6">
 							<div class="input-group">
 								<input type="text" class="input-cari" placeholder="Search" aria-describedby="basic-addon2">
@@ -244,6 +230,39 @@
 
 		function otherMenu() {
 			$('#modal_menu').modal('show');
+			var url = base_url + "welcome/othermenu";
+			console.log(url);
+			$.ajax({
+				url: url,
+				type: "GET",
+				dataType: "json",
+				data: {
+					get_param: 'value'
+				},
+				success: function(data) {
+					//menghitung jumlah data
+					//console.clear();
+					if (data["status"] == true) {
+						var row = data["data"];
+						var jmlData = row.length;
+
+						var tabel = "";
+						//Create Tabel
+
+						var link;
+						for (var i = 0; i < jmlData; i++) {
+
+							link = row[i]["menu_link"];
+							if (row[i]["menu_baseurl"] == 1) link = base_url + row[i]["menu_link"]
+							style = 'col-7';
+							tabel += '<div class="col-xs-12  ' + style + '"><a href="' + link + '">' + row[i]["menu_judul"] + '</a></div>';
+						}
+						console.log(tabel);
+						$('#othermenu').html(tabel);
+
+					}
+				}
+			});
 		}
 
 		function myFunction() {

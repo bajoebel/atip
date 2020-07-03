@@ -2,25 +2,27 @@
 <?php
 if (!empty($row)) {
 ?>
-	<div class="section  top100">
-		<div class="text-center">
-			<h3>Home > <?= $row->content_tipe; ?></h3>
+	<div class="section top">
+		<div class="text-center content-tipe">
+			<p>Home > <a><?= $row->content_tipe; ?></a></p>
 		</div>
 	</div>
 	<div class="section ">
-		<div class="container">
+		<div class="container detail-berita">
 
-			<div class="col-md-9 col-sm-8">
-				<h3><?= $row->content_judul ?></h3>
+			<div class="col-md-6 col-sm-8">
+				<div class="judul-content"><?= $row->content_judul ?></div>
 			</div>
-			<div class="col-md-3 col-sm-4">&nbsp;</div>
-			<div class="col-md-9 col-sm-8">
+			<div class="col-md-6 col-sm-4">&nbsp;</div>
+			<div class="content-left">
 				<div class="card">
 					<?php
 					if (!empty($row->content_thumb) && $row->content_tipe == "Berita") {
 
 					?>
-						<img src="<?= base_url() . "uploads/media/thumb/" . $row->content_thumb ?>" alt="" class='img img-responsive ' style='width:100%'>
+						<div class="img-detail">
+							<img src="<?= base_url() . "uploads/media/thumb/" . $row->content_thumb ?>" alt="" class='img img-responsive  img-rounded' style='width:100%'>
+						</div>
 					<?php
 					}
 					?>
@@ -28,9 +30,10 @@ if (!empty($row)) {
 					<div class="card-body">
 
 						<div class="row">
-
 							<div class="col-md-12">
-								<?= $row->content_isi ?>
+								<div class="content-detail">
+									<?= $row->content_isi ?>
+								</div>
 							</div>
 						</div>
 						<div class="row">
@@ -38,12 +41,11 @@ if (!empty($row)) {
 								<div class='lampiran'>
 									<?php
 									foreach ($lampiran as $l) {
-										if($l->jenis_lampiran=='Link') $link=$l->isi_lampiran;
-										else if($l->jenis_lampiran=="Group") {
+										if ($l->jenis_lampiran == 'Link') $link = $l->isi_lampiran;
+										else if ($l->jenis_lampiran == "Group") {
 											//$media=$this->landing_model->getLinkMedia($l->content_isi);
-											$link= base_url() ."files/".$l->isi_lampiran;
-										}
-										else $link= base_url() . $row->content_link . "/" . $l->link_lampiran;
+											$link = base_url() . "files/" . $l->isi_lampiran;
+										} else $link = base_url() . $row->content_link . "/" . $l->link_lampiran;
 									?>
 										<p><a href="<?= $link ?>" class="link"><?= $l->judul_lampiran ?> <span class='fa fa-play'></span> </a></p>
 									<?php
@@ -72,7 +74,7 @@ if (!empty($row)) {
 
 				</div>
 			</div>
-			<div class="col-md-3 col-sm-4">
+			<div class="content-right">
 				<div class="widget">
 					<div class="widget-header">
 						Published
@@ -117,13 +119,18 @@ if (!empty($row)) {
 							if ($t->content_thumb != "") $image = base_url() . "uploads/media/icon/" . $t->content_thumb;
 							else $image = DEFAULT_IMAGE;
 						?>
-							<div class="row">
+							<div class="row widget-list">
 								<div class="col-md-12">
 									<div class="info-list">
 										<div class="img-list">
 											<img src="<?= $image ?>" alt="" class='img img-responsive iconterkait'>
 										</div>
-										<div class="title-list"><a href="<?= base_url() . $t->content_link; ?>" class="link"><?= $t->content_judul ?></a></div>
+										<div class="title-list">
+											<div class="content-link">
+												<a href="<?= base_url() . $t->content_link; ?>" class="link"><?= $t->content_judul ?></a>
+											</div>
+
+										</div>
 									</div>
 								</div>
 							</div>
@@ -144,13 +151,14 @@ if (!empty($row)) {
 <?php
 } else {
 ?>
-	<div class="section  top100">
+	<div class="section  top">
 		<div class="text-center">
-			<h3>Home > 404</h3>
+			<p>Home > 404</p>
 		</div>
 	</div>
 	<div class="section ">
-		<div class="container">
+		<div class="container detail-berita">
+
 			<div class='error'>
 				<h3 class='text-center'>Opss...!</h3>
 				<h1 class='text-center' style="font-size: 800%;font-weight:bold;">404</h1>

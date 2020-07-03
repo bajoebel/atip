@@ -15,13 +15,13 @@ if ($mode == 'slider') {
 		?>
 			<div class="mySlides <?= $s->animasi_transisi ?>">
 				<div class="numbertext">1 / 3</div>
-				<img src="<?= base_url() . "uploads/media/original/" . $s->gambar_slider; ?>" class='strech' style="width:100%;height:90vh">
+				<img src="<?= base_url() . "uploads/media/original/" . $s->gambar_slider; ?>" class='strech'>
 
 				<div class="text">
 					<div class="container">
 						<div class="landing-text">
 							<h2><?= $s->keterangan_slider; ?></h2>
-							<a href="<?= base_url() .$s->content_link ?>" class="btn btn-primary btn-lg">Selengkapnya</a>
+							<a href="<?= base_url() . $s->content_link ?>" class="btn btn-primary btn-lg">Selengkapnya</a>
 						</div>
 					</div>
 
@@ -40,16 +40,28 @@ if ($mode == 'slider') {
 <?php
 } else {
 ?>
-	<div class="section-landing">
+	<!--div class="section-landing">
 		<div class="home">
 			<div class="container landing-container">
-				<!--img src="<?= base_url() . "assets/images/campus_tampak_depan.jpg"; ?>" alt="" class='img img-responsive '-->
+				<img src="<?= base_url() . "assets/images/campus_tampak_depan.jpg"; ?>" alt="" class='img img-responsive '>
 				<div class="landing-text">
 					<h1>Dunia Industri <br>Memanggil Anda</h1>
 					<a href='<?= base_url() . "portofolio" ?>' class="btn btn-primary btn-lg">Apa yang sudah kita mulai</a>
 				</div>
 			</div>
 		</div>
+	</div-->
+	<div class="section-landing">
+		<img src="<?= base_url() . "assets/images/campus_tampak_depan_fix.jpg"; ?>" alt="" class='img-fixed-desktop'>
+		<img src="<?= base_url() . "assets/images/campus_tampak_depan.jpg"; ?>" alt="" class='img-fixed-mobile'>
+		<div class="container landing-container">
+			<div class="landing-text">
+				<div class='headline-title'>Dunia Industri <br>Memanggil Anda</div>
+				<br>
+				<a href='<?= base_url() . "portofolio" ?>' class="btn btn-primary blue btn-lg btn-block">Apa yang sudah kita mulai</a>
+			</div>
+		</div>
+
 	</div>
 <?php
 }
@@ -60,49 +72,45 @@ if ($mode == 'slider') {
     --->
 
 <!-- Shorcut -->
-<div class="section <?php if ($mode != 'slider') echo "margin-top-min150" ?>">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12">
-				<div class="">
-					<div id="myCarousel" class="carousel">
+<div class="section">
+	<div class="pintasan">
+		<div class='show-mobile pintasan-title'>Menu</div>
+		<div class="container">
+			<div id="myCarousel" class="carousel">
 
-						<!-- Carousel items -->
-						<div class="carousel-inner">
-							<div class="item active">
-								<div class="row-fluid">
-									<?php
-									$i = 0;
-									foreach ($pintasan as $p) {
-										$i++;
+				<!-- Carousel items -->
+				<div class="carousel-inner">
+					<div class="item active">
+						<div class="row-fluid">
+							<?php
+							$i = 0;
+							foreach ($pintasan as $p) {
+								$i++;
 
-									?>
-										<div class="col-8 col-xs-3">
-											<a href="#x" class="text-center link">
-												<img src="<?= base_url() . "uploads/media/thumb/" . $p->pintasan_img ?>" alt="Image" class='img-shorcut' />
-												<div class='text-center judul-pintasan'><?= $p->pintasan_nama ?></div>
-											</a>
-										</div>
-									<?php
-										if ($i % 4 == 0) echo '<div class="mobile-sep"></div>';
-										if ($i % 8 == 0) echo '</div><div class="item">';
-									}
-									?>
+							?>
+								<div class="col-8 col-xs-3 mob-padding10">
+									<a href="#x" class="text-center link">
+										<img src="<?= base_url() . "uploads/media/thumb/100X100/_100X100_" . $p->pintasan_img ?>" alt="Image" class='img-shorcut' />
+										<div class='text-center judul-pintasan'><?= $p->pintasan_nama ?></div>
+									</a>
 								</div>
-							</div>
-
+							<?php
+								if ($i % 4 == 0) echo '<div class="mobile-sep"></div>';
+								if ($i % 8 == 0) echo '</div><div class="item">';
+							}
+							?>
 						</div>
-						<!--/carousel-inner-->
-
-						<a class="left carousel-control" href="#myCarousel" data-slide="prev"><span class='glyphicon glyphicon-chevron-left'></span></a>
-						<a class="right carousel-control" href="#myCarousel" data-slide="next"><span class='glyphicon glyphicon-chevron-right'></span></a>
 					</div>
-					<!--/myCarousel-->
 
 				</div>
-				<!--/well-->
+				<!--/carousel-inner-->
+
+				<a class="left carousel-control" href="#myCarousel" data-slide="prev"><span class='glyphicon glyphicon-chevron-left'></span></a>
+				<a class="right carousel-control" href="#myCarousel" data-slide="next"><span class='glyphicon glyphicon-chevron-right'></span></a>
 			</div>
 		</div>
+
+		<!--/myCarousel-->
 	</div>
 </div>
 <!-- End Shorcut -->
@@ -110,7 +118,7 @@ if ($mode == 'slider') {
 <!-- Prodi -->
 <div class="section ">
 	<div class="container">
-		<h2 class='prodi'>Program Studi</h2>
+		<div class='prodi'>Info Program Studi</div>
 		<?php
 		$jml = count($prodi) + 1;
 		$no = 0;
@@ -125,11 +133,10 @@ if ($mode == 'slider') {
 				else $offset = "";
 
 		?>
-				<div class="col-md-4 <?= $offset ?> col-5">
+				<div class="col-md-4 <?= $offset ?> col-5 ">
 					<a href="<?= base_url() . $p->content_link; ?>" class='link'>
 						<div class="text-center">
 							<img src="<?= base_url() . "uploads/media/thumb/" . $image ?>" alt="" class='icon-jurusan'>
-							<br>
 							<div class='judul-jurusan'><?= $p->content_judul; ?></div>
 							<p class='deskripsi-jurusan'><?= strip_tags($p->content_isi); ?></p>
 						</div>
@@ -165,21 +172,25 @@ if ($mode == 'slider') {
 		<?php
 		foreach ($pengumuman as $p) {
 		?>
-			<div class="col-md-6 col-sm-6 col-xs-6">
+			<div class="col-md-6 col-sm-6 col-xs-6 mob-padding5">
 				<div class="text-center">
-					<img src="<?= base_url() . "uploads/media/thumb/" . $p->content_thumb ?>" alt="" class='img img-responsive thumbnail' style="width:100%; max-height:400px">
+					<img src="<?= base_url() . "uploads/media/thumb/" . $p->content_thumb ?>" alt="" class='img img-responsive img-rounded image-content'>
 
 				</div>
-				<a href="<?= base_url() . $p->content_link ?>" class='link'>
-					<div class="judul-pengumuman"><?= $p->content_judul; ?></div>
-				</a>
+
+				<div class="judul-pengumuman">
+					<div class="col-md-7">
+						<a href="<?= base_url() . $p->content_link ?>" class='top-link'><?= $p->content_judul; ?></a>
+					</div>
+				</div>
+
 			</div>
 		<?php
 		}
 		?>
 		<div class="row">
 			<div class="col-md-12">
-				<p class='pull-right' style="padding: 10px;"><a href="<?= base_url() . "pengumuman" ?>" class="link">Pengumuman Lain ></a></p>
+				<p class='pull-right lainnya' style="padding: 10px;"><a href="<?= base_url() . "pengumuman" ?>" class="link">Pengumuman Lain ></a></p>
 			</div>
 		</div>
 	</div>
@@ -188,7 +199,7 @@ if ($mode == 'slider') {
 <!-- Berita -->
 <div class="section ">
 	<div class="container">
-		<h2 class='prodi'>Berita Politeknik Ati Padang</h2>
+		<div class='prodi'>Berita Politeknik Ati Padang</div>
 		<?php
 		$j = 0;
 		foreach ($berita as $b) {
@@ -197,33 +208,51 @@ if ($mode == 'slider') {
 			else $image = DEFAULT_IMAGE;
 			if ($j == 1) {
 		?>
-				<div class="col-md-12">
-					<img src="<?= $image ?>" alt="" class='img img-responsive thumbnail' style="width:100%">
-					<div class="judul-pengumuman"><a href="<?= base_url() . $b->content_link ?>" class='link'><?= $b->content_judul ?></a></div>
+				<div class="col-md-12 show-desktop">
+					<div class="topnews">
+						<img src="<?= $image ?>" alt="" class='img-top-news img-rounded'>
+
+						<div class='judul-berita'>
+							<div class="col-md-6" style="padding-left: 50px;">
+								<a href="<?= base_url() . $b->content_link ?>" class='link-top-berita top-link'><?= $b->content_judul ?></a>
+								<p class='info-berita'><br>Padang<br><?= longdate($b->content_tglpublish) ?></p>
+							</div>
+
+						</div>
+					</div>
+					<div class="space">&nbsp;</div>
 				</div>
-				<div class="space">&nbsp;</div>
+				<div class="col-md-4 col-sm-6 col-xs-6 mob-padding5 show-mobile">
+					<div class="card">
+						<img src="<?= $image ?>" alt="Avatar" class='img img-responsive img-rounded img-thumb-content'>
+						<div class="card-body">
+							<div class='tanggal'><?= longdate($b->content_tglpublish) ?></div>
+							<div class='judul-headline'><a href="<?= base_url() . $b->content_link ?>" class='link'><?= $b->content_judul ?></a></div>
+						</div>
+					</div>
+				</div>
 			<?php
 			} else {
 			?>
-				<div class="col-md-4 col-sm-6 col-xs-6">
+				<div class="col-md-4 col-sm-6 col-xs-6 mob-padding5 <?php if ($j > 4) echo 'show-desktop' ?>">
 					<div class="card">
-						<img src="<?= $image ?>" alt="Avatar" class='img img-responsive img-rounded' style="width:100%">
+						<img src="<?= $image ?>" alt="Avatar" class='img img-responsive img-rounded img-thumb-content'>
 						<div class="card-body">
 							<div class='tanggal'><?= longdate($b->content_tglpublish) ?></div>
-							<h4><a href="<?= base_url() . $b->content_link ?>" class='link'><?= $b->content_judul ?></a></h4>
+							<div class='judul-headline'><a href="<?= base_url() . $b->content_link ?>" class='link'><?= $b->content_judul ?></a></div>
 						</div>
 					</div>
 				</div>
 		<?php
 			}
-			if ($j % 2 == 1) echo '<div class="mobile-sep"></div>';
+			if ($j % 2 == 0) echo '<div class="mobile-sep"></div>';
 			if ($j % 3 == 1) echo '<div class="desktop-sep"></div>';
 		}
 		?>
 
 		<div class="row">
 			<div class="col-md-12">
-				<p class='pull-right' style="padding: 10px;"><a href="<?= base_url() . "berita" ?>" class="link">Berita Lain ></a></p>
+				<p class='pull-right lainnya' style="padding: 10px;"><a href="<?= base_url() . "berita" ?>" class="link">Berita Lain ></a></p>
 			</div>
 		</div>
 	</div>

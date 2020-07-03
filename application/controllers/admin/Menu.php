@@ -110,7 +110,7 @@ class Menu extends CI_Controller {
                 $this->form_validation->set_rules('menu_link', 'menu link', 'required');
                 $this->form_validation->set_rules('menu_idxutama', 'menu idxutama', 'required');
                 $this->form_validation->set_rules('menu_idxanak', 'menu idxanak', 'required');
-                $this->form_validation->set_rules('menu_top', 'menu idxsub', 'required');
+                //$this->form_validation->set_rules('menu_top', 'menu idxsub', 'required');
                 if($this->form_validation->run())
                 {
                     $insert = $this->menu_model->insertMenu($data);
@@ -136,7 +136,7 @@ class Menu extends CI_Controller {
                 $this->form_validation->set_rules('menu_link', 'menu link', 'required');
                 $this->form_validation->set_rules('menu_idxutama', 'menu idxutama', 'required');
                 $this->form_validation->set_rules('menu_idxanak', 'menu idxanak', 'required');
-                $this->form_validation->set_rules('menu_top', 'menu idxsub', 'required');
+                //$this->form_validation->set_rules('menu_top', 'menu idxsub', 'required');
                 if($this->form_validation->run())
                 {
                     $this->menu_model->updateMenu($data,$menu_id);

@@ -280,7 +280,7 @@ class Landing_model extends CI_Model
         $this->db->where('menu_status', 1);
         return $this->db->get('m_menu')->result();
     }
-    function getContent($condition, $limit=0, $kecuali=array()){
+    function getContent($condition, $limit=0, $kecuali=array(), $urut='DESC'){
         $this->db->where($condition);
         $this->db->where('content_tglpublish <= ', date('Y-m-d'));
         if(!empty($kecuali)) $this->db->where_not_in('content_link', $kecuali);
@@ -289,7 +289,7 @@ class Landing_model extends CI_Model
         $this->db->or_where('content_tglexp > ', date('Y-m-d'));
         $this->db->group_end();
         $this->db->order_by('content_tglpublish', 'desc');
-        $this->db->order_by('content_id', 'desc');
+        $this->db->order_by('content_id', $urut);
         if($limit>0) $this->db->limit($limit);
         return $this->db->get('p_content')->result();
     }

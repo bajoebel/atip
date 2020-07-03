@@ -1,9 +1,10 @@
-<div class="section  top100">
+<div class="section top" >
     <div class="text-center">
-        <h3>Home > <a href="#" class='link'><?= $content_tipe; ?></a></h3>
+        <p>Home > <a href="<?= base_url() ."pengumuman" ?>"><?= $content_tipe; ?></a></p>
     </div>
 </div>
 <div class="section ">
+    <img src="<?= base_url() . "assets/images/header-pengumuman.png" ?>" alt="" style="width: 100%;">
     <div class="pengumuman-header">
         <div class="container">
             <!--div class="col-md-6">

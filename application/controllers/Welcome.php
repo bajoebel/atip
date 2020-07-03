@@ -17,7 +17,7 @@ class Welcome extends CI_Controller {
 			'mode'=> _MODE_,
 			'pintasan'=> $this->landing_model->getPintasan(),
 			'slider'	=> $this->landing_model->getSlider(),
-			'prodi'	=> $this->landing_model->getContent($kon_prodi, 5),
+			'prodi'	=> $this->landing_model->getContent($kon_prodi, 5, '','ASC'),
 			'pengumuman'	=> $this->landing_model->getContent($kon_pengumuman, 2),
 			'berita'		=> $this->landing_model->getContent($kon_berita, 7)
 		);
@@ -26,6 +26,9 @@ class Welcome extends CI_Controller {
 			'lib'=>'slider.js'
 		);
 		$this->load->view('public/layout', $view);
+	}
+	function font(){
+		$this->load->view('public/font');
 	}
 	function portofolio(){
 		
@@ -177,7 +180,19 @@ class Welcome extends CI_Controller {
 	function slider(){
 		$this->load->view('public/welcome_slider');
 	}
+	function otherMenu(){
+		$data=$this->db->get('m_menu')->result();
+		$respone=array(
+			'status'=>true,
+			'data'=>$data
+		);
+		echo json_encode($respone);
+	}
 	function notfound(){
 		echo "Notfoud...";
+	}
+	function layout($page='homepage'){
+		$data=array('page'=>$page);
+		$this->load->view('public/contoh', $data);
 	}
 }

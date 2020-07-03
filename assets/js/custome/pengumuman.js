@@ -36,9 +36,9 @@ function getPengumuman(start=0) {
                     }
                     console.log(image);
                     tabel += '<div class="col-md-4">' +
-                        '<img src="' + base_url + 'uploads/media/thumb/' + image[0] + '" alt="" class="full-image img img-responsive img-rounded" >' +
+                        '<img src="' + base_url + 'uploads/media/thumb/' + image[0] + '" alt="" class=" img-thumb-content img img-responsive img-rounded" >' +
                         '<div class=\'tanggal\'>' + tglpublish + '</div>' +
-                        '<div class="thumb-title"><a href="' + base_url + row[i]["content_link"] + '" class="link">' + row[i]['content_judul'] + '</a></div>' +
+                        '<div class="judul-headline"><a href="' + base_url + row[i]["content_link"] + '" class="link">' + row[i]['content_judul'] + '</a></div>' +
                         '</div>';
                     if(start%3==0) tabel+= "<div class='row'></div>"
                     
