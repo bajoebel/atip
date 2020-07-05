@@ -281,7 +281,7 @@
                                                         <div class="col-sm-4">
                                                             <div class="thumbnail">
                                                                 <div class="caption text-center">
-                                                                    <div class="position-relative"><img src="<?= base_url() . "uploads/media/thumb/" . $t ?>" class="img img-responsive">
+                                                                    <div class="position-relative"><img src="<?= base_url() . "uploads/media/thumb/620X320/_620X320_" . $t ?>" class="img img-responsive">
                                                                         <input type="hidden" name="file[]" id="file<?= $idx ?>" value="<?= $t ?>"></div>
 
                                                                 </div>

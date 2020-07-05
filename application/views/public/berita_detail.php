@@ -3,7 +3,7 @@
 if (!empty($row)) {
 ?>
 	<div class="section top">
-		<div class="text-center content-tipe">
+		<div class="text-center">
 			<p>Home > <a><?= $row->content_tipe; ?></a></p>
 		</div>
 	</div>
@@ -16,16 +16,7 @@ if (!empty($row)) {
 			<div class="col-md-6 col-sm-4">&nbsp;</div>
 			<div class="content-left">
 				<div class="card">
-					<?php
-					if (!empty($row->content_thumb) && $row->content_tipe == "Berita") {
-
-					?>
-						<div class="img-detail">
-							<img src="<?= base_url() . "uploads/media/thumb/" . $row->content_thumb ?>" alt="" class='img img-responsive  img-rounded' style='width:100%'>
-						</div>
-					<?php
-					}
-					?>
+					
 
 					<div class="card-body">
 
@@ -89,7 +80,7 @@ if (!empty($row)) {
 				<div class="widget">
 					<div class="widget-header">
 						Author
-					</div>
+				</div>
 					<div class="widget-body">
 						<?= $row->nama_lengkap; ?>
 					</div>
@@ -116,7 +107,11 @@ if (!empty($row)) {
 					<div class="widget-body">
 						<?php
 						foreach ($terkait as $t) {
-							if ($t->content_thumb != "") $image = base_url() . "uploads/media/icon/" . $t->content_thumb;
+							
+							if ($t->content_thumb != "") {
+								$img = explode(',', $t->content_thumb);
+								$image = base_url() . "uploads/media/thumb/100X100/_100X100_" . $img[0];
+							}
 							else $image = DEFAULT_IMAGE;
 						?>
 							<div class="row widget-list">

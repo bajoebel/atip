@@ -271,6 +271,7 @@ class Landing_model extends CI_Model
     }
     function getPartner(){
         $this->db->where('partner_status',1);
+        $this->db->limit(5);
         return $this->db->get('p_partner')->result();
     }
 
@@ -292,6 +293,44 @@ class Landing_model extends CI_Model
         $this->db->order_by('content_id', $urut);
         if($limit>0) $this->db->limit($limit);
         return $this->db->get('p_content')->result();
+    }
+
+    function getCari($condition, $limit = 0, $start= 0 ,$q="", $urut = 'DESC')
+    {
+        $this->db->where($condition);
+        $this->db->where('content_tglpublish <= ', date('Y-m-d'));
+        if (!empty($q)) {
+            $this->db->group_start();
+            $this->db->like('content_judul', $q);
+            $this->db->or_like('content_isi', $q);
+            $this->db->group_end();
+        }
+        $this->db->group_start();
+        $this->db->where('content_tglexp', '0000-00-00');
+        $this->db->or_where('content_tglexp > ', date('Y-m-d'));
+        $this->db->group_end();
+        $this->db->order_by('content_tglpublish', 'desc');
+        $this->db->order_by('content_id', $urut);
+        $this->db->limit($limit, $start);
+        return $this->db->get('p_content')->result();
+    }
+    function countCari($kondisi, $q="")
+    {
+        $this->db->where($kondisi);
+        $this->db->where('content_tglpublish <= ', date('Y-m-d'));
+        if (!empty($q)) {
+            //$this->db->group_start();
+            $this->db->like('content_judul', $q);
+            $this->db->or_like('content_isi', $q);
+            //$this->db->group_end();
+        }
+        $this->db->group_start();
+        $this->db->where('content_tglexp', '0000-00-00');
+        $this->db->or_where('content_tglexp > ', date('Y-m-d'));
+        $this->db->group_end();
+        $this->db->order_by('content_tglpublish', 'desc');
+        $this->db->order_by('content_id', 'desc');
+        return $this->db->get('p_content')->num_rows();
     }
     function getDetailContent($link){
         $this->db->where('content_link', $link);

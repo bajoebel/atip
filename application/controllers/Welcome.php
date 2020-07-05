@@ -79,10 +79,27 @@ class Welcome extends CI_Controller {
 		);
 		$this->load->view('public/layout', $view);
 	}
-	function databerita($start=0)
-	{
+	function cari(){
+		$q=$this->input->get('q');
 		$start = intval($this->input->get('start'));
 		$limit = 6;
+		$kondisi = array('content_tipe' => 'Berita', 'content_status' => 'Publish');
+		$row_count = $this->landing_model->countCari($kondisi, $q);
+		$list = array(
+			'status'    => true,
+			'message'   => "OK",
+			'start'     => $start,
+			'row_count' => $row_count,
+			'limit'     => $limit,
+			'data'     => $this->landing_model->getCari($kondisi, $limit, $start, $q),
+		);
+		header('Content-Type: application/json');
+		echo json_encode($list);
+	}
+	function databerita($start=0)
+	{
+		//$start = intval($this->input->get('start'));
+		$limit = 3;
 		$kon_berita = array('content_tipe' => 'Berita', 'content_top' => 1, 'content_status' => 'Publish');
 		$top = $this->landing_model->getContent($kon_berita);
 		if (!empty($top)) $kecuali = array($top[0]->content_link);else $kecuali=array();

@@ -37,14 +37,15 @@ function getBerita(start = 0) {
                     style = 'col-md-4 col-sm-6 col-xs-6';
                     tabel += '<div class="' + style + '">' +
                         '<div class="card">' +
-                        '<img src="' + base_url + 'uploads/media/thumb/' + image[0] + '" class=\'img img-responsive img-rounded\' alt = "Avatar" style = "width:100%" >' +
+                        '<img src="' + base_url + 'uploads/media/thumb/403X200/_403X200_' + image[0] + '" class=\'img img-responsive img-thumb-content  img-rounded\' alt = "Avatar" style = "width:100%" >' +
                         '<div class="card-body">' +
                         '<div class=\'tanggal\'>' + tglpublish + '</div>' +
-                        '<h4><a href="' + base_url + row[i]["content_link"] + '" class="link">' + row[i]["content_judul"] + '</a></h4>' +
+                        '<div class="judul-headline"><a href="' + base_url + row[i]["content_link"] + '" class="link">' + row[i]["content_judul"] + '</a></div>' +
                         '</div>' +
                         '</div>' +
-                        '</div>';
-                    if (start % 3 == 0) tabel += "<div class='row'></div>"
+                        '</div>'; 
+                    if (start % 3 == 0) tabel += "<div class='desktop-sep'></div>"
+                    if (start % 2 == 0) tabel += "<div class='mobile-sep'></div>"
 
                 }
                 //console.log(tabel);

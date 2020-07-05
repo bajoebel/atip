@@ -35,11 +35,16 @@ function getPengumuman(start=0) {
                         tglpublish = tgl[2] + " " + bulan[parseInt(tgl[1])] + " " + tgl[0];
                     }
                     console.log(image);
-                    tabel += '<div class="col-md-4">' +
-                        '<img src="' + base_url + 'uploads/media/thumb/' + image[0] + '" alt="" class=" img-thumb-content img img-responsive img-rounded" >' +
+                    style = 'col-md-4 col-sm-6 col-xs-6';
+                    tabel += '<div class="' + style + '">' +
+                        '<div class="card">' +
+                        '<img src="' + base_url + 'uploads/media/thumb/403X200/_403X200_' + image[0] + '" class=\'img img-responsive img-thumb-content  img-rounded\' alt = "Avatar" style = "width:100%" >' +
+                        '<div class="card-body">' +
                         '<div class=\'tanggal\'>' + tglpublish + '</div>' +
-                        '<div class="judul-headline"><a href="' + base_url + row[i]["content_link"] + '" class="link">' + row[i]['content_judul'] + '</a></div>' +
-                        '</div>';
+                        '<div class="judul-headline"><a href="' + base_url + row[i]["content_link"] + '" class="link">' + row[i]["content_judul"] + '</a></div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>'; 
                     if(start%3==0) tabel+= "<div class='row'></div>"
                     
                 }

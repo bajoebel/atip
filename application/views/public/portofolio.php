@@ -1,5 +1,5 @@
 <div class="section  top">
-    <div class="text-center content-tipe">
+    <div class="text-center ">
         <p>Home > <a href="#" class=''><?= $content_tipe; ?></a></p>
     </div>
 </div>

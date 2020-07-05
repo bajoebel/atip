@@ -58,7 +58,7 @@ if ($mode == 'slider') {
 			<div class="landing-text">
 				<div class='headline-title'>Dunia Industri <br>Memanggil Anda</div>
 				<br>
-				<a href='<?= base_url() . "portofolio" ?>' class="btn btn-primary blue btn-lg btn-block">Apa yang sudah kita mulai</a>
+				<a href='<?= base_url() . "portofolio" ?>' class="btn btn-primary blue btn-lg btn-block">Apa yang telah kita mulai  ?</a>
 			</div>
 		</div>
 
@@ -136,7 +136,7 @@ if ($mode == 'slider') {
 				<div class="col-md-4 <?= $offset ?> col-5 ">
 					<a href="<?= base_url() . $p->content_link; ?>" class='link'>
 						<div class="text-center">
-							<img src="<?= base_url() . "uploads/media/thumb/" . $image ?>" alt="" class='icon-jurusan'>
+							<img src="<?= base_url() . "uploads/media/thumb/100X100/_100X100_" . $image ?>" alt="" class='icon-jurusan'>
 							<div class='judul-jurusan'><?= $p->content_judul; ?></div>
 							<p class='deskripsi-jurusan'><?= strip_tags($p->content_isi); ?></p>
 						</div>
@@ -148,7 +148,7 @@ if ($mode == 'slider') {
 				<div class="col-md-4 col-5">
 					<a href="<?= base_url() . $p->content_link; ?>" class='link'>
 						<div class="text-center">
-							<img src="<?= base_url() . "uploads/media/thumb/" . $p->content_thumb ?>" alt="" class='icon-jurusan'>
+							<img src="<?= base_url() . "uploads/media/thumb/100X100/_100X100_" . $p->content_thumb ?>" alt="" class='icon-jurusan'>
 							<br>
 							<div class='judul-jurusan'><?= $p->content_judul; ?></div>
 							<p class='deskripsi-jurusan'><?= strip_tags($p->content_isi); ?></p>
@@ -174,7 +174,7 @@ if ($mode == 'slider') {
 		?>
 			<div class="col-md-6 col-sm-6 col-xs-6 mob-padding5">
 				<div class="text-center">
-					<img src="<?= base_url() . "uploads/media/thumb/" . $p->content_thumb ?>" alt="" class='img img-responsive img-rounded image-content'>
+					<img src="<?= base_url() . "uploads/media/thumb/620X320/_620X320_" . $p->content_thumb ?>" alt="" class='img img-responsive img-rounded image-content'>
 
 				</div>
 
@@ -190,7 +190,7 @@ if ($mode == 'slider') {
 		?>
 		<div class="row">
 			<div class="col-md-12">
-				<p class='pull-right lainnya' style="padding: 10px;"><a href="<?= base_url() . "pengumuman" ?>" class="link">Pengumuman Lain ></a></p>
+				<p class='pull-right lainnya' style="padding: 10px;"><a href="<?= base_url() . "pengumuman" ?>" class="link-bold">Pengumuman Lainnya >></a></p>
 			</div>
 		</div>
 	</div>
@@ -199,12 +199,12 @@ if ($mode == 'slider') {
 <!-- Berita -->
 <div class="section ">
 	<div class="container">
-		<div class='prodi'>Berita Politeknik Ati Padang</div>
+		<div class='prodi'>Berita Politeknik ATI Padang</div>
 		<?php
 		$j = 0;
 		foreach ($berita as $b) {
 			$j++;
-			if ($b->content_thumb != "") $image = base_url() . "uploads/media/thumb/" . $b->content_thumb;
+			if ($b->content_thumb != "") $image = base_url() . "uploads/media/thumb/1370X430/_1370X430_" . $b->content_thumb;
 			else $image = DEFAULT_IMAGE;
 			if ($j == 1) {
 		?>
@@ -224,7 +224,7 @@ if ($mode == 'slider') {
 				</div>
 				<div class="col-md-4 col-sm-6 col-xs-6 mob-padding5 show-mobile">
 					<div class="card">
-						<img src="<?= $image ?>" alt="Avatar" class='img img-responsive img-rounded img-thumb-content'>
+						<img src="<?= base_url() . "uploads/media/thumb/383X330/_383X330_" . $b->content_thumb ?>" alt="Avatar" class='img img-responsive img-rounded img-thumb-content'>
 						<div class="card-body">
 							<div class='tanggal'><?= longdate($b->content_tglpublish) ?></div>
 							<div class='judul-headline'><a href="<?= base_url() . $b->content_link ?>" class='link'><?= $b->content_judul ?></a></div>
@@ -252,7 +252,7 @@ if ($mode == 'slider') {
 
 		<div class="row">
 			<div class="col-md-12">
-				<p class='pull-right lainnya' style="padding: 10px;"><a href="<?= base_url() . "berita" ?>" class="link">Berita Lain ></a></p>
+				<p class='pull-right lainnya' style="padding: 10px;"><a href="<?= base_url() . "berita" ?>" class="link-bold">Berita Lainnya >></a></p>
 			</div>
 		</div>
 	</div>

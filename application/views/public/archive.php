@@ -1,7 +1,7 @@
 <!-- Berita -->
-<div class="section  top100">
+<div class="section  top">
     <div class="text-center">
-        <h3>Home > <?= $content_tipe ?></h3>
+        <p>Home > <a href="#"><?= $content_tipe ?></a></p>
     </div>
 </div>
 <div class="section ">
@@ -12,6 +12,8 @@
 
         <div id="list-berita">
         </div>
+        <div class="pagination"></div>
     </div>
+
 </div>
 <!-- End Berita  -->
