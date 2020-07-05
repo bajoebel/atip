@@ -1,6 +1,6 @@
-<div class="section top" >
+<div class="section top">
     <div class="text-center">
-        <p>Home > <a href="<?= base_url() ."pengumuman" ?>"><?= $content_tipe; ?></a></p>
+        <p>Home > <a href="<?= base_url() . "pengumuman" ?>"><?= $content_tipe; ?></a></p>
     </div>
 </div>
 <div class="section ">
@@ -29,6 +29,18 @@
                 <div class="thumb-title"> Judul</div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div id="pagination">
+                    <div class="col-md-6 col-sm-6 col-xs-6 pull-left">
+                        <a href="#" class="link">
+                            << Sebelumnya</a> </div> <div class="col-md-6 col-sm-6 col-xs-6 pull-right">
+                                <a href="#" class="link">Selanjutnya >></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 

@@ -46,14 +46,20 @@
 				?>
 				<div id="list-berita" class='list-berita'>
 				</div>
-				<div id="pagination">
-					<div class="col-md-6 col-sm-6 col-xs-6 pull-left">
-						<a href="#" class="link"><< Sebelumnya</a>
-					</div>
-					<div class="col-md-6 col-sm-6 col-xs-6 pull-right">
-						<a href="#" class="link">Selanjutnya >></a>
+
+				<div class="row">
+					<div class="col-md-12">
+						<div id="pagination">
+							<div class="col-md-6 col-sm-6 col-xs-6 pull-left">
+								<a href="#" class="link">
+									<< Sebelumnya</a> </div> <div class="col-md-6 col-sm-6 col-xs-6 pull-right">
+										<a href="#" class="link">Selanjutnya >></a>
+							</div>
+						</div>
 					</div>
 				</div>
+
+
 			</div>
 		</div>
 

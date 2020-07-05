@@ -50,6 +50,50 @@ function getBerita(start = 0) {
                 }
                 //console.log(tabel);
                 $('#list-berita').html(tabel);
+                if (data["row_count"] <= limit) {
+                    $('#pagination').html("");
+                } else {
+                    var pagination = "";
+                    var btnIdx = "";
+                    var next_link = "";
+                    var prev_link = "";
+                    jmlPage = Math.ceil(data["row_count"] / limit);
+                    offset = data["start"] % limit;
+                    curIdx = Math.ceil((data["start"] / data["limit"]) + 1);
+                    prev = (curIdx - 2) * data["limit"];
+                    next = (curIdx) * data["limit"];
+
+                    console.log('Prev ' + prev);
+                    console.log('Next ' + next);
+                    if (curIdx == 1) {
+                        prev_link = '<div class="col-md-6 col-sm-6 col-xs-6 pull-left">&nbsp;</div>'
+                        next_link = '<div class="col-md-6 col-sm-6 col-xs-6 pull-right">' +
+                            '<a href = "#" class="link" onclick="getBerita(' + next + ')">Selanjutnya >></a>' +
+                            '</div>';
+                    } else {
+                        if (curIdx >= jmlPage) {
+
+
+                            console.log(jmlPage);
+                            console.log(curIdx);
+                            prev_link = '<div class="col-md-6 col-sm-6 col-xs-6 pull-left">' +
+                                '<a href = "#" class="link" onclick="getBerita(' + prev + ')" ><< Sebelumnya</a>' + '</div>'
+                            next_link = '<div class="col-md-6 col-sm-6 col-xs-6 pull-right">&nbsp;</div>';
+                        }
+                        else {
+                            console.log('jml page : ' + jmlPage);
+                            console.log('Cur Idx : ' + curIdx);
+
+                            prev_link = '<div class="col-md-6 col-sm-6 col-xs-6 pull-left">' +
+                                '<a href = "#" class="link" onclick="getBerita(' + prev + ')" ><< Sebelumnya</a>' + '</div>'
+                            next_link = '<div class="col-md-6 col-sm-6 col-xs-6 pull-right">' +
+                                '<a href = "#" class="link" onclick="getBerita(' + next + ')">Selanjutnya >></a>' +
+                                '</div>';
+                        }
+                    }
+                    pagination = prev_link + next_link;
+                    $('#pagination').html(pagination);
+                }
 
             }
         }
