@@ -118,7 +118,7 @@
                 </li>
                 <!-- END SIGN OUT -->
                 <!-- MESSAGES -->
-                <li class="xn-icon-button pull-right">
+                <!--li class="xn-icon-button pull-right">
                     <a href="#"><span class="fa fa-comments"></span></a>
                     <div class="informer informer-danger">4</div>
                     <div class="panel panel-primary animated zoomIn xn-drop-left xn-panel-dragging">
@@ -158,10 +158,10 @@
                             <a href="pages-messages.html">Show all messages</a>
                         </div>
                     </div>
-                </li>
+                </li-->
                 <!-- END MESSAGES -->
                 <!-- TASKS -->
-                <li class="xn-icon-button pull-right">
+                <!--li class="xn-icon-button pull-right">
                     <a href="#"><span class="fa fa-tasks"></span></a>
                     <div class="informer informer-warning">3</div>
                     <div class="panel panel-primary animated zoomIn xn-drop-left xn-panel-dragging">
@@ -205,7 +205,7 @@
                             <a href="pages-tasks.html">Show all tasks</a>
                         </div>
                     </div>
-                </li>
+                </li-->
                 <!-- END TASKS -->
             </ul>
             <!-- END X-NAVIGATION VERTICAL -->
@@ -239,7 +239,7 @@
                 </div>
                 <div class="mb-footer">
                     <div class="pull-right">
-                        <a href="pages-login.html" class="btn btn-success btn-lg">Yes</a>
+                        <a href="<?= base_url() ."login/logout" ?>" class="btn btn-success btn-lg">Yes</a>
                         <button class="btn btn-default btn-lg mb-control-close">No</button>
                     </div>
                 </div>

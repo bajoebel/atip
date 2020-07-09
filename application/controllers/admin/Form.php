@@ -1,16 +1,16 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Menu extends CI_Controller {
+class Form extends CI_Controller {
     private $akses=array();
     
     function __construct()
     {
         parent::__construct();
-        $this->load->model('menu_model');
+        $this->load->model('form_model');
         $level=$this->session->userdata('level');
         
-        $this->akses=$this->menu_model->getAkses($level);
+        $this->akses=$this->form_model->getAkses($level);
     }
         
 	public function index(){
@@ -19,9 +19,10 @@ class Menu extends CI_Controller {
             $data=array(
                 'menu'  => array(),
                 'akses'=> $this->akses,
-                'modul' => "menu"
+                'modul' => "Form",
+                'role'  => $this->form_model->getRole('form')
             );
-            $content=$this->load->view('admin/menu/view_tabel', $data, true);
+            $content=$this->load->view('admin/form/view_tabel', $data, true);
             $view=array(
                 'content'   => $content
             );
@@ -39,14 +40,14 @@ class Menu extends CI_Controller {
             $q = urldecode($this->input->get('q', TRUE));
             $start = intval($this->input->get('start'));
             $limit = intval($this->input->get('limit'));
-            $row_count=$this->menu_model->countMenu($q);
+            $row_count=$this->form_model->countform($q);
             $list=array(
                 'status'    => true,
                 'message'   => "OK",
                 'start'     => $start,
-                'row_count' => $row_count, 
+                'row_count' => $row_count,
                 'limit'     => $limit,
-                'data'     => $this->menu_model->getMenulimit($limit,$start,$q),
+                'data'     => $this->form_model->getformlimit($limit,$start,$q),
             );
         }else{
             $list=array(
@@ -61,7 +62,7 @@ class Menu extends CI_Controller {
 	function edit($id=""){
         $cek=array('aksi'=>ucwords($this->uri->segment(3)));
         if(in_array($cek, $this->akses)){
-            $row=$this->menu_model->getMenu_by_id($id);
+            $row=$this->form_model->getform_by_id($id);
             if(!empty($row)){
                 $response=array(
                     'status'    => true,
@@ -90,58 +91,53 @@ class Menu extends CI_Controller {
 	function save(){
         $cek=array('aksi'=>ucwords($this->uri->segment(3)));
         if(in_array($cek, $this->akses)){
-            $menu_id=$this->input->post('menu_id');
-            if($this->input->post('menu_baseurl')==1) $menu_baseurl=1; else $menu_baseurl=0;
-            if($this->input->post('menu_status')==1) $menu_status=1; else $menu_status=0;
-            if($this->input->post('menu_newtab')==1) $menu_newtab=1; else $menu_newtab=0;
-            if ($this->input->post('menu_top') == 1) $menu_top = 1;
-            else $menu_top = 0;
+            $id_form=$this->input->post('id_form');
+            $link = str_replace(' ', '-', strtolower($this->input->post('form_title')));
+            $link = str_replace('&', 'dan', $link);
+            $link = str_replace('"', '', $link);
             $data = array(
-                'menu_judul' => $this->input->post('menu_judul'),
-                'menu_link' => $this->input->post('menu_link'),
-                'menu_baseurl' => $menu_baseurl,
-                'menu_newtab' => $menu_newtab,
-                'menu_idxutama' => $this->input->post('menu_idxutama'),
-                'menu_idxanak' => $this->input->post('menu_idxanak'),
-                'menu_top' => $menu_top,
-                'menu_status' => $menu_status,
+                'form_title' => $this->input->post('form_title'),
+                'form_link' => $link,
+                'form_field' => '',
+                'form_tglbuat' => date('Y-m-d H:i:s'),
+                'form_userbuat' => $this->session->userdata('username')
             );
-            $row=$this->menu_model->getMenu_by_id($menu_id);
+            $row=$this->form_model->getform_by_id($id_form);
             if(empty($row)){
-                $this->form_validation->set_rules('menu_judul', 'menu judul', 'required');
-                $this->form_validation->set_rules('menu_link', 'menu link', 'required');
-                $this->form_validation->set_rules('menu_idxutama', 'menu idxutama', 'required');
-                $this->form_validation->set_rules('menu_idxanak', 'menu idxanak', 'required');
-                //$this->form_validation->set_rules('menu_top', 'menu idxsub', 'required');
+                
+                $this->form_validation->set_rules('form_title', 'nama lengkap', 'required');
+                
                 if($this->form_validation->run())
                 {
-                    $insert = $this->menu_model->insertMenu($data);
+                    $insert = $this->form_model->insertform($data);
+                    
                     header('Content-Type: application/json');
                     echo json_encode(array("status" => TRUE,'error'=>FALSE,"message"=>"Data berhasil di simpan",'csrf' => $this->security->get_csrf_hash()));
                 }else{
-                    $array = array( 
+                    $array = array(
                         'status'    => TRUE,
                         'error'     => TRUE,
                         'csrf'      => $this->security->get_csrf_hash(),
                         'message'   => "Data Belum Lengkap",
-                        'err_menu_judul' => form_error('menu_judul'),
-                        'err_menu_link' => form_error('menu_link'),
-                        'err_menu_idxutama' => form_error('menu_idxutama'),
-                        'err_menu_idxanak' => form_error('menu_idxanak'),
-                        'err_menu_top' => form_error('menu_top'),
+                        'err_form_title' => form_error('form_title'),
                     );
                     header('Content-Type: application/json');
                     echo json_encode($array);
                 }
             }else{
-                $this->form_validation->set_rules('menu_judul', 'menu judul', 'required');
-                $this->form_validation->set_rules('menu_link', 'menu link', 'required');
-                $this->form_validation->set_rules('menu_idxutama', 'menu idxutama', 'required');
-                $this->form_validation->set_rules('menu_idxanak', 'menu idxanak', 'required');
-                //$this->form_validation->set_rules('menu_top', 'menu idxsub', 'required');
+                
+                $this->form_validation->set_rules('form_title', 'nama lengkap', 'required');
                 if($this->form_validation->run())
                 {
-                    $this->menu_model->updateMenu($data,$menu_id);
+                    $this->form_model->updateform($data,$id_form);
+
+                    $users=array(
+                        'form_title'=> $this->input->post('form_title'),
+                        'role'        => $this->input->post('role')
+                    );
+                    $this->db->where('username', $this->input->post('username'));
+                    $this->db->update('m_users', $users);
+
                     header('Content-Type: application/json');
                     echo json_encode(array("status" => TRUE,'error'=>FALSE,"message"=>"Data berhasil di update"));
                 }else{
@@ -150,11 +146,7 @@ class Menu extends CI_Controller {
                         'error'     => TRUE,
                         'csrf'      => $this->security->get_csrf_hash(),
                         'message'   => "Data Belum Lengkap",
-                        'err_menu_judul' => form_error('menu_judul'),
-                        'err_menu_link' => form_error('menu_link'),
-                        'err_menu_idxutama' => form_error('menu_idxutama'),
-                        'err_menu_idxanak' => form_error('menu_idxanak'),
-                        'err_menu_top' => form_error('menu_top'),
+                        'err_form_title' => form_error('form_title'),
                     );
                     header('Content-Type: application/json');
                     echo json_encode($array);
@@ -168,7 +160,7 @@ class Menu extends CI_Controller {
 	function delete($id){
         $cek=array('aksi'=>ucwords($this->uri->segment(3)));
         if(in_array($cek, $this->akses)){
-            $this->menu_model->deleteMenu($id);
+            $this->form_model->deleteform($id);
             header('Content-Type: application/json');
             echo json_encode(array("status" => TRUE, "message"=> "Data Berhasil dihapus"));
         }else{
@@ -181,9 +173,9 @@ class Menu extends CI_Controller {
         $cek=array('aksi'=>ucwords($this->uri->segment(3)));
         if(in_array($cek, $this->akses)){
             $data=array(
-                'data'  => $this->menu_model->getMenu(),
+                'data'  => $this->form_model->getform(),
             );
-            $this->load->view('admin/menu/view_data_excel',$data);
+            $this->load->view('form/admin/view_data_excel',$data);
         }else{
             $this->session->set_flashdata('error', 'Opps... Session expired' );
             header('location:'.base_url() ."login");
@@ -193,10 +185,10 @@ class Menu extends CI_Controller {
         $cek=array('aksi'=>ucwords($this->uri->segment(3)));
         if(in_array($cek, $this->akses)){
             $data=array(
-                'data'  => $this->menu_model->getMenu(),
+                'data'  => $this->form_model->getform(),
             );
-            $html=$this->load->view('admin/menu/view_data_pdf',$data, true);
-            $pdfFilePath = "DATA_MENU.pdf";
+            $html=$this->load->view('form/admin/view_data_pdf',$data, true);
+            $pdfFilePath = "DATA_form.pdf";
             $this->load->library('m_pdf');
             $pdf = $this->m_pdf->load();
             $pdf->WriteHTML($html);
@@ -206,55 +198,5 @@ class Menu extends CI_Controller {
             header('location:'.base_url() ."login");
         }
         
-    }
-
-    function status($menu_id,$val){
-        $cek=array('aksi'=>'Edit');
-        if(in_array($cek, $this->akses)){
-            $data=array('menu_status'=>$val);
-            $this->menu_model->updateMenu($data,$menu_id);
-            $response = array("status" => TRUE,'error'=>FALSE,"message"=>"Data berhasil di update");
-        }
-        else{
-            $response=array(
-                'status'    => false,
-                'message'   => "Anda tidak berhak untuk mengakases halaman ini"
-            );
-        }
-        header('Content-Type: application/json');
-        echo json_encode($response);
-    }
-
-    function newtab($menu_id,$val){
-        $cek=array('aksi'=>'Edit');
-        if(in_array($cek, $this->akses)){
-            $data=array('menu_newtab'=>$val);
-            $this->menu_model->updateMenu($data,$menu_id);
-            $response = array("status" => TRUE,'error'=>FALSE,"message"=>"Data berhasil di update");
-        }
-        else{
-            $response=array(
-                'status'    => false,
-                'message'   => "Anda tidak berhak untuk mengakases halaman ini"
-            );
-        }
-        header('Content-Type: application/json');
-        echo json_encode($response);
-    }
-    function newtop($menu_id, $val)
-    {
-        $cek = array('aksi' => 'Edit');
-        if (in_array($cek, $this->akses)) {
-            $data = array('menu_top' => $val);
-            $this->menu_model->updateMenu($data, $menu_id);
-            $response = array("status" => TRUE, 'error' => FALSE, "message" => "Data berhasil di update");
-        } else {
-            $response = array(
-                'status'    => false,
-                'message'   => "Anda tidak berhak untuk mengakases halaman ini"
-            );
-        }
-        header('Content-Type: application/json');
-        echo json_encode($response);
     }
 }

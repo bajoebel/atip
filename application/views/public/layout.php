@@ -17,8 +17,12 @@
 	<link rel="stylesheet" href="<?= base_url() ?>assets/css/home.css" crossorigin="anonymous">
 	<link rel="stylesheet" href="<?= base_url() ?>assets/css/custome.css" crossorigin="anonymous">
 	<link rel="stylesheet" href="<?= base_url() ?>assets/css/slider.css" crossorigin="anonymous">
-
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="<?= base_url() ?>assets/js/jquery-1.12.4.min.js" crossorigin="anonymous"></script>
+	<script src="<?php echo base_url() . "assets/" ?>swal/sweetalert.js"></script>
+	<link rel="stylesheet" href="<?php echo base_url() . "assets/" ?>swal/sweetalert.css">
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -249,8 +253,7 @@
 
 		</div>
 	</div>
-	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<script src="<?= base_url() ?>assets/js/jquery-1.12.4.min.js" crossorigin="anonymous"></script>
+
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script src="<?= base_url() ?>assets/js/bootstrap.min.js"></script>
 

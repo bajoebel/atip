@@ -72,6 +72,9 @@ $route['halaman/([a-zA-Z0-9-.]+)']=function ($link)
 {
 	return 'welcome/page/'. strtolower($link) ;
 };
+$route['form/([a-zA-Z0-9-.]+)'] = function ($link) {
+	return 'welcome/form/' . strtolower($link);
+};
 $route["home"]='welcome/home';
 $route["layanan"]='welcome/layanan';
 

@@ -3,8 +3,8 @@
     <?php if (!empty($notif)) echo $notif; ?>
     <div class="row">
         <div class="col-md-12">
-            <div class="panel panel-success">
-                <div class="panel-heading ui-draggable-handle">
+            <div class="panel panel-info">
+                <div class="panel-heading ui-draggable-handlel">
                     <h3 class="panel-title">
                         <?php
                         $save = array('aksi' => 'Save');
@@ -15,12 +15,13 @@
                         }
                         ?>
                     </h3>
+
                 </div>
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-xs-9">
                             <div class="text-right">
-                                <select class="form-control" style="width: 40px;" id="limit" name='limit' onchange="getMenu(0)">
+                                <select class="form-control" style="width: 40px;" id="limit" name='limit' onchange="getAdmin(0)">
                                     <option value="10">10</option>
                                     <option value="20">20</option>
                                     <option value="50">50</option>
@@ -31,7 +32,7 @@
                         <div class="col-xs-3">
                             <div class="input-group">
                                 <input type="hidden" name='star' id='star'>
-                                <input type="text" name='q' id='q' class="form-control" placeholder='Search' onkeyup="getMenu(0)">
+                                <input type="text" name='q' id='q' class="form-control" placeholder='Search' onkeyup="getAdmin(0)">
                                 <input type="hidden" name="start" id="start" value="0">
                                 <span class="input-group-addon"><span class="fa fa-search"></span></span>
                             </div>
@@ -44,13 +45,8 @@
                             <table class="table table-bordered">
                                 <thead class="bg-green">
                                     <th>#</th>
-                                    <th>Judul</th>
+                                    <th>Judul Form</th>
                                     <th>Link</th>
-                                    <th>Index</th>
-                                    <!--th>Idxanak</th-->
-                                    <th>Top</th>
-                                    <th>Tab Baru</th>
-                                    <th>Status</th>
                                     <th class="text-right">#</th>
                                 </thead>
                                 <tbody id="data"></tbody>
@@ -79,41 +75,16 @@
                 <form class="form-horizontal" method="POST" id="form" action="#" enctype="multipart/form-data">
                     <div class="panel-body">
                         <input type="hidden" id="csrf" name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash(); ?>">
-                        <input type="hidden" name="menu_id" id="menu_id" value="">
+                        <input type="hidden" name="form_id" id="form_id" value="">
                         <div class="form-group">
-                            <label for="inputEmail3" class="col-sm-3 control-label">Judul</label>
+                            <label for="inputform_link3" class="col-sm-3 control-label">Judul Form</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="menu_judul" name="menu_judul" placeholder="Menujudul">
-                                <span class="text-error" id="err_menu_judul"></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="inputEmail3" class="col-sm-3 control-label">Link</label>
-                            <div class="col-sm-2"><input type="checkbox" id="menu_baseurl" name="menu_baseurl" value="1">Base Url</div>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" id="menu_link" name="menu_link" placeholder="Menulink">
-                                <span class="text-error" id="err_menu_link"></span>
+                                <input type="text" class="form-control" id="form_title" name="form_title" placeholder="Namalengkap">
+                                <input type="hidden" class="form-control" id="form_link" name="form_link" placeholder="form_link">
+                                <span class="text-error" id="err_form_title"></span>
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="inputEmail3" class="col-sm-3 control-label">Index</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" id="menu_idxutama" name="menu_idxutama" placeholder="Index">
-                                <input type="hidden" id="menu_idxanak" name="menu_idxanak" value="0">
-                                <input type="hidden" id="menu_idxsub" name="menu_idxsub" value="0">
-                                <span class="text-error" id="err_menu_idxutama"></span>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="inputEmail3" class="col-sm-3 control-label">&nbsp;</label>
-                            <div class="col-sm-9">
-                                <input type="checkbox" id="menu_status" name="menu_status" value="1">Aktif
-                                <input type="checkbox" id="menu_top" name="menu_top" value="1">Top
-                                <input type="checkbox" id="menu_newtab" name="menu_newtab" value="1">Buka Pada Tab Baru
-                            </div>
-                        </div>
                     </div>
                 </form>
             </div>
@@ -128,5 +99,6 @@
 <!-- /.modal-dialog -->
 <script type="text/javascript">
     var base_url = "<?php echo base_url() . "admin/"; ?>";
+    var base_link = "<?php echo base_url(); ?>";
 </script>
-<script src="<?php echo base_url() . "lib/js/menu.js"; ?>"></script>
+<script src="<?php echo base_url() . "lib/js/form.js"; ?>"></script>

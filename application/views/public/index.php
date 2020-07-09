@@ -89,7 +89,7 @@ if ($mode == 'slider') {
 
 							?>
 								<div class="col-8 col-xs-3 mob-padding10">
-									<a href="#x" class="text-center link">
+									<a href="<?= $p->pintasan_link ?>" class="text-center link">
 										<img src="<?= base_url() . "uploads/media/thumb/100X100/_100X100_" . $p->pintasan_img ?>" alt="Image" class='img-shorcut' />
 										<div class='text-center judul-pintasan'><?= $p->pintasan_nama ?></div>
 									</a>

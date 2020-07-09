@@ -52,7 +52,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-md-6">
-                            <a href="#" class="btn btn-link btn-block">Forgot your password?</a>
+                            &nbsp;
                         </div>
                         <div class="col-md-6">
                             <button class="btn btn-info btn-block">Log In</button>
@@ -62,13 +62,9 @@
             </div>
             <div class="login-footer">
                 <div class="pull-left">
-                    &copy; 2014 AppName
+                    &copy; 2020 <?= _COMPANY_NAME ?>
                 </div>
-                <div class="pull-right">
-                    <a href="#">About</a> |
-                    <a href="#">Privacy</a> |
-                    <a href="#">Contact Us</a>
-                </div>
+                
             </div>
         </div>
 
