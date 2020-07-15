@@ -17,9 +17,9 @@ class Komentar_model extends CI_Model
     }
     function getKomentarlimit($limit, $start = 0, $q = NULL) {
         $this->db->order_by($this->key, $this->order);
-        $this->db->join('p_posting','p_posting.id_posting=p_komentar.id_post');
+        $this->db->join('p_content','p_content.content_id=p_komentar.id_post');
         $this->db->like('id_komentar', $q);
-                $this->db->or_like('judul_posting', $q);
+                $this->db->or_like('content_judul', $q);
                 $this->db->or_like('email', $q);
                 $this->db->or_like('nama', $q);
                 $this->db->or_like('komentar', $q);
@@ -28,9 +28,9 @@ class Komentar_model extends CI_Model
         return $this->db->get($this->table)->result();
     }
     function countKomentar($q = NULL) {
-         $this->db->join('p_posting','p_posting.id_posting=p_komentar.id_post');
+         $this->db->join('p_content','p_content.content_id=p_komentar.id_post');
         $this->db->like('id_komentar', $q);
-        $this->db->or_like('judul_posting', $q);
+        $this->db->or_like('content_judul', $q);
         $this->db->or_like('email', $q);
         $this->db->or_like('nama', $q);
         $this->db->or_like('komentar', $q);

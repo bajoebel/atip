@@ -1,4 +1,30 @@
 <!-- Berita -->
+<style type="text/css">
+	.comment {
+		position: relative;
+		max-width: 100%;
+		background-color: #fff;
+		padding: 1.125em 1.5em;
+		font-size: 1.25em;
+		border-radius: 1rem;
+		box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, .3), 0 0.0625rem 0.125rem rgba(0, 0, 0, .2);
+		margin-bottom: 20px;
+	}
+
+	.comment::before {
+		content: '';
+		position: absolute;
+		width: 0;
+		height: 0;
+		bottom: 100%;
+		left: 1.5em;
+		border: .75rem solid transparent;
+		border-top: none;
+
+		border-bottom-color: #fff;
+		filter: drop-shadow(0 -0.0625rem 0.0625rem rgba(0, 0, 0, .1));
+	}
+</style>
 <?php
 if (!empty($row)) {
 ?>
@@ -16,7 +42,7 @@ if (!empty($row)) {
 			<div class="col-md-6 col-sm-4">&nbsp;</div>
 			<div class="content-left">
 				<div class="card">
-					
+
 
 					<div class="card-body">
 
@@ -26,6 +52,7 @@ if (!empty($row)) {
 									<?= $row->content_isi ?>
 								</div>
 							</div>
+
 						</div>
 						<div class="row">
 							<div class="col-md-12">
@@ -54,14 +81,59 @@ if (!empty($row)) {
 								<div class="col-md-12">
 									<div class='float-left'>Bagikan :</div>
 									<div class='float-right'>
-										<span class='box-share fa fa-facebook'></span>
-										<span class='box-share fa fa-twitter'></span>
-										<span class='box-share fa fa-google-plus'></span>
+										<a href="<?= "https://www.facebook.com/share.php?u=" . base_url() . $row->content_link ?>"><span class='box-share fa fa-facebook'></span></a>
+										<a href="<?= "https://twitter.com/intent/tweet?url=" . base_url() . $row->content_link ?>"><span class='box-share fa fa-twitter'></span></a>
+											<span class='box-share fa fa-google-plus'></span>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
+					<label for="komentar" id="label-komentar" class="label-control" <?php if ($row->content_komentar == 1) echo "style='display:block'";
+																					else echo "style='display:none'";  ?>>Komentar</label>
+					<div id="komentar">
+						<input type="hidden" name="idx" id="idx" value="<?= $row->content_id ?>">
+					</div>
+					<?php
+					if ($row->content_komentar == 1) {
+					?>
+						<form action="#" method="POST" id="form" class="form-horizontal">
+							<hr>
+							<input type="hidden" id="csrf" name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash(); ?>">
+							<input type="hidden" name="id_post" id="id_post" value="<?= $row->content_id ?>">
+							<div class="form-group">
+								<div class="col-md-12">
+									<label for="Email" class="label-control">Email</label>
+									<input type="email" name="email" id="email" class="form-control">
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-md-12">
+									<label for="Email" class="label-control">Website</label>
+									<input type="text" name="website" id="website" class="form-control">
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-md-12">
+									<label for="Nama" class="label-control">Nama</label>
+									<input type="nama" name="nama" id="nama" class="form-control">
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-md-12">
+									<label for="Nama" class="label-control">Komentar</label>
+									<textarea name="komentar" id="isi_komentar" cols="30" rows="10" class="form-control"></textarea>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-md-12">
+									<button class="btn btn-primary" type="button" onclick="postKomentar()">Post Komentar</button>
+								</div>
+							</div>
+						</form>
+					<?php
+					}
+					?>
 
 				</div>
 			</div>
@@ -80,7 +152,7 @@ if (!empty($row)) {
 				<div class="widget">
 					<div class="widget-header">
 						Author
-				</div>
+					</div>
 					<div class="widget-body">
 						<?= $row->nama_lengkap; ?>
 					</div>
@@ -107,12 +179,11 @@ if (!empty($row)) {
 					<div class="widget-body">
 						<?php
 						foreach ($terkait as $t) {
-							
+
 							if ($t->content_thumb != "") {
 								$img = explode(',', $t->content_thumb);
 								$image = base_url() . "uploads/media/thumb/100X100/_100X100_" . $img[0];
-							}
-							else $image = DEFAULT_IMAGE;
+							} else $image = DEFAULT_IMAGE;
 						?>
 							<div class="row widget-list">
 								<div class="col-md-12">

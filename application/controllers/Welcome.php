@@ -211,12 +211,33 @@ class Welcome extends CI_Controller {
 			$terkait=array();
 		}
 		$lampiran=$this->landing_model->getLampiran($link);
-		$data = array('row' => $row, 'terkait'=> $terkait,'lampiran'=>$lampiran);
+		$data = array('row' => $row, 'terkait'=> $terkait,'lampiran'=>$lampiran, 'lib'	=> 'coment.js',);
 		$content = $this->load->view('public/berita_detail',	$data, true);
 		$view = array(
 			'content' => $content
 		);
 		$this->load->view('public/layout', $view);
+	}
+	function coment($idpost){
+		$koment=$this->landing_model->getKomentar($idpost);
+		$res=array('status'=>true,'data'=>$koment, 'csrf' => $this->security->get_csrf_hash());
+		header('Content-Type: application/json');
+		echo json_encode($res);
+	}
+	function postkomentar(){
+		$this->load->model('komentar_model');
+		$data = array(
+			'id_post' => $this->input->post('id_post'),
+			'email' => $this->input->post('email'),
+			'website' => $this->input->post('website'),
+			'nama' => $this->input->post('nama'),
+			'komentar' => $this->input->post('komentar'),
+			'tgl_komentar'=> date('Y-m-d H:i:s'),
+			'status' => 1,
+		);
+		$this->komentar_model->insertKomentar($data);
+		header('Content-Type: application/json');
+		echo json_encode(array("status" => TRUE,"message" => "Komentar Berhasil Di Posting", 'csrf' => $this->security->get_csrf_hash()));
 	}
 	function slider(){
 		$this->load->view('public/welcome_slider');
@@ -242,7 +263,7 @@ class Welcome extends CI_Controller {
 		foreach ($field as $f ) {
 			$control	= $this->input->post('control_' .$f);
 			$source		= $this->input->post('source_' .$f);
-			$isi["field"] = $f;
+			//$isi["field"] = $f;
 			
 			if($control=="checkbox"){
 				$src=explode(',',$source);
@@ -256,7 +277,7 @@ class Welcome extends CI_Controller {
 			}
 		}
 		if(empty($isi)) $isi=array();
-		$data=array('isi_formid'=>$form_id,'isi_baris'=>json_encode($isi));
+		$data=array('isi_formid'=>$form_id,'isi_tanggal'=>date('Y-m-d H:i:s'),'isi_baris'=>json_encode($isi));
 		$this->db->insert('p_form_isi',$data);
 		$insert_id = $this->db->insert_id();
 		if($insert_id){

@@ -23,6 +23,21 @@ class form_model extends CI_Model
         $this->db->limit($limit, $start);
         return $this->db->get($this->table)->result();
     }
+
+    function getformdata($form_id,$limit, $start = 0, $q = NULL)
+    {
+        $this->db->where('isi_formid',$form_id);
+        $this->db->order_by('isi_id', $this->order);
+        $this->db->like('isi_baris', $q);
+        $this->db->limit($limit, $start);
+        return $this->db->get('p_form_isi')->result();
+    }
+    function countformdata($form_id, $q){
+        $this->db->where('isi_formid', $form_id);
+        $this->db->order_by('isi_id', $this->order);
+        $this->db->like('isi_baris', $q);
+        return $this->db->get('p_form_isi')->num_rows();
+    }
     function countform($q = NULL) {
         $this->db->like('form_id', $q);
         $this->db->or_like('p_form.form_title', $q);

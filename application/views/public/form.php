@@ -34,20 +34,35 @@
                                             <?php
                                             if ($f->control == "datepicker") {
                                             ?>
-                                                <input type="text" class="form-control control datepicker" id="<?= $f->field ?>" name="<?= $f->field ?>" placeholder="<?= $f->alias ?>">
+                                                <input type="text" class="form-control datepicker" id="<?= $f->field ?>" name="<?= $f->field ?>" placeholder="<?= $f->alias ?>">
                                             <?php
                                             } elseif ($f->control == "combobox") {
                                             ?>
                                                 <select id="<?= $f->field ?>" name="<?= $f->field ?>" placeholder="<?= $f->alias ?>" class="form-control control">
                                                     <?php
                                                     $source = explode(',', $f->source);
-                                                    foreach ($source as $s) {
-                                                        echo "<option value='" . $s . "' class='control'>" . $s . "</option>";
+                                                    if (count($source) > 1) {
+                                                        foreach ($source as $s) {
+                                                            echo "<option value='" . $s . "' class='control'>" . $s . "</option>";
+                                                        }
+                                                    } else {
+                                                        $isi = $this->landing_model->getIsi($source[0]);
+                                                        $form_field = json_decode($isi[0]->form_field);
+                                                        $nama_field=$form_field[0]->field;
+                                                        foreach ($isi as $s) {
+                                                            $row_isi = json_decode($s->isi_baris);
+                                                    ?>
+                                                            <option value="<?php echo $row_isi->$nama_field ?>"><?php echo $row_isi->$nama_field ?></option>
+                                                    <?php
+                                                        }
                                                     }
+
                                                     ?>
                                                 </select>
+                                                <?php //echo count($source);print_r($row_isi);
+                                                ?>
                                             <?php
-                                            } elseif ($f->control == "radio") {
+                                            } elseif ($f->control == "Radio") {
                                                 $source = explode(',', $f->source);
                                                 foreach ($source as $s) {
                                                     echo "<input type='radio' name='" . $f->field . "' id='" . $s . "' value='" . $s . "'>" . $s;
@@ -55,6 +70,8 @@
                                             } elseif ($f->control == "checkbox") {
                                                 $source = explode(',', $f->source);
                                                 echo "<input type='checkbox' name='" . $f->field . "' id='" . $f->field . "' value='" . $source[0] . "'>" . $source[0];
+                                            } elseif ($f->control == "textarea") {
+                                                echo "<textarea class='form-control' name='" . $f->field . "' id='" . $f->field . "' placeholder='" . $f->field . "'></textarea>";
                                             } else {
                                             ?>
                                                 <input type="text" class="form-control" id="<?= $f->field ?>" name="<?= $f->field ?>" placeholder="<?= $f->alias ?>">

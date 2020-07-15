@@ -294,10 +294,16 @@ class Landing_model extends CI_Model
         if($limit>0) $this->db->limit($limit);
         return $this->db->get('p_content')->result();
     }
+    
     function getForm($link){
         $this->db->where('form_status',1);
         $this->db->where('form_link',$link);
         return $this->db->get('p_form')->row();
+    }
+    function getIsi($link){
+        $this->db->where('form_link',$link);
+        $this->db->join('p_form_isi','form_id=isi_formid');
+        return $this->db->get('p_form')->result();
     }
     function getCari($condition, $limit = 0, $start= 0 ,$q="", $urut = 'DESC')
     {
