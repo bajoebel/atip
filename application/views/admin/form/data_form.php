@@ -18,6 +18,9 @@ $head = json_decode($header->form_field);
                 echo "<th>" . $h->alias . "</th>";
                 $val[]=$h->field;
             }
+            if($header->form_lampiran!="" || $header->form_lampiran!=null){
+                echo "<th style='width:250px'>Lampiran</th>";
+            }
             ?>
         </tr>
     </thead>
@@ -36,6 +39,22 @@ $head = json_decode($header->form_field);
                 //print_r($val);
                 foreach ($val as $v ) {
                     echo "<td>".$res->$v."</td>";
+                }
+                if ($header->form_lampiran != "" || $header->form_lampiran != null) {
+                    if(empty($row->isi_lampiran)) echo "<td>Tidak Ada Lampiran</td>";
+                    else{
+                        $lampiran=explode(',', $row->isi_lampiran);
+                        $link="";
+                        $i=0;
+                        $namalampiran =explode(',',$header->form_lampiran);
+                        $idx=0;
+                        foreach ($lampiran as $l ) {
+                            $i++;
+                            $link.= "<a href='" . base_url() . "uploads/lampiran/" . $l . "' class='btn btn-success btn-xs' target='_blank'><span class='fa fa-search'></span> ".$namalampiran[$idx]."</a> &nbsp;";
+                            $idx++;
+                        }
+                        echo "<td>$link</td>";
+                    }
                 }
                 ?>
             </tr>

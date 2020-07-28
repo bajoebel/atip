@@ -31,6 +31,14 @@
                                     <span class="text-error" id="err_nama_kategori"></span>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-2 control-label">Lampiran</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="form_lampiran" name="form_lampiran" value="<?php if (!empty($row)) echo $row->form_lampiran; ?>" placeholder="Nama Lampiran">
+                                    <span>Jika lebih dari 1 lampiran pisahkan dengan koma (,)</span>
+                                    <span class="text-error" id="err_nama_lampiran"></span>
+                                </div>
+                            </div>
                             <!--div class="form-group">
                                 <label for="inputEmail3" class="col-sm-3 control-label">Jml Field</label>
                                 <div class="col-sm-9">
@@ -135,6 +143,21 @@
                                 ?>
 
 
+                            </div>
+                            <hr>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <?php
+                                    if (!empty($row)) {
+                                        $status = $row->form_status;
+                                        $lampiran = $row->form_lampiran;
+                                    } else {
+                                        $status = 0;
+                                        $lampiran = 0;
+                                    }
+                                    ?>
+                                    <input type="checkbox" name="form_status" id="form_status" value="1" <?php if ($status == 1) echo "checked"; ?>>Status
+                                </div>
                             </div>
                             <hr>
                             <div class="form-group">

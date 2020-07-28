@@ -412,5 +412,46 @@ class Landing_model extends CI_Model
         $this->db->group_by("DATE_FORMAT(`content_tglpublish`,'%Y-%m')");
         return $this->db->get('p_content')->result();
     }
+    function upload_files($path, $title, $files)
+    {
+        $config = array(
+            'upload_path'   => $path,
+            'allowed_types' => 'jpg|gif|png|jpeg|pdf|doc|docx|xls|xlsx|zip|rar',
+            'max_size'    => '20480',
+            'overwrite'     => 1,
+        );
+
+
+        $this->load->library('upload', $config);
+
+        $images = array();
+        $i = 0;
+        foreach ($files['name'] as $key => $image) {
+            $i++;
+            $_FILES['images[]']['name'] = $files['name'][$key];
+            $_FILES['images[]']['type'] = $files['type'][$key];
+            $_FILES['images[]']['tmp_name'] = $files['tmp_name'][$key];
+            $_FILES['images[]']['error'] = $files['error'][$key];
+            $_FILES['images[]']['size'] = $files['size'][$key];
+
+            $fileName = $title . '_' . $i . "_" . str_replace(' ', '_', $_FILES['images[]']['name']);
+            $ext = explode('/', $_FILES['images[]']['type']);
+
+
+            $config['file_name'] = $fileName;
+
+            $this->upload->initialize($config);
+
+            if ($this->upload->do_upload('images[]')) {
+                $this->upload->data();
+                $filename = $this->upload->data("file_name");
+                $images[] = array('filename' =>  $filename, 'error' => '');
+            } else {
+                $images[] = array('filename' =>  $fileName, 'error' => $this->upload->display_errors());;
+            }
+        }
+
+        return $images;
+    }
     
 }

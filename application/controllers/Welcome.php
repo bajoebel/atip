@@ -277,15 +277,104 @@ class Welcome extends CI_Controller {
 			}
 		}
 		if(empty($isi)) $isi=array();
-		$data=array('isi_formid'=>$form_id,'isi_tanggal'=>date('Y-m-d H:i:s'),'isi_baris'=>json_encode($isi));
-		$this->db->insert('p_form_isi',$data);
-		$insert_id = $this->db->insert_id();
-		if($insert_id){
-			$response=array('status'=>true,'message'=>'Data Berhasil disimpan');
+		$form_lampiran=$this->input->post('form_lampiran');
+		
+		if($form_lampiran!=""){
+			if ($_FILES['userfile']['name'] != "") {
+				//Jika Ada Data yang akan diupload
+				//$file = "POST_" . date('dmY') . "_" . str_replace(' ', '_', $_FILES['userfile']['name']);
+				//$this->load->model('media_model');
+				$image = $this->landing_model->upload_files('./uploads/lampiran', 'Lampiran', $_FILES['userfile']);
+				foreach ($image as $img) {
+					if($img["error"]!=""){
+						$err[]=$img["error"];
+					}
+					$filename[]=$img["filename"];
+				}
+				if(!empty($filename)) $file=implode(',',$filename);
+				else $file="";
+				/*$this->_file_upload('./uploads/lampiran', $file, 'gif|jpg|png|jpeg|pdf|docx|doc|odt|xls|xlsx');*/
+				if (!empty($err)) {
+					//JIka Gagal Upload Data
+					$response = array('status' => false, 'message' => "ERROR " . $this->upload->display_errors(), 'csrf' => $this->security->get_csrf_hash());
+					$message = $err[0];
+				}else{
+					//Jika Berhasil Upload Data
+					//$file = $this->upload->data("file_name");
+					$data = array(
+						'isi_formid' => $form_id,
+						'isi_tanggal' => date('Y-m-d H:i:s'),
+						'isi_baris' => json_encode($isi),
+						'isi_lampiran' => $file
+					);
+					$this->db->insert('p_form_isi', $data);
+					$insert_id = $this->db->insert_id();
+					if ($insert_id) {
+						$response = array(
+							'status' => true, 
+							'message' => 'Data Berhasil disimpan', 
+							'csrf' => $this->security->get_csrf_hash(),
+							'img'	=> $image
+						);
+						$message = 'Data Berhasil disimpan';
+						$this->session->set_flashdata('success', $message);
+					} else {
+						$response = array('status' => false, 'message' => 'Gagal saat penyimpanan data', 'csrf' => $this->security->get_csrf_hash());
+						$message = 'Gagal saat penyimpanan data ';
+						$this->session->set_flashdata('error', $message);
+					}
+					
+				}
+			}else{
+				//Jika Tidak ada data yang akan di upload
+				$data = array(
+					'isi_formid' => $form_id,
+					'isi_tanggal' => date('Y-m-d H:i:s'),
+					'isi_baris' => json_encode($isi),
+					'isi_lampiran' => ''
+				);
+				$this->db->insert('p_form_isi', $data);
+				$insert_id = $this->db->insert_id();
+				if ($insert_id) {
+					$response = array('status' => true, 'message' => 'Data Berhasil disimpan', 'csrf' => $this->security->get_csrf_hash(),);
+					$message= 'Data Berhasil disimpan';
+					$this->session->set_flashdata('success', $message);
+				} else {
+					$response = array('status' => false, 'message' => 'Gagal saat penyimpanan data', 'csrf' => $this->security->get_csrf_hash(),);
+					$message= 'Gagal saat penyimpanan data';
+					$this->session->set_flashdata('error', $message);
+				}
+			}
 		}else{
-			$response = array('status' => false, 'message' => 'Gagal saat penyimpanan data');
+			$data = array(
+				'isi_formid' => $form_id,
+				'isi_tanggal' => date('Y-m-d H:i:s'),
+				'isi_baris' => json_encode($isi),
+				'isi_lampiran' => ''
+			);
+			$this->db->insert('p_form_isi', $data);
+			$insert_id = $this->db->insert_id();
+			if ($insert_id) {
+				$response = array('status' => true, 'message' => 'Data Berhasil disimpan', 'csrf' => $this->security->get_csrf_hash(),);
+				$message = 'Data Berhasil disimpan';
+				$this->session->set_flashdata('success', $message);
+			} else {
+				$response = array('status' => false, 'message' => 'Gagal saat penyimpanan data', 'csrf'=> $this->security->get_csrf_hash(),);
+				$message = 'Gagal saat penyimpanan data';
+				$this->session->set_flashdata('error', $message);
+			}
 		}
+		
 		header('Content-Type: application/json');
 		echo json_encode($response);
+	}
+
+	public function _file_upload($path, $filename, $filetype)
+	{
+		$config['upload_path']          = $path;
+		$config['allowed_types']        = $filetype;
+		$config['overwrite']        = true;
+		$config['file_name']            = $filename;
+		$this->load->library('upload', $config);
 	}
 }

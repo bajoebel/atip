@@ -1,52 +1,110 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Form extends CI_Controller {
-    private $akses=array();
-    
+class Form extends CI_Controller
+{
+    private $akses = array();
+
     function __construct()
     {
         parent::__construct();
         $this->load->model('form_model');
-        $level=$this->session->userdata('level');
-        
-        $this->akses=$this->form_model->getAkses($level);
+        $level = $this->session->userdata('level');
+
+        $this->akses = $this->form_model->getAkses($level);
     }
-        
-	public function index(){
-        $cek=array('aksi'=>"Index");
-        if(in_array($cek, $this->akses)){
-            $data=array(
+
+    public function index()
+    {
+        $cek = array('aksi' => "Index");
+        if (in_array($cek, $this->akses)) {
+            $data = array(
                 'menu'  => array(),
-                'akses'=> $this->akses,
+                'akses' => $this->akses,
                 'modul' => "Form",
                 'role'  => $this->form_model->getRole('form')
             );
-            $content=$this->load->view('admin/form/view_tabel', $data, true);
-            $view=array(
+            $content = $this->load->view('admin/form/view_tabel', $data, true);
+            $view = array(
                 'content'   => $content
             );
-            $this->load->view('template/admin/view_layout',$view);
+            $this->load->view('template/admin/view_layout', $view);
+        } else {
+            $this->session->set_flashdata('error', 'Opps... Session expired');
+            header('location:' . base_url() . "login");
         }
-        else{
-            $this->session->set_flashdata('error', 'Opps... Session expired' );
-            header('location:'.base_url() ."login");
+    }
+    function setlampiran($idx, $status)
+    {
+        $cek = array('aksi' => 'Edit');
+        if (in_array($cek, $this->akses)) {
+            $row = $this->form_model->getform_by_id($idx);
+            if (!empty($row)) {
+                $data = array('form_lampiran' => $status);
+                $this->form_model->updateform($data, $idx);
+                $response = array(
+                    'status'    => true,
+                    'message'   => "OK",
+                );
+            } else {
+                $response = array(
+                    'status'    => false,
+                    'message'   => "Data Tidak ditemukan",
+                    'data'      => array(),
+                    'csrf'      => $this->security->get_csrf_hash(),
+                );
+            }
+        } else {
+            $response = array(
+                'status'    => false,
+                'message'   => "Anda tidak berhak untuk mengakases halaman ini"
+            );
         }
-        
+        header('Content-Type: application/json');
+        echo json_encode($response);
     }
 
-    public function tambah($id="")
+    function setstatus($idx, $status)
+    {
+        $cek = array('aksi' => 'Edit');
+        if (in_array($cek, $this->akses)) {
+            $row = $this->form_model->getform_by_id($idx);
+            if (!empty($row)) {
+                $data = array('form_status' => $status);
+                $this->form_model->updateform($data, $idx);
+                $response = array(
+                    'status'    => true,
+                    'message'   => "OK",
+                );
+            } else {
+                $response = array(
+                    'status'    => false,
+                    'message'   => "Data Tidak ditemukan",
+                    'data'      => array(),
+                    'csrf'      => $this->security->get_csrf_hash(),
+                );
+            }
+        } else {
+            $response = array(
+                'status'    => false,
+                'message'   => "Anda tidak berhak untuk mengakases halaman ini"
+            );
+        }
+        header('Content-Type: application/json');
+        echo json_encode($response);
+    }
+    public function tambah($id = "")
     {
         $cek = array('aksi' => "Save");
         if (in_array($cek, $this->akses)) {
-            $row=$this->form_model->getform_by_id($id);
-            
+            $row = $this->form_model->getform_by_id($id);
+
             $data = array(
                 'menu'  => array(),
                 'akses' => $this->akses,
                 'modul' => "Form",
                 'role'  => $this->form_model->getRole('form'),
-                'row'=>$row
+                'row' => $row
             );
             $content = $this->load->view('admin/form/view_tambah', $data, true);
             $view = array(
@@ -58,28 +116,30 @@ class Form extends CI_Controller {
             header('location:' . base_url() . "login");
         }
     }
-    function source(){
+    function source()
+    {
         $source = $this->db->get('p_form')->result();
         header('Content-Type: application/json');
         echo json_encode($source);
     }
-	public function data(){
-        $cek=array('aksi'=>"Index");
-        if(in_array($cek, $this->akses)){
+    public function data()
+    {
+        $cek = array('aksi' => "Index");
+        if (in_array($cek, $this->akses)) {
             $q = urldecode($this->input->get('q', TRUE));
             $start = intval($this->input->get('start'));
             $limit = intval($this->input->get('limit'));
-            $row_count=$this->form_model->countform($q);
-            $list=array(
+            $row_count = $this->form_model->countform($q);
+            $list = array(
                 'status'    => true,
                 'message'   => "OK",
                 'start'     => $start,
                 'row_count' => $row_count,
                 'limit'     => $limit,
-                'data'     => $this->form_model->getformlimit($limit,$start,$q),
+                'data'     => $this->form_model->getformlimit($limit, $start, $q),
             );
-        }else{
-            $list=array(
+        } else {
+            $list = array(
                 'status'    => false,
                 'message'   => "Anda tidak berhak untuk mengakases halaman ini",
                 'data'      => array()
@@ -88,28 +148,28 @@ class Form extends CI_Controller {
         header('Content-Type: application/json');
         echo json_encode($list);
     }
-	function edit($id=""){
-        $cek=array('aksi'=>ucwords($this->uri->segment(3)));
-        if(in_array($cek, $this->akses)){
-            $row=$this->form_model->getform_by_id($id);
-            if(!empty($row)){
-                $response=array(
+    function edit($id = "")
+    {
+        $cek = array('aksi' => ucwords($this->uri->segment(3)));
+        if (in_array($cek, $this->akses)) {
+            $row = $this->form_model->getform_by_id($id);
+            if (!empty($row)) {
+                $response = array(
                     'status'    => true,
                     'message'   => "OK",
                     'data'      => $row,
                     'csrf'      => $this->security->get_csrf_hash(),
                 );
-            }else{
-                $response=array(
+            } else {
+                $response = array(
                     'status'    => false,
                     'message'   => "Data Tidak ditemukan",
                     'data'      => array(),
                     'csrf'      => $this->security->get_csrf_hash(),
                 );
             }
-            
-        }else{
-            $response=array(
+        } else {
+            $response = array(
                 'status'    => false,
                 'message'   => "Anda tidak berhak untuk mengakases halaman ini"
             );
@@ -147,11 +207,11 @@ class Form extends CI_Controller {
             $q = urldecode($this->input->get('q', TRUE));
             $start = intval($this->input->get('start'));
             $limit = intval($this->input->get('limit'));
-            $row_count = $this->form_model->countformdata($form_id,$q);
-            $x['header']=$this->form_model->getform_by_id($form_id);
-            $x["start"]=$start;
-            $x['data_form']=$this->form_model->getformdata($form_id,$limit, $start, $q);
-            $data=$this->load->view('admin/form/data_form', $x, true);
+            $row_count = $this->form_model->countformdata($form_id, $q);
+            $x['header'] = $this->form_model->getform_by_id($form_id);
+            $x["start"] = $start;
+            $x['data_form'] = $this->form_model->getformdata($form_id, $limit, $start, $q);
+            $data = $this->load->view('admin/form/data_form', $x, true);
             //echo $data; exit;
             $list = array(
                 'status'    => true,
@@ -171,47 +231,52 @@ class Form extends CI_Controller {
         header('Content-Type: application/json');
         echo json_encode($list);
     }
-	function save(){
-        $cek=array('aksi'=>ucwords($this->uri->segment(3)));
-        if(in_array($cek, $this->akses)){
-            $id_form=$this->input->post('form_id');
+    function save()
+    {
+        $cek = array('aksi' => ucwords($this->uri->segment(3)));
+        if (in_array($cek, $this->akses)) {
+            $id_form = $this->input->post('form_id');
             $link = str_replace(' ', '-', strtolower($this->input->post('form_title')));
             $link = str_replace('&', 'dan', $link);
             $link = str_replace('"', '', $link);
-            
-            $row=$this->form_model->getform_by_id($id_form);
-            if(empty($row)){
-                
+
+            $row = $this->form_model->getform_by_id($id_form);
+            if (empty($row)) {
+
                 $this->form_validation->set_rules('form_title', 'nama lengkap', 'required');
-                
-                if($this->form_validation->run())
-                {
-                    
-                    $idx=$this->input->post('idx');
+
+                if ($this->form_validation->run()) {
+
+                    $idx = $this->input->post('idx');
                     foreach ($idx as $i) {
-                        $source= $this->input->post('source' . $i);
-                        if($source=="-") $source= $this->input->post('source_lain' . $i);
+                        $source = $this->input->post('source' . $i);
+                        if ($source == "-") $source = $this->input->post('source_lain' . $i);
                         $field[] = array(
-                            'field' => str_replace(" ","_", $this->input->post('field' . $i)), 
+                            'field' => str_replace(" ", "_", $this->input->post('field' . $i)),
                             'alias' => $this->input->post('field' . $i),
-                            'control' => $this->input->post('control' . $i), 
+                            'control' => $this->input->post('control' . $i),
                             'source' => $source,
                         );
                     }
-                    if(empty($field)) $field=json_encode(array());
-                    $field=json_encode($field);
+                    if (empty($field)) $field = json_encode(array());
+                    $field = json_encode($field);
+                    $form_status = $this->input->post('form_status');
+                    $form_lampiran = $this->input->post('form_lampiran');
+                    if ($form_status != 1) $form_status = 0;
                     $data = array(
                         'form_title' => $this->input->post('form_title'),
                         'form_link' => $link,
                         'form_field' => $field,
                         'form_tglbuat' => date('Y-m-d H:i:s'),
+                        'form_status'   => $form_status,
+                        'form_lampiran' => $form_lampiran,
                         'form_userbuat' => $this->session->userdata('username')
                     );
                     $insert = $this->form_model->insertform($data);
-                    header('location:'.base_url() ."admin/form");
+                    header('location:' . base_url() . "admin/form");
                     //header('Content-Type: application/json');
                     //echo json_encode(array("status" => TRUE,'error'=>FALSE,"message"=>"Data berhasil di simpan",'csrf' => $this->security->get_csrf_hash()));
-                }else{
+                } else {
                     $array = array(
                         'status'    => TRUE,
                         'error'     => TRUE,
@@ -221,11 +286,10 @@ class Form extends CI_Controller {
                     );
                     header('location:' . base_url() . "admin/form");
                 }
-            }else{
-                
+            } else {
+
                 $this->form_validation->set_rules('form_title', 'nama lengkap', 'required');
-                if($this->form_validation->run())
-                {
+                if ($this->form_validation->run()) {
                     $idx = $this->input->post('idx');
                     foreach ($idx as $i) {
                         $source = $this->input->post('source' . $i);
@@ -239,16 +303,21 @@ class Form extends CI_Controller {
                     }
                     if (empty($field)) $field = json_encode(array());
                     $field = json_encode($field);
+                    $form_status = $this->input->post('form_status');
+                    $form_lampiran = $this->input->post('form_lampiran');
+                    if ($form_status != 1) $form_status = 0;
                     $data = array(
                         'form_title' => $this->input->post('form_title'),
                         'form_link' => $link,
                         'form_field' => $field,
                         'form_tglbuat' => date('Y-m-d H:i:s'),
+                        'form_status'   => $form_status,
+                        'form_lampiran' => $form_lampiran,
                         'form_userbuat' => $this->session->userdata('username')
                     );
-                    $this->form_model->updateform($data,$id_form);
+                    $this->form_model->updateform($data, $id_form);
                     header('location:' . base_url() . "admin/form");
-                }else{
+                } else {
                     $array = array(
                         'status'    => TRUE,
                         'error'     => TRUE,
@@ -259,51 +328,64 @@ class Form extends CI_Controller {
                     header('location:' . base_url() . "admin/form");
                 }
             }
-        }else{
+        } else {
             header('Content-Type: application/json');
             header('location:' . base_url() . "login");
         }
     }
-	function delete($id){
-        $cek=array('aksi'=>ucwords($this->uri->segment(3)));
-        if(in_array($cek, $this->akses)){
+    function delete($id)
+    {
+        $cek = array('aksi' => ucwords($this->uri->segment(3)));
+        if (in_array($cek, $this->akses)) {
             $this->form_model->deleteform($id);
             header('Content-Type: application/json');
-            echo json_encode(array("status" => TRUE, "message"=> "Data Berhasil dihapus"));
-        }else{
+            echo json_encode(array("status" => TRUE, "message" => "Data Berhasil dihapus"));
+        } else {
             header('Content-Type: application/json');
-            echo json_encode(array("status" => FALSE, "message"=> "Anda tidak berhak untuk mengakases halaman ini"));
-        }
-        
-    }
-	function excel(){
-        $cek=array('aksi'=>ucwords($this->uri->segment(3)));
-        if(in_array($cek, $this->akses)){
-            $data=array(
-                'data'  => $this->form_model->getform(),
-            );
-            $this->load->view('form/admin/view_data_excel',$data);
-        }else{
-            $this->session->set_flashdata('error', 'Opps... Session expired' );
-            header('location:'.base_url() ."login");
+            echo json_encode(array("status" => FALSE, "message" => "Anda tidak berhak untuk mengakases halaman ini"));
         }
     }
-	function pdf(){
-        $cek=array('aksi'=>ucwords($this->uri->segment(3)));
-        if(in_array($cek, $this->akses)){
-            $data=array(
+    function excel($formid)
+    {
+        $cek = array('aksi' => 'Index');
+        if (in_array($cek, $this->akses)) {
+            $x['header'] = $this->form_model->getform_by_id($formid);
+            $x['data_form'] = $this->form_model->getformdataall($formid);
+            $this->load->view('admin/form/view_data_excel', $x);
+        } else {
+            $this->session->set_flashdata('error', 'Opps... Session expired');
+            header('location:' . base_url() . "login");
+        }
+    }
+
+    function cetak($formid)
+    {
+        $cek = array('aksi' => 'Index');
+        if (in_array($cek, $this->akses)) {
+            $x['header'] = $this->form_model->getform_by_id($formid);
+            $x['data_form'] = $this->form_model->getformdataall($formid);
+            $this->load->view('admin/form/view_data_print', $x);
+        } else {
+            $this->session->set_flashdata('error', 'Opps... Session expired');
+            header('location:' . base_url() . "login");
+        }
+    }
+    function pdf()
+    {
+        $cek = array('aksi' => ucwords($this->uri->segment(3)));
+        if (in_array($cek, $this->akses)) {
+            $data = array(
                 'data'  => $this->form_model->getform(),
             );
-            $html=$this->load->view('form/admin/view_data_pdf',$data, true);
+            $html = $this->load->view('form/admin/view_data_pdf', $data, true);
             $pdfFilePath = "DATA_form.pdf";
             $this->load->library('m_pdf');
             $pdf = $this->m_pdf->load();
             $pdf->WriteHTML($html);
             $pdf->Output($pdfFilePath, "D");
-        }else{
-            $this->session->set_flashdata('error', 'Opps... Session expired' );
-            header('location:'.base_url() ."login");
+        } else {
+            $this->session->set_flashdata('error', 'Opps... Session expired');
+            header('location:' . base_url() . "login");
         }
-        
     }
 }

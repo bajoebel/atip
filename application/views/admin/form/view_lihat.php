@@ -28,6 +28,8 @@
                                 <input type="text" name='q' id='q' class="form-control" placeholder='Search' onkeyup="getfield(<?= $row->form_id ?>, 0)">
                                 <input type="hidden" name="start" id="start" value="0">
                                 <span class="input-group-addon"><span class="fa fa-search"></span></span>
+                                <span class="input-group-addon" style='background-color:#5cb85c;border-color:#5cb85c' onclick="downloadExcel('<?= $row->form_id; ?>')"><span class="fa fa-file-excel-o "></span></span>
+                                <span class="input-group-addon" style='background-color:#f5f5f5;border-color:#f5f5f5; color:black' onclick="cetak('<?= $row->form_id; ?>')"><span class="fa fa-print"></span></span>
                             </div>
                         </div>
 

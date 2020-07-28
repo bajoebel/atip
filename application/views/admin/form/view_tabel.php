@@ -47,6 +47,8 @@
                                     <th>#</th>
                                     <th>Judul Form</th>
                                     <th>Link</th>
+                                    <th>Lampiran</th>
+                                    <th>Status</th>
                                     <th class="text-right">#</th>
                                 </thead>
                                 <tbody id="data"></tbody>
@@ -61,73 +63,6 @@
         </div>
     </div>
 </section>
-
-<!--Modal-->
-<!--div class="modal fade" id="modal_form" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header bg-green">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h3 class="modal-title">COBA</h3>
-            </div>
-
-            <div class="modal-body form">
-                <form class="form-horizontal" method="POST" id="form" action="#" enctype="multipart/form-data">
-                    <div class="panel-body">
-                        <input type="hidden" id="csrf" name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash(); ?>">
-                        <input type="hidden" name="form_id" id="form_id" value="">
-                        <div class="row">
-                            <div class="form-group">
-                                <label for="inputform_link3" class="col-sm-3 control-label">Judul Form</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="form_title" name="form_title" placeholder="Namalengkap">
-                                    <input type="hidden" class="form-control" id="form_link" name="form_link" placeholder="form_link">
-                                    <span class="text-error" id="err_form_title"></span>
-                                </div>
-
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="field">
-                            <div class="form-group">
-                                <div class="col-md-4">
-                                    <label for="field">Field</label>
-                                    <input type="text" name="field[]" id="field" class="form-control" required>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="field">Control</label>
-                                    <select name="control[]" id="control" class="form-control" required>
-                                        <option value="textbox">Textbox</option>
-                                        <option value="datepicker">Datepicker</option>
-                                        <option value="textarea">Textarea</option>
-                                        <option value="combobox">Combobox</option>
-                                        <option value="checkbox">Checkbox</option>
-                                        <option value="Radio">Radio</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="field">Source</label>
-                                    <input type="text" name="source[]" id="source" class="form-control" value="-" required>
-                                </div>
-                            </div>
-                        </di>>
-                        </div>
-                    </div>
-
-            </div>
-            </form>
-        </div>
-
-        <div class="modal-footer">
-            <button type="button" id="btnSave" onclick="save()" class="btn btn-success">Save</button>
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-        </div>
-    </div>
-</div>
-</div-->
-<!-- /.modal-dialog -->
-
 <!--Modal-->
 <div class="modal fade" id="modal_form" role="dialog">
     <div class="modal-dialog">

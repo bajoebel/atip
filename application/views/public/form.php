@@ -1,6 +1,13 @@
+<style type="text/css">
+
+</style>
+<div id="loading">
+    <div class="loader"></div>
+</div>
 <div class="section top">
     <div class="text-center">
-        <p>Home > <a href="<?= base_url() . "pengumuman" ?>"><?= $content_tipe; ?></a></p>
+        <p>Home > <a href="#"><?= $content_tipe; ?></a>
+        </p>
     </div>
 </div>
 <div class="section ">
@@ -16,9 +23,59 @@
                         <h3><?= $form->form_title ?></h3>
                     </div>
                     <div class="panel-body">
+                        <?php
+                        $err = $this->session->flashdata('error');
+                        if (!empty($err)) {
+                            if (is_array($err)) {
+                                //$error = $err;
+                                foreach ($err as $e) {
+                        ?>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="alert alert-danger" role="alert">
+                                                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                                                <strong>Info!</strong> <?= $e; ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php
+                                }
+                            } else {
+                                ?>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="alert alert-danger" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                                            <strong>Info!</strong> <?= $err; ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php
+                            }
+                        }
+
+                        $info = $this->session->flashdata('success');
+                        if (!empty($info)) {
+                            if (is_array($info)) {
+                                $error = $info;
+                            } else {
+                            ?>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="alert alert-info" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                                            <strong>Info!</strong> <?= $info; ?>
+                                        </div>
+                                    </div>
+                                </div>
+                        <?php
+                            }
+                        }
+
+                        ?>
                         <form class="form-horizontal" id="form" method="POST" action="#">
                             <input type="hidden" name="form_id" id="form_id" value="<?= $form->form_id ?>">
-                            <input type="hidden" id="csrf" name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash(); ?>">
+                            <input type="hidden" id="csrf" class='form-control' name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash(); ?>">
                             <?php
                             foreach ($field as $f) {
                                 //print_r($f);
@@ -48,7 +105,7 @@
                                                     } else {
                                                         $isi = $this->landing_model->getIsi($source[0]);
                                                         $form_field = json_decode($isi[0]->form_field);
-                                                        $nama_field=$form_field[0]->field;
+                                                        $nama_field = $form_field[0]->field;
                                                         foreach ($isi as $s) {
                                                             $row_isi = json_decode($s->isi_baris);
                                                     ?>
@@ -82,14 +139,35 @@
                                         </div>
                                     </div>
                                 </div>
+                                <?php
+
+                            }
+
+                            if ($form->form_lampiran != "") {
+                                $lampiran = explode(',', $form->form_lampiran);
+                                foreach ($lampiran as $l) {
+                                ?>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <label for="Lampiran" class="control-label col-md-4"><?= $l ?></label>
+                                            <div class="col-sm-8">
+                                                <input type="file" name="userfile[]" id="userfile[]" class="form-control ">
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php
+                                }
+                                ?>
+
                             <?php
                             }
                             ?>
+                            <input type="hidden" id="form_lampiran" name="form_lampiran" value="<?= $form->form_lampiran ?>">
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <label class="control-label col-sm-4" for="">&nbsp;</label>
                                     <div class="col-sm-8">
-                                        <button class="btn btn-success " type='button' onclick="simpanData()"> Simpan</button>
+                                        <button class="btn btn-success " id="simpan" type='button' onclick="simpanData()"> Simpan</button>
                                     </div>
                                 </div>
                             </div>
@@ -120,21 +198,40 @@
             processData: false,
             contentType: false,
             dataType: 'JSON',
+            beforeSend: function() {
+                // setting a timeout
+                $('#loading').show();
+                $("#simpan").prop("disabled", true);
+            },
             success: function(data) {
                 console.log(data);
+                if (data.status == true) {
+                    var tipe = 'success';
+                    $('#form')[0].reset();
+                    $('#csrf').val(data["csrf"]);
 
-                if (data.status == true) var tipe = 'success';
-                else var tipe = 'error';
-                swal({
-                    title: "Sukses",
-                    text: data["message"],
-                    type: tipe,
-                    timer: 5000
-                });
+                    swal({
+                        title: "Sukses",
+                        text: data["message"],
+                        type: tipe,
+                        timer: 5000
+                    });
+                    //location.reload();
+                } else {
+                    var tipe = 'error';
+                    swal({
+                        title: "Sukses",
+                        text: data["message"],
+                        type: tipe,
+                        timer: 5000
+                    });
+                    $('#csrf').val(data["csrf"]);
+                }
+
                 //$("#form").trigger("reset");
 
                 //$('#csrf').val(data["csrf"]);
-                location.reload();
+
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 swal({
@@ -143,7 +240,11 @@
                     type: "error",
                     timer: 5000
                 });
-            }
+            },
+            complete: function() {
+                $('#loading').hide();
+                $("#simpan").prop("disabled", false);
+            },
         });
     }
 </script>
