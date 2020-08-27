@@ -15,7 +15,7 @@
                         $save = array('aksi' => 'Save');
                         if (in_array($save, $akses)) {
                         ?>
-                            <a href="<?php echo base_url() . "admin/". strtolower($content_tipe)."/form" ?>" class="btn btn-success btn-sm"><span class="fa fa-plus"></span> Tambah</a>
+                            <a href="<?php echo base_url() . "admin/" . strtolower($content_tipe) . "/form" ?>" class="btn btn-success btn-sm"><span class="fa fa-plus"></span> Tambah</a>
                         <?php
                         }
                         ?>
@@ -47,7 +47,7 @@
                     </div>
                     <hr>
                     <div class="row">
-                        <div class="col-xs-12">
+                        <div class="col-xs-12" style="overflow-x:auto;">
                             <table class="table table-bordered">
                                 <thead class="bg-green">
                                     <th>#</th>
@@ -106,28 +106,28 @@
                                     }
                                     ?>
                                 </select>
-                                <span class ="text-error" id="err_id_kategori"></span>
+                                <span class="text-error" id="err_id_kategori"></span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="inputEmail3" class="col-sm-3 control-label">Judulposting</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" id="judul_posting" name="judul_posting" placeholder="Judulposting">
-                                <span class ="text-error" id="err_judul_posting"></span>
+                                <span class="text-error" id="err_judul_posting"></span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="inputEmail3" class="col-sm-3 control-label">Isiposting</label>
                             <div class="col-sm-9">
                                 <textarea class="form-control" name="isi_posting" id="isi_posting"></textarea>
-                                <span class ="text-error" id="err_isi_posting"></span>
+                                <span class="text-error" id="err_isi_posting"></span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="inputEmail3" class="col-sm-3 control-label">Tglposting</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" id="tgl_posting" name="tgl_posting" placeholder="Tglposting">
-                                <span class ="text-error" id="err_tgl_posting"></span>
+                                <span class="text-error" id="err_tgl_posting"></span>
                             </div>
                         </div>
                         <div class="form-group">
@@ -137,7 +137,7 @@
                                     <input type="text" class="form-control datepicker" id="tgl_publish" name="tgl_publish" placeholder="Tglpublish">
                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                 </div>
-                                <span class ="text-error" id="err_tgl_publish"></span>
+                                <span class="text-error" id="err_tgl_publish"></span>
 
                             </div>
                         </div>
@@ -148,7 +148,7 @@
                                     <input type="text" class="form-control datepicker" id="tgl_exp" name="tgl_exp" placeholder="Tglexp">
                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                 </div>
-                                <span class ="text-error" id="err_tgl_exp"></span>
+                                <span class="text-error" id="err_tgl_exp"></span>
 
                             </div>
                         </div>
@@ -156,7 +156,7 @@
                             <label for="inputEmail3" class="col-sm-3 control-label">Lampirangambar</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" id="lampiran_gambar" name="lampiran_gambar" placeholder="Lampirangambar">
-                                <span class ="text-error" id="err_lampiran_gambar"></span>
+                                <span class="text-error" id="err_lampiran_gambar"></span>
                             </div>
                         </div>
                         <input type="hidden" name="link_posting" id="link_posting" value="">
@@ -168,7 +168,7 @@
                                     <option value="Halaman">Halaman</option>
                                     <option value="Artikel">Artikel</option>
                                 </select>
-                                <span class ="text-error" id="err_group_posting"></span>
+                                <span class="text-error" id="err_group_posting"></span>
                             </div>
                         </div>
                         <div class="form-group">
@@ -186,21 +186,21 @@
                                     <option value="Publish">Publish</option>
                                     <option value="Unpublish">Unpublish</option>
                                 </select>
-                                <span class ="text-error" id="err_status_posting"></span>
+                                <span class="text-error" id="err_status_posting"></span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="inputEmail3" class="col-sm-3 control-label">Jmlhits</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" id="jml_hits" name="jml_hits" placeholder="Jmlhits">
-                                <span class ="text-error" id="err_jml_hits"></span>
+                                <span class="text-error" id="err_jml_hits"></span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="inputEmail3" class="col-sm-3 control-label">Userinput</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" id="userinput" name="userinput" placeholder="Userinput">
-                                <span class ="text-error" id="err_userinput"></span>
+                                <span class="text-error" id="err_userinput"></span>
                             </div>
                         </div>
                     </div>
@@ -218,7 +218,7 @@
 <script type="text/javascript">
     var base_url = "<?php echo base_url(); ?>";
 </script>
-<script src="<?php echo base_url() . "lib/js/".strtolower($tipe).".js"; ?>"></script>
+<script src="<?php echo base_url() . "lib/js/" . strtolower($tipe) . ".js"; ?>"></script>
 <script type="text/javascript">
     getcontent(0);
 </script>

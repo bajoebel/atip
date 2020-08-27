@@ -305,15 +305,12 @@ class Media extends CI_Controller {
         if(in_array($cek, $this->akses)){
             $id_group=$this->input->post('id_group');
             if($this->input->post('status_group')==1) $status_group=1; else $status_group=0;
-            if($this->input->post('sebagai_galery')==1) $sebagai_galery=1; else $sebagai_galery=0;
+            /*if($this->input->post('sebagai_galery')==1) $sebagai_galery=1; else $sebagai_galery=0;
             if($this->input->post('sebagai_download')==1) $sebagai_download=1; else $sebagai_download=0;
-            if($this->input->post('sebagai_ppid')==1) $sebagai_ppid=1; else $sebagai_ppid=0;
+            if($this->input->post('sebagai_ppid')==1) $sebagai_ppid=1; else $sebagai_ppid=0;*/
             $data = array(
                 'nama_group' => $this->input->post('nama_group'),
                 'status_group' => $status_group,
-                'sebagai_galery' => $sebagai_galery,
-                'sebagai_download' => $sebagai_download,
-                'sebagai_ppid' => $sebagai_ppid,
             );
             $row=$this->media_model->getMedia_by_id($id_group);
             if(empty($row)){

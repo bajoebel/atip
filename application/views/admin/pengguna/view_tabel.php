@@ -55,7 +55,7 @@
                     </div>
                 </div>
                 <div class="box-body">
-                    <table class="table table-bordered">
+                    <table class="table table-bordered" >
                         <thead class="bg-green">
                             <th>#</th>
             <th>Username</th>

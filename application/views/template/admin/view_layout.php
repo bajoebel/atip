@@ -17,12 +17,14 @@
     <link rel="stylesheet" href="<?php //echo base_url() . "assets/" 
                                     ?>swal/sweetalert.css"-->
     <link rel="stylesheet" type="text/css" id="theme" href="<?= base_url() . "assets/"; ?>css/theme-default.css" />
+   
     <!-- EOF CSS INCLUDE -->
 
     <!--FRAMEWORK VUE.JS -->
     <!--script src="<?php echo base_url() ?>assets/js/vue.min.js"></script>
     <script src="<?php echo base_url() ?>assets/js/axios.min.js"></script-->
     <script src="<?php echo base_url() ?>assets/js/jquery.min.js"></script>
+    
     <script src="<?php echo base_url() . "assets/" ?>swal/sweetalert.js"></script>
     <link rel="stylesheet" href="<?php echo base_url() . "assets/" ?>swal/sweetalert.css">
     <script type="text/javascript" src="<?php echo base_url() . "assets/" ?>js/plugins/dropzone/dropzone.min.js"></script>
@@ -239,7 +241,7 @@
                 </div>
                 <div class="mb-footer">
                     <div class="pull-right">
-                        <a href="<?= base_url() ."login/logout" ?>" class="btn btn-success btn-lg">Yes</a>
+                        <a href="<?= base_url() . "login/logout" ?>" class="btn btn-success btn-lg">Yes</a>
                         <button class="btn btn-default btn-lg mb-control-close">No</button>
                     </div>
                 </div>
@@ -378,7 +380,9 @@
                 }
             });
         }
-        //menu('<?php //echo $this->auth_model->indukaktif($link); ?>', '<?php //echo $link ?>');
+        //menu('<?php //echo $this->auth_model->indukaktif($link); 
+                ?>', '<?php //echo $link 
+                        ?>');
 
         function menu1(buka, link) {
             var cari = $('#cari').val();
@@ -552,7 +556,7 @@
     </script>
     <!-- END PROSES -->
     <!-- END SCRIPTS -->
-    
+
 </body>
 
 </html>

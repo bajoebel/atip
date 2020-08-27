@@ -41,7 +41,7 @@
                     </div>
                     <hr>
                     <div class="row">
-                        <div class="col-xs-12">
+                        <div class="col-xs-12" style="overflow-x:auto;">
                             <table class="table table-bordered">
                                 <thead class="bg-green">
                                     <th>#</th>

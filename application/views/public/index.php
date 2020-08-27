@@ -58,7 +58,7 @@ if ($mode == 'slider') {
 			<div class="landing-text">
 				<div class='headline-title'>Dunia Industri <br>Memanggil Anda</div>
 				<br>
-				<a href='<?= base_url() . "portofolio" ?>' class="btn btn-primary blue btn-lg btn-block">Apa yang telah kita mulai  ?</a>
+				<a href='<?= base_url() . "portofolio" ?>' class="btn btn-primary blue btn-lg btn-block">Apa yang telah kita mulai ?</a>
 			</div>
 		</div>
 
@@ -80,27 +80,47 @@ if ($mode == 'slider') {
 
 				<!-- Carousel items -->
 				<div class="carousel-inner">
-					<div class="item active">
-						<div class="row-fluid">
-							<?php
-							$i = 0;
-							foreach ($pintasan as $p) {
-								$i++;
 
-							?>
-								<div class="col-8 col-xs-3 mob-padding10">
-									<a href="<?= $p->pintasan_link ?>" class="text-center link">
-										<img src="<?= base_url() . "uploads/media/thumb/100X100/_100X100_" . $p->pintasan_img ?>" alt="Image" class='img-shorcut' />
-										<div class='text-center judul-pintasan'><?= $p->pintasan_nama ?></div>
-									</a>
-								</div>
-							<?php
-								if ($i % 4 == 0) echo '<div class="mobile-sep"></div>';
-								if ($i % 8 == 0) echo '</div><div class="item">';
+					<?php
+					$i = 0;
+					foreach ($pintasan as $p) {
+						$i++;
+						if ($i == 1) {
+					?>
+							<div class="item active">
+								<div class="row-fluid">
+									<div class="col-8 col-xs-3 mob-padding10">
+										<a href="<?= $p->pintasan_link ?>" class="text-center link">
+											<img src="<?= base_url() . "uploads/media/thumb/100X100/_100X100_" . $p->pintasan_img ?>" alt="Image" class='img-shorcut' />
+											<div class='text-center judul-pintasan'><?= $p->pintasan_nama ?></div>
+										</a>
+									</div>
+								<?php
+							} else {
+								?>
+									<div class="col-8 col-xs-3 mob-padding10">
+										<a href="<?= $p->pintasan_link ?>" class="text-center link">
+											<img src="<?= base_url() . "uploads/media/thumb/100X100/_100X100_" . $p->pintasan_img ?>" alt="Image" class='img-shorcut' />
+											<div class='text-center judul-pintasan'><?= $p->pintasan_nama ?></div>
+										</a>
+									</div>
+								<?php
 							}
+
+							if ($i % 4 == 0) echo '<div class="mobile-sep"></div>';
+							if ($i % 8 == 0) {
+								//echo '</div><div class="item">'
+								?>
+								</div>
+							</div>
+							<div class="item">
+								<div class="row-fluid">
+							<?php
+							};
+						}
 							?>
-						</div>
-					</div>
+								</div>
+							</div>
 
 				</div>
 				<!--/carousel-inner-->
